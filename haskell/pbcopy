@@ -1,0 +1,4 @@
+data DayProg = DayProg {
+    _name :: Text,
+    _run :: Text -> Either ErrMsg Solution
+                  }
