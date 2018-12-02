@@ -3,6 +3,7 @@
 module Main where
 
 import qualified Day1
+import qualified Day2
 import           Types
 import           Data.Map.Strict               as Map'
 import           Data.Text                     as Text
@@ -31,7 +32,7 @@ opts :: Parser Options
 opts = Options <$> inputP <*> dayP
 
 days :: Map DayNum DayProg
-days = Map'.fromList [("1", Day1.prog)]
+days = Map'.fromList [("1", Day1.prog), ("2", Day2.prog)]
 
 readDataFromFile :: FilePath -> IO Text
 readDataFromFile fp = TextIO.readFile $ Text.unpack fp

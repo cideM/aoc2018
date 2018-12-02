@@ -11,6 +11,13 @@ import           Data.Text.Read                as Read
 import           Data.Set                       ( Set )
 import qualified Data.Set                      as Set
 
+
+type Sum = Int
+
+type FirstRepeat = Maybe Int
+
+data Day1Result = Day1Result !Sum !FirstRepeat deriving (Show)
+
 transformInput :: Text -> Either ErrMsg [Int]
 transformInput d = case res of
   (Left  e) -> Left $ Text.pack e

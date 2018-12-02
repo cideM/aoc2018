@@ -20,15 +20,7 @@ data DayProg = DayProg {
     _run :: Text -> Either ErrMsg Showable
                   }
 
-type Sum = Int
-
-type FirstRepeat = Maybe Int
-
-data Day1Result = Day1Result !Sum !FirstRepeat deriving (Show)
-
 type ErrMsg = Text
-
-type Solution = Text
 
 type FilePath = Text
 
