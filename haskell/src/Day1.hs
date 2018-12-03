@@ -39,9 +39,9 @@ firstDuplicate xs = go (Prelude.concat $ Prelude.repeat xs) 0 $ Set.singleton 0
     let res = acc + x
     in  if Set.member res set then Just res else go xs' res (Set.insert res set)
 
-run :: Text -> Either ErrMsg Showable
+run :: Text -> Either ErrMsg Text
 run input = transformInput input
-  >>= \xs -> Right . Types.pack $ Day1Result (sum xs) (firstDuplicate xs)
+  >>= \xs -> Right . Text.pack . show $ Day1Result (sum xs) (firstDuplicate xs)
 
 prog :: DayProg
 prog = DayProg "day1" run

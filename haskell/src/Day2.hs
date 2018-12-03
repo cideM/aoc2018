@@ -47,7 +47,7 @@ diffBy1 :: (Ord a, Eq a) => [a] -> [a] -> [a]
 diffBy1 xs ys =
   let common'  = common xs ys
       shortest = List.foldr min xs [ys]
-      diff     = (List.length shortest) - (List.length common')
+      diff     = List.length shortest - List.length common'
   in  if diff == 1 then common' else []
 
 -- | compareElems takes a comparator function, which is called with every
@@ -61,19 +61,19 @@ compareElems f xs = go xs []
 -- | common returns the list elements that are in the same position in
 -- both lists
 common :: Eq a => [a] -> [a] -> [a]
-common xs ys = fmap fst . List.filter (\(a, b) -> a == b) $ List.zip xs ys
+common xs ys = fmap fst . List.filter (uncurry (==)) $ List.zip xs ys
 
-run :: Text -> Either ErrMsg Showable
-run t = Right . Types.pack $ Day2Result (twos * threes) $ Text.pack common
+run :: Text -> Either ErrMsg Text
+run t = Right . Text.pack . show $ Day2Result (twos * threes) $ Text.pack common
  where
-  ls     = fmap Text.unpack $ Text.lines t
+  ls     = Text.unpack <$> Text.lines t
   common = compareElems diffBy1 ls
   -- We take the list of lists (newline delimited strings) and compare each
   -- element with all other elements using diffBy1 as comparator.
   foldFn xs (x, y)  =
-    let twos   = List.length $ List.filter ((==) 2) xs
+    let twos   = List.length $ List.filter (2 ==) xs
         -- ^ Get the number of occurences of 2 resp. 3 (below) in the list
-        threes = List.length $ List.filter ((==) 3) xs
+        threes = List.length $ List.filter (3 ==) xs
     in  (x + twos, y + threes)
         -- ^ Now we have the number of 2 and 3 element 
   (twos, threes) = List.foldr foldFn (0, 0) $ fmap similarSets ls

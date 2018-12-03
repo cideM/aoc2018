@@ -56,7 +56,7 @@ main = do
       d <- readData opts
       case _run p d of
         (Left  e) -> TextIO.putStrLn e
-        (Right (MkShowable r)) -> TextIO.putStrLn . Text.pack $ show r
+        (Right r) -> TextIO.putStrLn r
  where
   program = info
     (helper <*> opts)
