@@ -1,7 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 
 module Day2
-  ( prog
+  ( prog, compareElems
   )
 where
 
