@@ -20,31 +20,32 @@ type CommonChars = Text
 
 data Day2Result = Day2Result !Checksum !CommonChars deriving (Show)
 
--- | numDuplicateChars returns the number of sets of duplicate characters of
--- length num
--- numDuplicateChars 2 "aabbcc" -> 3
-numDuplicateChars :: Int -> Text -> Int
-numDuplicateChars num =
-  List.length
-    . List.filter ((==) num . List.length)
-    . List.group
-    . List.sort
-    . Text.unpack
+type Twos = Int
 
--- | checkSum returns a tuple where the 1st element is 1 if the string has
--- exactly two same characters and the 2nd element if the string has three.
--- checkSum [1,1,2] -> (1, 0)
-checkSum :: Text -> (Int, Int)
-checkSum t =
-  let twos   = if numDuplicateChars 2 t > 0 then 1 else 0
-      threes = if numDuplicateChars 3 t > 0 then 1 else 0
-  in  (twos, threes)
+type Threes = Int
+
+-- | similarSets returns a list of integers. Each integer represents the length of
+-- a set of similar elements. Those lengths are unique, meaning if a list
+-- contains n sets of similar elements, they're all only counted once.
+-- In other words, similarSets tells you if a list has similar sets of n
+-- characters, not how many.
+--
+-- similarSets [4,4,3,5,5]
+-- -> [
+--   1,
+--   ^ One set of length 1 containing the element (3)
+--   2
+--   ^ Two sets of length 2, containing 4 and 5 respectively. Only counted
+--   once.
+-- ]
+similarSets :: Ord a => [a] -> [Int]
+similarSets = List.nub . fmap List.length . List.group . List.sort
 
 -- | Compares two lists and returns the common elements if the lists differ by
 -- exactly 1 element. Otherwise returns an empty list.
 diffBy1 :: (Ord a, Eq a) => [a] -> [a] -> [a]
 diffBy1 xs ys =
-  let common'   = common xs ys
+  let common'  = common xs ys
       shortest = List.foldr min xs [ys]
       diff     = (List.length shortest) - (List.length common')
   in  if diff == 1 then common' else []
@@ -63,13 +64,22 @@ common :: Eq a => [a] -> [a] -> [a]
 common xs ys = fmap fst . List.filter (\(a, b) -> a == b) $ List.zip xs ys
 
 run :: Text -> Either ErrMsg Showable
-run t =
-  let ls        = Text.lines t
-      checkSums = checkSum <$> ls
-      sumFst    = sum $ fmap fst checkSums
-      sumSnd    = sum $ fmap snd checkSums
-      common    = compareElems diffBy1 $ fmap Text.unpack ls
-  in  Right . Types.pack $ Day2Result (sumFst * sumSnd) $ Text.pack common
+run t = Right . Types.pack $ Day2Result (twos * threes) $ Text.pack common
+ where
+  ls     = fmap Text.unpack $ Text.lines t
+  common = compareElems diffBy1 ls
+  -- We take the list of lists (newline delimited strings) and compare each
+  -- element with all other elements using diffBy1 as comparator.
+  foldFn xs (x, y)  =
+    let twos   = List.length $ List.filter ((==) 2) xs
+        -- ^ Get the number of occurences of 2 resp. 3 (below) in the list
+        threes = List.length $ List.filter ((==) 3) xs
+    in  (x + twos, y + threes)
+        -- ^ Now we have the number of 2 and 3 element 
+  (twos, threes) = List.foldr foldFn (0, 0) $ fmap similarSets ls
+  -- ^ Mapping similarSets over our list of texts gives us the groups of
+  -- similar characters of length n. Since similarSets applies List.nub to its
+  -- output, we only get a single entry for each n similar characters.
 
 prog :: DayProg
 prog = DayProg "day2" run
