@@ -776,6 +776,7 @@ interfaces	haskell/.stack-work/install/x86_64-osx/lts-12.20/8.4.4/pkgdb/aoc2018-
 key	haskell/.stack-work/install/x86_64-osx/lts-12.20/8.4.4/pkgdb/aoc2018-0.1.0.0-Ll1k61wffz29iy6OuFVK3Y.conf	/^key: aoc2018-0.1.0.0-Ll1k61wffz29iy6OuFVK3Y$/;"	k
 libraries	haskell/.stack-work/install/x86_64-osx/lts-12.20/8.4.4/pkgdb/aoc2018-0.1.0.0-Ll1k61wffz29iy6OuFVK3Y.conf	/^hs-libraries: HSaoc2018-0.1.0.0-Ll1k61wffz29iy6OuFVK3Y$/;"	k
 license	haskell/.stack-work/install/x86_64-osx/lts-12.20/8.4.4/pkgdb/aoc2018-0.1.0.0-Ll1k61wffz29iy6OuFVK3Y.conf	/^license: BSD-3-Clause$/;"	k
+main	rust/src/main.rs	/^fn main() {$/;"	f
 maintainer	haskell/.stack-work/install/x86_64-osx/lts-12.20/8.4.4/pkgdb/aoc2018-0.1.0.0-Ll1k61wffz29iy6OuFVK3Y.conf	/^maintainer: yuuki@protonmail.com$/;"	k
 modules	haskell/.stack-work/install/x86_64-osx/lts-12.20/8.4.4/pkgdb/aoc2018-0.1.0.0-Ll1k61wffz29iy6OuFVK3Y.conf	/^exposed-modules:$/;"	k
 modules	haskell/.stack-work/install/x86_64-osx/lts-12.20/8.4.4/pkgdb/aoc2018-0.1.0.0-Ll1k61wffz29iy6OuFVK3Y.conf	/^hidden-modules: Paths_aoc2018$/;"	k
