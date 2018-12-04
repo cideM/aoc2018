@@ -1,0 +1,783 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	0.0.0	/8e098045/
+CURRENT_COMPONENT_ID	haskell/.stack-work/ghci/14b60bd6/cabal_macros.h	/^#define CURRENT_COMPONENT_ID /;"	d
+CURRENT_COMPONENT_ID	haskell/.stack-work/ghci/1d9c49ce/cabal_macros.h	/^#define CURRENT_COMPONENT_ID /;"	d
+CURRENT_COMPONENT_ID	haskell/.stack-work/ghci/25764501/cabal_macros.h	/^#define CURRENT_COMPONENT_ID /;"	d
+CURRENT_COMPONENT_ID	haskell/.stack-work/ghci/353d26f7/cabal_macros.h	/^#define CURRENT_COMPONENT_ID /;"	d
+CURRENT_COMPONENT_ID	haskell/.stack-work/ghci/3dfd4971/cabal_macros.h	/^#define CURRENT_COMPONENT_ID /;"	d
+CURRENT_COMPONENT_ID	haskell/.stack-work/ghci/41174174/cabal_macros.h	/^#define CURRENT_COMPONENT_ID /;"	d
+CURRENT_COMPONENT_ID	haskell/.stack-work/ghci/474f60f6/cabal_macros.h	/^#define CURRENT_COMPONENT_ID /;"	d
+CURRENT_COMPONENT_ID	haskell/.stack-work/ghci/56556b86/cabal_macros.h	/^#define CURRENT_COMPONENT_ID /;"	d
+CURRENT_COMPONENT_ID	haskell/.stack-work/ghci/5b327582/cabal_macros.h	/^#define CURRENT_COMPONENT_ID /;"	d
+CURRENT_COMPONENT_ID	haskell/.stack-work/ghci/73acc961/cabal_macros.h	/^#define CURRENT_COMPONENT_ID /;"	d
+CURRENT_COMPONENT_ID	haskell/.stack-work/ghci/7e0984c9/cabal_macros.h	/^#define CURRENT_COMPONENT_ID /;"	d
+CURRENT_COMPONENT_ID	haskell/.stack-work/ghci/8eb09d1b/cabal_macros.h	/^#define CURRENT_COMPONENT_ID /;"	d
+CURRENT_COMPONENT_ID	haskell/.stack-work/ghci/9397ed07/cabal_macros.h	/^#define CURRENT_COMPONENT_ID /;"	d
+CURRENT_COMPONENT_ID	haskell/.stack-work/ghci/9837103d/cabal_macros.h	/^#define CURRENT_COMPONENT_ID /;"	d
+CURRENT_COMPONENT_ID	haskell/.stack-work/ghci/aaa6b315/cabal_macros.h	/^#define CURRENT_COMPONENT_ID /;"	d
+CURRENT_COMPONENT_ID	haskell/.stack-work/ghci/ab975605/cabal_macros.h	/^#define CURRENT_COMPONENT_ID /;"	d
+CURRENT_COMPONENT_ID	haskell/.stack-work/ghci/beb81bf5/cabal_macros.h	/^#define CURRENT_COMPONENT_ID /;"	d
+CURRENT_COMPONENT_ID	haskell/.stack-work/ghci/c02f9ab2/cabal_macros.h	/^#define CURRENT_COMPONENT_ID /;"	d
+CURRENT_COMPONENT_ID	haskell/.stack-work/ghci/cd427bdd/cabal_macros.h	/^#define CURRENT_COMPONENT_ID /;"	d
+CURRENT_COMPONENT_ID	haskell/.stack-work/ghci/d16e17c5/cabal_macros.h	/^#define CURRENT_COMPONENT_ID /;"	d
+CURRENT_COMPONENT_ID	haskell/.stack-work/ghci/e58c95ce/cabal_macros.h	/^#define CURRENT_COMPONENT_ID /;"	d
+CURRENT_PACKAGE_KEY	haskell/.stack-work/ghci/14b60bd6/cabal_macros.h	/^#define CURRENT_PACKAGE_KEY /;"	d
+CURRENT_PACKAGE_KEY	haskell/.stack-work/ghci/1d9c49ce/cabal_macros.h	/^#define CURRENT_PACKAGE_KEY /;"	d
+CURRENT_PACKAGE_KEY	haskell/.stack-work/ghci/25764501/cabal_macros.h	/^#define CURRENT_PACKAGE_KEY /;"	d
+CURRENT_PACKAGE_KEY	haskell/.stack-work/ghci/353d26f7/cabal_macros.h	/^#define CURRENT_PACKAGE_KEY /;"	d
+CURRENT_PACKAGE_KEY	haskell/.stack-work/ghci/3dfd4971/cabal_macros.h	/^#define CURRENT_PACKAGE_KEY /;"	d
+CURRENT_PACKAGE_KEY	haskell/.stack-work/ghci/41174174/cabal_macros.h	/^#define CURRENT_PACKAGE_KEY /;"	d
+CURRENT_PACKAGE_KEY	haskell/.stack-work/ghci/474f60f6/cabal_macros.h	/^#define CURRENT_PACKAGE_KEY /;"	d
+CURRENT_PACKAGE_KEY	haskell/.stack-work/ghci/56556b86/cabal_macros.h	/^#define CURRENT_PACKAGE_KEY /;"	d
+CURRENT_PACKAGE_KEY	haskell/.stack-work/ghci/5b327582/cabal_macros.h	/^#define CURRENT_PACKAGE_KEY /;"	d
+CURRENT_PACKAGE_KEY	haskell/.stack-work/ghci/73acc961/cabal_macros.h	/^#define CURRENT_PACKAGE_KEY /;"	d
+CURRENT_PACKAGE_KEY	haskell/.stack-work/ghci/7e0984c9/cabal_macros.h	/^#define CURRENT_PACKAGE_KEY /;"	d
+CURRENT_PACKAGE_KEY	haskell/.stack-work/ghci/8eb09d1b/cabal_macros.h	/^#define CURRENT_PACKAGE_KEY /;"	d
+CURRENT_PACKAGE_KEY	haskell/.stack-work/ghci/9397ed07/cabal_macros.h	/^#define CURRENT_PACKAGE_KEY /;"	d
+CURRENT_PACKAGE_KEY	haskell/.stack-work/ghci/9837103d/cabal_macros.h	/^#define CURRENT_PACKAGE_KEY /;"	d
+CURRENT_PACKAGE_KEY	haskell/.stack-work/ghci/aaa6b315/cabal_macros.h	/^#define CURRENT_PACKAGE_KEY /;"	d
+CURRENT_PACKAGE_KEY	haskell/.stack-work/ghci/ab975605/cabal_macros.h	/^#define CURRENT_PACKAGE_KEY /;"	d
+CURRENT_PACKAGE_KEY	haskell/.stack-work/ghci/beb81bf5/cabal_macros.h	/^#define CURRENT_PACKAGE_KEY /;"	d
+CURRENT_PACKAGE_KEY	haskell/.stack-work/ghci/c02f9ab2/cabal_macros.h	/^#define CURRENT_PACKAGE_KEY /;"	d
+CURRENT_PACKAGE_KEY	haskell/.stack-work/ghci/cd427bdd/cabal_macros.h	/^#define CURRENT_PACKAGE_KEY /;"	d
+CURRENT_PACKAGE_KEY	haskell/.stack-work/ghci/d16e17c5/cabal_macros.h	/^#define CURRENT_PACKAGE_KEY /;"	d
+CURRENT_PACKAGE_KEY	haskell/.stack-work/ghci/e58c95ce/cabal_macros.h	/^#define CURRENT_PACKAGE_KEY /;"	d
+CURRENT_PACKAGE_VERSION	haskell/.stack-work/ghci/14b60bd6/cabal_macros.h	/^#define CURRENT_PACKAGE_VERSION /;"	d
+CURRENT_PACKAGE_VERSION	haskell/.stack-work/ghci/1d9c49ce/cabal_macros.h	/^#define CURRENT_PACKAGE_VERSION /;"	d
+CURRENT_PACKAGE_VERSION	haskell/.stack-work/ghci/25764501/cabal_macros.h	/^#define CURRENT_PACKAGE_VERSION /;"	d
+CURRENT_PACKAGE_VERSION	haskell/.stack-work/ghci/353d26f7/cabal_macros.h	/^#define CURRENT_PACKAGE_VERSION /;"	d
+CURRENT_PACKAGE_VERSION	haskell/.stack-work/ghci/3dfd4971/cabal_macros.h	/^#define CURRENT_PACKAGE_VERSION /;"	d
+CURRENT_PACKAGE_VERSION	haskell/.stack-work/ghci/41174174/cabal_macros.h	/^#define CURRENT_PACKAGE_VERSION /;"	d
+CURRENT_PACKAGE_VERSION	haskell/.stack-work/ghci/474f60f6/cabal_macros.h	/^#define CURRENT_PACKAGE_VERSION /;"	d
+CURRENT_PACKAGE_VERSION	haskell/.stack-work/ghci/56556b86/cabal_macros.h	/^#define CURRENT_PACKAGE_VERSION /;"	d
+CURRENT_PACKAGE_VERSION	haskell/.stack-work/ghci/5b327582/cabal_macros.h	/^#define CURRENT_PACKAGE_VERSION /;"	d
+CURRENT_PACKAGE_VERSION	haskell/.stack-work/ghci/73acc961/cabal_macros.h	/^#define CURRENT_PACKAGE_VERSION /;"	d
+CURRENT_PACKAGE_VERSION	haskell/.stack-work/ghci/7e0984c9/cabal_macros.h	/^#define CURRENT_PACKAGE_VERSION /;"	d
+CURRENT_PACKAGE_VERSION	haskell/.stack-work/ghci/8eb09d1b/cabal_macros.h	/^#define CURRENT_PACKAGE_VERSION /;"	d
+CURRENT_PACKAGE_VERSION	haskell/.stack-work/ghci/9397ed07/cabal_macros.h	/^#define CURRENT_PACKAGE_VERSION /;"	d
+CURRENT_PACKAGE_VERSION	haskell/.stack-work/ghci/9837103d/cabal_macros.h	/^#define CURRENT_PACKAGE_VERSION /;"	d
+CURRENT_PACKAGE_VERSION	haskell/.stack-work/ghci/aaa6b315/cabal_macros.h	/^#define CURRENT_PACKAGE_VERSION /;"	d
+CURRENT_PACKAGE_VERSION	haskell/.stack-work/ghci/ab975605/cabal_macros.h	/^#define CURRENT_PACKAGE_VERSION /;"	d
+CURRENT_PACKAGE_VERSION	haskell/.stack-work/ghci/beb81bf5/cabal_macros.h	/^#define CURRENT_PACKAGE_VERSION /;"	d
+CURRENT_PACKAGE_VERSION	haskell/.stack-work/ghci/c02f9ab2/cabal_macros.h	/^#define CURRENT_PACKAGE_VERSION /;"	d
+CURRENT_PACKAGE_VERSION	haskell/.stack-work/ghci/cd427bdd/cabal_macros.h	/^#define CURRENT_PACKAGE_VERSION /;"	d
+CURRENT_PACKAGE_VERSION	haskell/.stack-work/ghci/d16e17c5/cabal_macros.h	/^#define CURRENT_PACKAGE_VERSION /;"	d
+CURRENT_PACKAGE_VERSION	haskell/.stack-work/ghci/e58c95ce/cabal_macros.h	/^#define CURRENT_PACKAGE_VERSION /;"	d
+MIN_TOOL_VERSION_alex	haskell/.stack-work/ghci/14b60bd6/cabal_macros.h	/^#define MIN_TOOL_VERSION_alex(/;"	d
+MIN_TOOL_VERSION_alex	haskell/.stack-work/ghci/1d9c49ce/cabal_macros.h	/^#define MIN_TOOL_VERSION_alex(/;"	d
+MIN_TOOL_VERSION_alex	haskell/.stack-work/ghci/25764501/cabal_macros.h	/^#define MIN_TOOL_VERSION_alex(/;"	d
+MIN_TOOL_VERSION_alex	haskell/.stack-work/ghci/353d26f7/cabal_macros.h	/^#define MIN_TOOL_VERSION_alex(/;"	d
+MIN_TOOL_VERSION_alex	haskell/.stack-work/ghci/3dfd4971/cabal_macros.h	/^#define MIN_TOOL_VERSION_alex(/;"	d
+MIN_TOOL_VERSION_alex	haskell/.stack-work/ghci/41174174/cabal_macros.h	/^#define MIN_TOOL_VERSION_alex(/;"	d
+MIN_TOOL_VERSION_alex	haskell/.stack-work/ghci/474f60f6/cabal_macros.h	/^#define MIN_TOOL_VERSION_alex(/;"	d
+MIN_TOOL_VERSION_alex	haskell/.stack-work/ghci/56556b86/cabal_macros.h	/^#define MIN_TOOL_VERSION_alex(/;"	d
+MIN_TOOL_VERSION_alex	haskell/.stack-work/ghci/5b327582/cabal_macros.h	/^#define MIN_TOOL_VERSION_alex(/;"	d
+MIN_TOOL_VERSION_alex	haskell/.stack-work/ghci/73acc961/cabal_macros.h	/^#define MIN_TOOL_VERSION_alex(/;"	d
+MIN_TOOL_VERSION_alex	haskell/.stack-work/ghci/7e0984c9/cabal_macros.h	/^#define MIN_TOOL_VERSION_alex(/;"	d
+MIN_TOOL_VERSION_alex	haskell/.stack-work/ghci/8eb09d1b/cabal_macros.h	/^#define MIN_TOOL_VERSION_alex(/;"	d
+MIN_TOOL_VERSION_alex	haskell/.stack-work/ghci/9397ed07/cabal_macros.h	/^#define MIN_TOOL_VERSION_alex(/;"	d
+MIN_TOOL_VERSION_alex	haskell/.stack-work/ghci/9837103d/cabal_macros.h	/^#define MIN_TOOL_VERSION_alex(/;"	d
+MIN_TOOL_VERSION_alex	haskell/.stack-work/ghci/aaa6b315/cabal_macros.h	/^#define MIN_TOOL_VERSION_alex(/;"	d
+MIN_TOOL_VERSION_alex	haskell/.stack-work/ghci/ab975605/cabal_macros.h	/^#define MIN_TOOL_VERSION_alex(/;"	d
+MIN_TOOL_VERSION_alex	haskell/.stack-work/ghci/beb81bf5/cabal_macros.h	/^#define MIN_TOOL_VERSION_alex(/;"	d
+MIN_TOOL_VERSION_alex	haskell/.stack-work/ghci/c02f9ab2/cabal_macros.h	/^#define MIN_TOOL_VERSION_alex(/;"	d
+MIN_TOOL_VERSION_alex	haskell/.stack-work/ghci/cd427bdd/cabal_macros.h	/^#define MIN_TOOL_VERSION_alex(/;"	d
+MIN_TOOL_VERSION_alex	haskell/.stack-work/ghci/d16e17c5/cabal_macros.h	/^#define MIN_TOOL_VERSION_alex(/;"	d
+MIN_TOOL_VERSION_alex	haskell/.stack-work/ghci/e58c95ce/cabal_macros.h	/^#define MIN_TOOL_VERSION_alex(/;"	d
+MIN_TOOL_VERSION_cpphs	haskell/.stack-work/ghci/14b60bd6/cabal_macros.h	/^#define MIN_TOOL_VERSION_cpphs(/;"	d
+MIN_TOOL_VERSION_cpphs	haskell/.stack-work/ghci/1d9c49ce/cabal_macros.h	/^#define MIN_TOOL_VERSION_cpphs(/;"	d
+MIN_TOOL_VERSION_cpphs	haskell/.stack-work/ghci/25764501/cabal_macros.h	/^#define MIN_TOOL_VERSION_cpphs(/;"	d
+MIN_TOOL_VERSION_cpphs	haskell/.stack-work/ghci/353d26f7/cabal_macros.h	/^#define MIN_TOOL_VERSION_cpphs(/;"	d
+MIN_TOOL_VERSION_cpphs	haskell/.stack-work/ghci/3dfd4971/cabal_macros.h	/^#define MIN_TOOL_VERSION_cpphs(/;"	d
+MIN_TOOL_VERSION_cpphs	haskell/.stack-work/ghci/41174174/cabal_macros.h	/^#define MIN_TOOL_VERSION_cpphs(/;"	d
+MIN_TOOL_VERSION_cpphs	haskell/.stack-work/ghci/474f60f6/cabal_macros.h	/^#define MIN_TOOL_VERSION_cpphs(/;"	d
+MIN_TOOL_VERSION_cpphs	haskell/.stack-work/ghci/56556b86/cabal_macros.h	/^#define MIN_TOOL_VERSION_cpphs(/;"	d
+MIN_TOOL_VERSION_cpphs	haskell/.stack-work/ghci/5b327582/cabal_macros.h	/^#define MIN_TOOL_VERSION_cpphs(/;"	d
+MIN_TOOL_VERSION_cpphs	haskell/.stack-work/ghci/73acc961/cabal_macros.h	/^#define MIN_TOOL_VERSION_cpphs(/;"	d
+MIN_TOOL_VERSION_cpphs	haskell/.stack-work/ghci/7e0984c9/cabal_macros.h	/^#define MIN_TOOL_VERSION_cpphs(/;"	d
+MIN_TOOL_VERSION_cpphs	haskell/.stack-work/ghci/8eb09d1b/cabal_macros.h	/^#define MIN_TOOL_VERSION_cpphs(/;"	d
+MIN_TOOL_VERSION_cpphs	haskell/.stack-work/ghci/9397ed07/cabal_macros.h	/^#define MIN_TOOL_VERSION_cpphs(/;"	d
+MIN_TOOL_VERSION_cpphs	haskell/.stack-work/ghci/9837103d/cabal_macros.h	/^#define MIN_TOOL_VERSION_cpphs(/;"	d
+MIN_TOOL_VERSION_cpphs	haskell/.stack-work/ghci/aaa6b315/cabal_macros.h	/^#define MIN_TOOL_VERSION_cpphs(/;"	d
+MIN_TOOL_VERSION_cpphs	haskell/.stack-work/ghci/ab975605/cabal_macros.h	/^#define MIN_TOOL_VERSION_cpphs(/;"	d
+MIN_TOOL_VERSION_cpphs	haskell/.stack-work/ghci/beb81bf5/cabal_macros.h	/^#define MIN_TOOL_VERSION_cpphs(/;"	d
+MIN_TOOL_VERSION_cpphs	haskell/.stack-work/ghci/c02f9ab2/cabal_macros.h	/^#define MIN_TOOL_VERSION_cpphs(/;"	d
+MIN_TOOL_VERSION_cpphs	haskell/.stack-work/ghci/cd427bdd/cabal_macros.h	/^#define MIN_TOOL_VERSION_cpphs(/;"	d
+MIN_TOOL_VERSION_cpphs	haskell/.stack-work/ghci/d16e17c5/cabal_macros.h	/^#define MIN_TOOL_VERSION_cpphs(/;"	d
+MIN_TOOL_VERSION_cpphs	haskell/.stack-work/ghci/e58c95ce/cabal_macros.h	/^#define MIN_TOOL_VERSION_cpphs(/;"	d
+MIN_TOOL_VERSION_gcc	haskell/.stack-work/ghci/14b60bd6/cabal_macros.h	/^#define MIN_TOOL_VERSION_gcc(/;"	d
+MIN_TOOL_VERSION_gcc	haskell/.stack-work/ghci/1d9c49ce/cabal_macros.h	/^#define MIN_TOOL_VERSION_gcc(/;"	d
+MIN_TOOL_VERSION_gcc	haskell/.stack-work/ghci/25764501/cabal_macros.h	/^#define MIN_TOOL_VERSION_gcc(/;"	d
+MIN_TOOL_VERSION_gcc	haskell/.stack-work/ghci/353d26f7/cabal_macros.h	/^#define MIN_TOOL_VERSION_gcc(/;"	d
+MIN_TOOL_VERSION_gcc	haskell/.stack-work/ghci/3dfd4971/cabal_macros.h	/^#define MIN_TOOL_VERSION_gcc(/;"	d
+MIN_TOOL_VERSION_gcc	haskell/.stack-work/ghci/41174174/cabal_macros.h	/^#define MIN_TOOL_VERSION_gcc(/;"	d
+MIN_TOOL_VERSION_gcc	haskell/.stack-work/ghci/474f60f6/cabal_macros.h	/^#define MIN_TOOL_VERSION_gcc(/;"	d
+MIN_TOOL_VERSION_gcc	haskell/.stack-work/ghci/56556b86/cabal_macros.h	/^#define MIN_TOOL_VERSION_gcc(/;"	d
+MIN_TOOL_VERSION_gcc	haskell/.stack-work/ghci/5b327582/cabal_macros.h	/^#define MIN_TOOL_VERSION_gcc(/;"	d
+MIN_TOOL_VERSION_gcc	haskell/.stack-work/ghci/73acc961/cabal_macros.h	/^#define MIN_TOOL_VERSION_gcc(/;"	d
+MIN_TOOL_VERSION_gcc	haskell/.stack-work/ghci/7e0984c9/cabal_macros.h	/^#define MIN_TOOL_VERSION_gcc(/;"	d
+MIN_TOOL_VERSION_gcc	haskell/.stack-work/ghci/8eb09d1b/cabal_macros.h	/^#define MIN_TOOL_VERSION_gcc(/;"	d
+MIN_TOOL_VERSION_gcc	haskell/.stack-work/ghci/9397ed07/cabal_macros.h	/^#define MIN_TOOL_VERSION_gcc(/;"	d
+MIN_TOOL_VERSION_gcc	haskell/.stack-work/ghci/9837103d/cabal_macros.h	/^#define MIN_TOOL_VERSION_gcc(/;"	d
+MIN_TOOL_VERSION_gcc	haskell/.stack-work/ghci/aaa6b315/cabal_macros.h	/^#define MIN_TOOL_VERSION_gcc(/;"	d
+MIN_TOOL_VERSION_gcc	haskell/.stack-work/ghci/ab975605/cabal_macros.h	/^#define MIN_TOOL_VERSION_gcc(/;"	d
+MIN_TOOL_VERSION_gcc	haskell/.stack-work/ghci/beb81bf5/cabal_macros.h	/^#define MIN_TOOL_VERSION_gcc(/;"	d
+MIN_TOOL_VERSION_gcc	haskell/.stack-work/ghci/c02f9ab2/cabal_macros.h	/^#define MIN_TOOL_VERSION_gcc(/;"	d
+MIN_TOOL_VERSION_gcc	haskell/.stack-work/ghci/cd427bdd/cabal_macros.h	/^#define MIN_TOOL_VERSION_gcc(/;"	d
+MIN_TOOL_VERSION_gcc	haskell/.stack-work/ghci/d16e17c5/cabal_macros.h	/^#define MIN_TOOL_VERSION_gcc(/;"	d
+MIN_TOOL_VERSION_gcc	haskell/.stack-work/ghci/e58c95ce/cabal_macros.h	/^#define MIN_TOOL_VERSION_gcc(/;"	d
+MIN_TOOL_VERSION_ghc	haskell/.stack-work/ghci/14b60bd6/cabal_macros.h	/^#define MIN_TOOL_VERSION_ghc(/;"	d
+MIN_TOOL_VERSION_ghc	haskell/.stack-work/ghci/1d9c49ce/cabal_macros.h	/^#define MIN_TOOL_VERSION_ghc(/;"	d
+MIN_TOOL_VERSION_ghc	haskell/.stack-work/ghci/25764501/cabal_macros.h	/^#define MIN_TOOL_VERSION_ghc(/;"	d
+MIN_TOOL_VERSION_ghc	haskell/.stack-work/ghci/353d26f7/cabal_macros.h	/^#define MIN_TOOL_VERSION_ghc(/;"	d
+MIN_TOOL_VERSION_ghc	haskell/.stack-work/ghci/3dfd4971/cabal_macros.h	/^#define MIN_TOOL_VERSION_ghc(/;"	d
+MIN_TOOL_VERSION_ghc	haskell/.stack-work/ghci/41174174/cabal_macros.h	/^#define MIN_TOOL_VERSION_ghc(/;"	d
+MIN_TOOL_VERSION_ghc	haskell/.stack-work/ghci/474f60f6/cabal_macros.h	/^#define MIN_TOOL_VERSION_ghc(/;"	d
+MIN_TOOL_VERSION_ghc	haskell/.stack-work/ghci/56556b86/cabal_macros.h	/^#define MIN_TOOL_VERSION_ghc(/;"	d
+MIN_TOOL_VERSION_ghc	haskell/.stack-work/ghci/5b327582/cabal_macros.h	/^#define MIN_TOOL_VERSION_ghc(/;"	d
+MIN_TOOL_VERSION_ghc	haskell/.stack-work/ghci/73acc961/cabal_macros.h	/^#define MIN_TOOL_VERSION_ghc(/;"	d
+MIN_TOOL_VERSION_ghc	haskell/.stack-work/ghci/7e0984c9/cabal_macros.h	/^#define MIN_TOOL_VERSION_ghc(/;"	d
+MIN_TOOL_VERSION_ghc	haskell/.stack-work/ghci/8eb09d1b/cabal_macros.h	/^#define MIN_TOOL_VERSION_ghc(/;"	d
+MIN_TOOL_VERSION_ghc	haskell/.stack-work/ghci/9397ed07/cabal_macros.h	/^#define MIN_TOOL_VERSION_ghc(/;"	d
+MIN_TOOL_VERSION_ghc	haskell/.stack-work/ghci/9837103d/cabal_macros.h	/^#define MIN_TOOL_VERSION_ghc(/;"	d
+MIN_TOOL_VERSION_ghc	haskell/.stack-work/ghci/aaa6b315/cabal_macros.h	/^#define MIN_TOOL_VERSION_ghc(/;"	d
+MIN_TOOL_VERSION_ghc	haskell/.stack-work/ghci/ab975605/cabal_macros.h	/^#define MIN_TOOL_VERSION_ghc(/;"	d
+MIN_TOOL_VERSION_ghc	haskell/.stack-work/ghci/beb81bf5/cabal_macros.h	/^#define MIN_TOOL_VERSION_ghc(/;"	d
+MIN_TOOL_VERSION_ghc	haskell/.stack-work/ghci/c02f9ab2/cabal_macros.h	/^#define MIN_TOOL_VERSION_ghc(/;"	d
+MIN_TOOL_VERSION_ghc	haskell/.stack-work/ghci/cd427bdd/cabal_macros.h	/^#define MIN_TOOL_VERSION_ghc(/;"	d
+MIN_TOOL_VERSION_ghc	haskell/.stack-work/ghci/d16e17c5/cabal_macros.h	/^#define MIN_TOOL_VERSION_ghc(/;"	d
+MIN_TOOL_VERSION_ghc	haskell/.stack-work/ghci/e58c95ce/cabal_macros.h	/^#define MIN_TOOL_VERSION_ghc(/;"	d
+MIN_TOOL_VERSION_ghc_pkg	haskell/.stack-work/ghci/14b60bd6/cabal_macros.h	/^#define MIN_TOOL_VERSION_ghc_pkg(/;"	d
+MIN_TOOL_VERSION_ghc_pkg	haskell/.stack-work/ghci/1d9c49ce/cabal_macros.h	/^#define MIN_TOOL_VERSION_ghc_pkg(/;"	d
+MIN_TOOL_VERSION_ghc_pkg	haskell/.stack-work/ghci/25764501/cabal_macros.h	/^#define MIN_TOOL_VERSION_ghc_pkg(/;"	d
+MIN_TOOL_VERSION_ghc_pkg	haskell/.stack-work/ghci/353d26f7/cabal_macros.h	/^#define MIN_TOOL_VERSION_ghc_pkg(/;"	d
+MIN_TOOL_VERSION_ghc_pkg	haskell/.stack-work/ghci/3dfd4971/cabal_macros.h	/^#define MIN_TOOL_VERSION_ghc_pkg(/;"	d
+MIN_TOOL_VERSION_ghc_pkg	haskell/.stack-work/ghci/41174174/cabal_macros.h	/^#define MIN_TOOL_VERSION_ghc_pkg(/;"	d
+MIN_TOOL_VERSION_ghc_pkg	haskell/.stack-work/ghci/474f60f6/cabal_macros.h	/^#define MIN_TOOL_VERSION_ghc_pkg(/;"	d
+MIN_TOOL_VERSION_ghc_pkg	haskell/.stack-work/ghci/56556b86/cabal_macros.h	/^#define MIN_TOOL_VERSION_ghc_pkg(/;"	d
+MIN_TOOL_VERSION_ghc_pkg	haskell/.stack-work/ghci/5b327582/cabal_macros.h	/^#define MIN_TOOL_VERSION_ghc_pkg(/;"	d
+MIN_TOOL_VERSION_ghc_pkg	haskell/.stack-work/ghci/73acc961/cabal_macros.h	/^#define MIN_TOOL_VERSION_ghc_pkg(/;"	d
+MIN_TOOL_VERSION_ghc_pkg	haskell/.stack-work/ghci/7e0984c9/cabal_macros.h	/^#define MIN_TOOL_VERSION_ghc_pkg(/;"	d
+MIN_TOOL_VERSION_ghc_pkg	haskell/.stack-work/ghci/8eb09d1b/cabal_macros.h	/^#define MIN_TOOL_VERSION_ghc_pkg(/;"	d
+MIN_TOOL_VERSION_ghc_pkg	haskell/.stack-work/ghci/9397ed07/cabal_macros.h	/^#define MIN_TOOL_VERSION_ghc_pkg(/;"	d
+MIN_TOOL_VERSION_ghc_pkg	haskell/.stack-work/ghci/9837103d/cabal_macros.h	/^#define MIN_TOOL_VERSION_ghc_pkg(/;"	d
+MIN_TOOL_VERSION_ghc_pkg	haskell/.stack-work/ghci/aaa6b315/cabal_macros.h	/^#define MIN_TOOL_VERSION_ghc_pkg(/;"	d
+MIN_TOOL_VERSION_ghc_pkg	haskell/.stack-work/ghci/ab975605/cabal_macros.h	/^#define MIN_TOOL_VERSION_ghc_pkg(/;"	d
+MIN_TOOL_VERSION_ghc_pkg	haskell/.stack-work/ghci/beb81bf5/cabal_macros.h	/^#define MIN_TOOL_VERSION_ghc_pkg(/;"	d
+MIN_TOOL_VERSION_ghc_pkg	haskell/.stack-work/ghci/c02f9ab2/cabal_macros.h	/^#define MIN_TOOL_VERSION_ghc_pkg(/;"	d
+MIN_TOOL_VERSION_ghc_pkg	haskell/.stack-work/ghci/cd427bdd/cabal_macros.h	/^#define MIN_TOOL_VERSION_ghc_pkg(/;"	d
+MIN_TOOL_VERSION_ghc_pkg	haskell/.stack-work/ghci/d16e17c5/cabal_macros.h	/^#define MIN_TOOL_VERSION_ghc_pkg(/;"	d
+MIN_TOOL_VERSION_ghc_pkg	haskell/.stack-work/ghci/e58c95ce/cabal_macros.h	/^#define MIN_TOOL_VERSION_ghc_pkg(/;"	d
+MIN_TOOL_VERSION_haddock	haskell/.stack-work/ghci/14b60bd6/cabal_macros.h	/^#define MIN_TOOL_VERSION_haddock(/;"	d
+MIN_TOOL_VERSION_haddock	haskell/.stack-work/ghci/1d9c49ce/cabal_macros.h	/^#define MIN_TOOL_VERSION_haddock(/;"	d
+MIN_TOOL_VERSION_haddock	haskell/.stack-work/ghci/25764501/cabal_macros.h	/^#define MIN_TOOL_VERSION_haddock(/;"	d
+MIN_TOOL_VERSION_haddock	haskell/.stack-work/ghci/353d26f7/cabal_macros.h	/^#define MIN_TOOL_VERSION_haddock(/;"	d
+MIN_TOOL_VERSION_haddock	haskell/.stack-work/ghci/3dfd4971/cabal_macros.h	/^#define MIN_TOOL_VERSION_haddock(/;"	d
+MIN_TOOL_VERSION_haddock	haskell/.stack-work/ghci/41174174/cabal_macros.h	/^#define MIN_TOOL_VERSION_haddock(/;"	d
+MIN_TOOL_VERSION_haddock	haskell/.stack-work/ghci/474f60f6/cabal_macros.h	/^#define MIN_TOOL_VERSION_haddock(/;"	d
+MIN_TOOL_VERSION_haddock	haskell/.stack-work/ghci/56556b86/cabal_macros.h	/^#define MIN_TOOL_VERSION_haddock(/;"	d
+MIN_TOOL_VERSION_haddock	haskell/.stack-work/ghci/5b327582/cabal_macros.h	/^#define MIN_TOOL_VERSION_haddock(/;"	d
+MIN_TOOL_VERSION_haddock	haskell/.stack-work/ghci/73acc961/cabal_macros.h	/^#define MIN_TOOL_VERSION_haddock(/;"	d
+MIN_TOOL_VERSION_haddock	haskell/.stack-work/ghci/7e0984c9/cabal_macros.h	/^#define MIN_TOOL_VERSION_haddock(/;"	d
+MIN_TOOL_VERSION_haddock	haskell/.stack-work/ghci/8eb09d1b/cabal_macros.h	/^#define MIN_TOOL_VERSION_haddock(/;"	d
+MIN_TOOL_VERSION_haddock	haskell/.stack-work/ghci/9397ed07/cabal_macros.h	/^#define MIN_TOOL_VERSION_haddock(/;"	d
+MIN_TOOL_VERSION_haddock	haskell/.stack-work/ghci/9837103d/cabal_macros.h	/^#define MIN_TOOL_VERSION_haddock(/;"	d
+MIN_TOOL_VERSION_haddock	haskell/.stack-work/ghci/aaa6b315/cabal_macros.h	/^#define MIN_TOOL_VERSION_haddock(/;"	d
+MIN_TOOL_VERSION_haddock	haskell/.stack-work/ghci/ab975605/cabal_macros.h	/^#define MIN_TOOL_VERSION_haddock(/;"	d
+MIN_TOOL_VERSION_haddock	haskell/.stack-work/ghci/beb81bf5/cabal_macros.h	/^#define MIN_TOOL_VERSION_haddock(/;"	d
+MIN_TOOL_VERSION_haddock	haskell/.stack-work/ghci/c02f9ab2/cabal_macros.h	/^#define MIN_TOOL_VERSION_haddock(/;"	d
+MIN_TOOL_VERSION_haddock	haskell/.stack-work/ghci/cd427bdd/cabal_macros.h	/^#define MIN_TOOL_VERSION_haddock(/;"	d
+MIN_TOOL_VERSION_haddock	haskell/.stack-work/ghci/d16e17c5/cabal_macros.h	/^#define MIN_TOOL_VERSION_haddock(/;"	d
+MIN_TOOL_VERSION_haddock	haskell/.stack-work/ghci/e58c95ce/cabal_macros.h	/^#define MIN_TOOL_VERSION_haddock(/;"	d
+MIN_TOOL_VERSION_happy	haskell/.stack-work/ghci/14b60bd6/cabal_macros.h	/^#define MIN_TOOL_VERSION_happy(/;"	d
+MIN_TOOL_VERSION_happy	haskell/.stack-work/ghci/1d9c49ce/cabal_macros.h	/^#define MIN_TOOL_VERSION_happy(/;"	d
+MIN_TOOL_VERSION_happy	haskell/.stack-work/ghci/25764501/cabal_macros.h	/^#define MIN_TOOL_VERSION_happy(/;"	d
+MIN_TOOL_VERSION_happy	haskell/.stack-work/ghci/353d26f7/cabal_macros.h	/^#define MIN_TOOL_VERSION_happy(/;"	d
+MIN_TOOL_VERSION_happy	haskell/.stack-work/ghci/3dfd4971/cabal_macros.h	/^#define MIN_TOOL_VERSION_happy(/;"	d
+MIN_TOOL_VERSION_happy	haskell/.stack-work/ghci/41174174/cabal_macros.h	/^#define MIN_TOOL_VERSION_happy(/;"	d
+MIN_TOOL_VERSION_happy	haskell/.stack-work/ghci/474f60f6/cabal_macros.h	/^#define MIN_TOOL_VERSION_happy(/;"	d
+MIN_TOOL_VERSION_happy	haskell/.stack-work/ghci/56556b86/cabal_macros.h	/^#define MIN_TOOL_VERSION_happy(/;"	d
+MIN_TOOL_VERSION_happy	haskell/.stack-work/ghci/5b327582/cabal_macros.h	/^#define MIN_TOOL_VERSION_happy(/;"	d
+MIN_TOOL_VERSION_happy	haskell/.stack-work/ghci/73acc961/cabal_macros.h	/^#define MIN_TOOL_VERSION_happy(/;"	d
+MIN_TOOL_VERSION_happy	haskell/.stack-work/ghci/7e0984c9/cabal_macros.h	/^#define MIN_TOOL_VERSION_happy(/;"	d
+MIN_TOOL_VERSION_happy	haskell/.stack-work/ghci/8eb09d1b/cabal_macros.h	/^#define MIN_TOOL_VERSION_happy(/;"	d
+MIN_TOOL_VERSION_happy	haskell/.stack-work/ghci/9397ed07/cabal_macros.h	/^#define MIN_TOOL_VERSION_happy(/;"	d
+MIN_TOOL_VERSION_happy	haskell/.stack-work/ghci/9837103d/cabal_macros.h	/^#define MIN_TOOL_VERSION_happy(/;"	d
+MIN_TOOL_VERSION_happy	haskell/.stack-work/ghci/aaa6b315/cabal_macros.h	/^#define MIN_TOOL_VERSION_happy(/;"	d
+MIN_TOOL_VERSION_happy	haskell/.stack-work/ghci/ab975605/cabal_macros.h	/^#define MIN_TOOL_VERSION_happy(/;"	d
+MIN_TOOL_VERSION_happy	haskell/.stack-work/ghci/beb81bf5/cabal_macros.h	/^#define MIN_TOOL_VERSION_happy(/;"	d
+MIN_TOOL_VERSION_happy	haskell/.stack-work/ghci/c02f9ab2/cabal_macros.h	/^#define MIN_TOOL_VERSION_happy(/;"	d
+MIN_TOOL_VERSION_happy	haskell/.stack-work/ghci/cd427bdd/cabal_macros.h	/^#define MIN_TOOL_VERSION_happy(/;"	d
+MIN_TOOL_VERSION_happy	haskell/.stack-work/ghci/d16e17c5/cabal_macros.h	/^#define MIN_TOOL_VERSION_happy(/;"	d
+MIN_TOOL_VERSION_happy	haskell/.stack-work/ghci/e58c95ce/cabal_macros.h	/^#define MIN_TOOL_VERSION_happy(/;"	d
+MIN_TOOL_VERSION_hpc	haskell/.stack-work/ghci/14b60bd6/cabal_macros.h	/^#define MIN_TOOL_VERSION_hpc(/;"	d
+MIN_TOOL_VERSION_hpc	haskell/.stack-work/ghci/1d9c49ce/cabal_macros.h	/^#define MIN_TOOL_VERSION_hpc(/;"	d
+MIN_TOOL_VERSION_hpc	haskell/.stack-work/ghci/25764501/cabal_macros.h	/^#define MIN_TOOL_VERSION_hpc(/;"	d
+MIN_TOOL_VERSION_hpc	haskell/.stack-work/ghci/353d26f7/cabal_macros.h	/^#define MIN_TOOL_VERSION_hpc(/;"	d
+MIN_TOOL_VERSION_hpc	haskell/.stack-work/ghci/3dfd4971/cabal_macros.h	/^#define MIN_TOOL_VERSION_hpc(/;"	d
+MIN_TOOL_VERSION_hpc	haskell/.stack-work/ghci/41174174/cabal_macros.h	/^#define MIN_TOOL_VERSION_hpc(/;"	d
+MIN_TOOL_VERSION_hpc	haskell/.stack-work/ghci/474f60f6/cabal_macros.h	/^#define MIN_TOOL_VERSION_hpc(/;"	d
+MIN_TOOL_VERSION_hpc	haskell/.stack-work/ghci/56556b86/cabal_macros.h	/^#define MIN_TOOL_VERSION_hpc(/;"	d
+MIN_TOOL_VERSION_hpc	haskell/.stack-work/ghci/5b327582/cabal_macros.h	/^#define MIN_TOOL_VERSION_hpc(/;"	d
+MIN_TOOL_VERSION_hpc	haskell/.stack-work/ghci/73acc961/cabal_macros.h	/^#define MIN_TOOL_VERSION_hpc(/;"	d
+MIN_TOOL_VERSION_hpc	haskell/.stack-work/ghci/7e0984c9/cabal_macros.h	/^#define MIN_TOOL_VERSION_hpc(/;"	d
+MIN_TOOL_VERSION_hpc	haskell/.stack-work/ghci/8eb09d1b/cabal_macros.h	/^#define MIN_TOOL_VERSION_hpc(/;"	d
+MIN_TOOL_VERSION_hpc	haskell/.stack-work/ghci/9397ed07/cabal_macros.h	/^#define MIN_TOOL_VERSION_hpc(/;"	d
+MIN_TOOL_VERSION_hpc	haskell/.stack-work/ghci/9837103d/cabal_macros.h	/^#define MIN_TOOL_VERSION_hpc(/;"	d
+MIN_TOOL_VERSION_hpc	haskell/.stack-work/ghci/aaa6b315/cabal_macros.h	/^#define MIN_TOOL_VERSION_hpc(/;"	d
+MIN_TOOL_VERSION_hpc	haskell/.stack-work/ghci/ab975605/cabal_macros.h	/^#define MIN_TOOL_VERSION_hpc(/;"	d
+MIN_TOOL_VERSION_hpc	haskell/.stack-work/ghci/beb81bf5/cabal_macros.h	/^#define MIN_TOOL_VERSION_hpc(/;"	d
+MIN_TOOL_VERSION_hpc	haskell/.stack-work/ghci/c02f9ab2/cabal_macros.h	/^#define MIN_TOOL_VERSION_hpc(/;"	d
+MIN_TOOL_VERSION_hpc	haskell/.stack-work/ghci/cd427bdd/cabal_macros.h	/^#define MIN_TOOL_VERSION_hpc(/;"	d
+MIN_TOOL_VERSION_hpc	haskell/.stack-work/ghci/d16e17c5/cabal_macros.h	/^#define MIN_TOOL_VERSION_hpc(/;"	d
+MIN_TOOL_VERSION_hpc	haskell/.stack-work/ghci/e58c95ce/cabal_macros.h	/^#define MIN_TOOL_VERSION_hpc(/;"	d
+MIN_TOOL_VERSION_hsc2hs	haskell/.stack-work/ghci/14b60bd6/cabal_macros.h	/^#define MIN_TOOL_VERSION_hsc2hs(/;"	d
+MIN_TOOL_VERSION_hsc2hs	haskell/.stack-work/ghci/1d9c49ce/cabal_macros.h	/^#define MIN_TOOL_VERSION_hsc2hs(/;"	d
+MIN_TOOL_VERSION_hsc2hs	haskell/.stack-work/ghci/25764501/cabal_macros.h	/^#define MIN_TOOL_VERSION_hsc2hs(/;"	d
+MIN_TOOL_VERSION_hsc2hs	haskell/.stack-work/ghci/353d26f7/cabal_macros.h	/^#define MIN_TOOL_VERSION_hsc2hs(/;"	d
+MIN_TOOL_VERSION_hsc2hs	haskell/.stack-work/ghci/3dfd4971/cabal_macros.h	/^#define MIN_TOOL_VERSION_hsc2hs(/;"	d
+MIN_TOOL_VERSION_hsc2hs	haskell/.stack-work/ghci/41174174/cabal_macros.h	/^#define MIN_TOOL_VERSION_hsc2hs(/;"	d
+MIN_TOOL_VERSION_hsc2hs	haskell/.stack-work/ghci/474f60f6/cabal_macros.h	/^#define MIN_TOOL_VERSION_hsc2hs(/;"	d
+MIN_TOOL_VERSION_hsc2hs	haskell/.stack-work/ghci/56556b86/cabal_macros.h	/^#define MIN_TOOL_VERSION_hsc2hs(/;"	d
+MIN_TOOL_VERSION_hsc2hs	haskell/.stack-work/ghci/5b327582/cabal_macros.h	/^#define MIN_TOOL_VERSION_hsc2hs(/;"	d
+MIN_TOOL_VERSION_hsc2hs	haskell/.stack-work/ghci/73acc961/cabal_macros.h	/^#define MIN_TOOL_VERSION_hsc2hs(/;"	d
+MIN_TOOL_VERSION_hsc2hs	haskell/.stack-work/ghci/7e0984c9/cabal_macros.h	/^#define MIN_TOOL_VERSION_hsc2hs(/;"	d
+MIN_TOOL_VERSION_hsc2hs	haskell/.stack-work/ghci/8eb09d1b/cabal_macros.h	/^#define MIN_TOOL_VERSION_hsc2hs(/;"	d
+MIN_TOOL_VERSION_hsc2hs	haskell/.stack-work/ghci/9397ed07/cabal_macros.h	/^#define MIN_TOOL_VERSION_hsc2hs(/;"	d
+MIN_TOOL_VERSION_hsc2hs	haskell/.stack-work/ghci/9837103d/cabal_macros.h	/^#define MIN_TOOL_VERSION_hsc2hs(/;"	d
+MIN_TOOL_VERSION_hsc2hs	haskell/.stack-work/ghci/aaa6b315/cabal_macros.h	/^#define MIN_TOOL_VERSION_hsc2hs(/;"	d
+MIN_TOOL_VERSION_hsc2hs	haskell/.stack-work/ghci/ab975605/cabal_macros.h	/^#define MIN_TOOL_VERSION_hsc2hs(/;"	d
+MIN_TOOL_VERSION_hsc2hs	haskell/.stack-work/ghci/beb81bf5/cabal_macros.h	/^#define MIN_TOOL_VERSION_hsc2hs(/;"	d
+MIN_TOOL_VERSION_hsc2hs	haskell/.stack-work/ghci/c02f9ab2/cabal_macros.h	/^#define MIN_TOOL_VERSION_hsc2hs(/;"	d
+MIN_TOOL_VERSION_hsc2hs	haskell/.stack-work/ghci/cd427bdd/cabal_macros.h	/^#define MIN_TOOL_VERSION_hsc2hs(/;"	d
+MIN_TOOL_VERSION_hsc2hs	haskell/.stack-work/ghci/d16e17c5/cabal_macros.h	/^#define MIN_TOOL_VERSION_hsc2hs(/;"	d
+MIN_TOOL_VERSION_hsc2hs	haskell/.stack-work/ghci/e58c95ce/cabal_macros.h	/^#define MIN_TOOL_VERSION_hsc2hs(/;"	d
+MIN_TOOL_VERSION_hscolour	haskell/.stack-work/ghci/14b60bd6/cabal_macros.h	/^#define MIN_TOOL_VERSION_hscolour(/;"	d
+MIN_TOOL_VERSION_hscolour	haskell/.stack-work/ghci/1d9c49ce/cabal_macros.h	/^#define MIN_TOOL_VERSION_hscolour(/;"	d
+MIN_TOOL_VERSION_hscolour	haskell/.stack-work/ghci/25764501/cabal_macros.h	/^#define MIN_TOOL_VERSION_hscolour(/;"	d
+MIN_TOOL_VERSION_hscolour	haskell/.stack-work/ghci/353d26f7/cabal_macros.h	/^#define MIN_TOOL_VERSION_hscolour(/;"	d
+MIN_TOOL_VERSION_hscolour	haskell/.stack-work/ghci/3dfd4971/cabal_macros.h	/^#define MIN_TOOL_VERSION_hscolour(/;"	d
+MIN_TOOL_VERSION_hscolour	haskell/.stack-work/ghci/41174174/cabal_macros.h	/^#define MIN_TOOL_VERSION_hscolour(/;"	d
+MIN_TOOL_VERSION_hscolour	haskell/.stack-work/ghci/474f60f6/cabal_macros.h	/^#define MIN_TOOL_VERSION_hscolour(/;"	d
+MIN_TOOL_VERSION_hscolour	haskell/.stack-work/ghci/56556b86/cabal_macros.h	/^#define MIN_TOOL_VERSION_hscolour(/;"	d
+MIN_TOOL_VERSION_hscolour	haskell/.stack-work/ghci/5b327582/cabal_macros.h	/^#define MIN_TOOL_VERSION_hscolour(/;"	d
+MIN_TOOL_VERSION_hscolour	haskell/.stack-work/ghci/73acc961/cabal_macros.h	/^#define MIN_TOOL_VERSION_hscolour(/;"	d
+MIN_TOOL_VERSION_hscolour	haskell/.stack-work/ghci/7e0984c9/cabal_macros.h	/^#define MIN_TOOL_VERSION_hscolour(/;"	d
+MIN_TOOL_VERSION_hscolour	haskell/.stack-work/ghci/8eb09d1b/cabal_macros.h	/^#define MIN_TOOL_VERSION_hscolour(/;"	d
+MIN_TOOL_VERSION_hscolour	haskell/.stack-work/ghci/9397ed07/cabal_macros.h	/^#define MIN_TOOL_VERSION_hscolour(/;"	d
+MIN_TOOL_VERSION_hscolour	haskell/.stack-work/ghci/9837103d/cabal_macros.h	/^#define MIN_TOOL_VERSION_hscolour(/;"	d
+MIN_TOOL_VERSION_hscolour	haskell/.stack-work/ghci/aaa6b315/cabal_macros.h	/^#define MIN_TOOL_VERSION_hscolour(/;"	d
+MIN_TOOL_VERSION_hscolour	haskell/.stack-work/ghci/ab975605/cabal_macros.h	/^#define MIN_TOOL_VERSION_hscolour(/;"	d
+MIN_TOOL_VERSION_hscolour	haskell/.stack-work/ghci/beb81bf5/cabal_macros.h	/^#define MIN_TOOL_VERSION_hscolour(/;"	d
+MIN_TOOL_VERSION_hscolour	haskell/.stack-work/ghci/c02f9ab2/cabal_macros.h	/^#define MIN_TOOL_VERSION_hscolour(/;"	d
+MIN_TOOL_VERSION_hscolour	haskell/.stack-work/ghci/cd427bdd/cabal_macros.h	/^#define MIN_TOOL_VERSION_hscolour(/;"	d
+MIN_TOOL_VERSION_hscolour	haskell/.stack-work/ghci/d16e17c5/cabal_macros.h	/^#define MIN_TOOL_VERSION_hscolour(/;"	d
+MIN_TOOL_VERSION_hscolour	haskell/.stack-work/ghci/e58c95ce/cabal_macros.h	/^#define MIN_TOOL_VERSION_hscolour(/;"	d
+MIN_TOOL_VERSION_pkg_config	haskell/.stack-work/ghci/14b60bd6/cabal_macros.h	/^#define MIN_TOOL_VERSION_pkg_config(/;"	d
+MIN_TOOL_VERSION_pkg_config	haskell/.stack-work/ghci/1d9c49ce/cabal_macros.h	/^#define MIN_TOOL_VERSION_pkg_config(/;"	d
+MIN_TOOL_VERSION_pkg_config	haskell/.stack-work/ghci/25764501/cabal_macros.h	/^#define MIN_TOOL_VERSION_pkg_config(/;"	d
+MIN_TOOL_VERSION_pkg_config	haskell/.stack-work/ghci/353d26f7/cabal_macros.h	/^#define MIN_TOOL_VERSION_pkg_config(/;"	d
+MIN_TOOL_VERSION_pkg_config	haskell/.stack-work/ghci/3dfd4971/cabal_macros.h	/^#define MIN_TOOL_VERSION_pkg_config(/;"	d
+MIN_TOOL_VERSION_pkg_config	haskell/.stack-work/ghci/41174174/cabal_macros.h	/^#define MIN_TOOL_VERSION_pkg_config(/;"	d
+MIN_TOOL_VERSION_pkg_config	haskell/.stack-work/ghci/474f60f6/cabal_macros.h	/^#define MIN_TOOL_VERSION_pkg_config(/;"	d
+MIN_TOOL_VERSION_pkg_config	haskell/.stack-work/ghci/56556b86/cabal_macros.h	/^#define MIN_TOOL_VERSION_pkg_config(/;"	d
+MIN_TOOL_VERSION_pkg_config	haskell/.stack-work/ghci/5b327582/cabal_macros.h	/^#define MIN_TOOL_VERSION_pkg_config(/;"	d
+MIN_TOOL_VERSION_pkg_config	haskell/.stack-work/ghci/73acc961/cabal_macros.h	/^#define MIN_TOOL_VERSION_pkg_config(/;"	d
+MIN_TOOL_VERSION_pkg_config	haskell/.stack-work/ghci/7e0984c9/cabal_macros.h	/^#define MIN_TOOL_VERSION_pkg_config(/;"	d
+MIN_TOOL_VERSION_pkg_config	haskell/.stack-work/ghci/8eb09d1b/cabal_macros.h	/^#define MIN_TOOL_VERSION_pkg_config(/;"	d
+MIN_TOOL_VERSION_pkg_config	haskell/.stack-work/ghci/9397ed07/cabal_macros.h	/^#define MIN_TOOL_VERSION_pkg_config(/;"	d
+MIN_TOOL_VERSION_pkg_config	haskell/.stack-work/ghci/9837103d/cabal_macros.h	/^#define MIN_TOOL_VERSION_pkg_config(/;"	d
+MIN_TOOL_VERSION_pkg_config	haskell/.stack-work/ghci/aaa6b315/cabal_macros.h	/^#define MIN_TOOL_VERSION_pkg_config(/;"	d
+MIN_TOOL_VERSION_pkg_config	haskell/.stack-work/ghci/ab975605/cabal_macros.h	/^#define MIN_TOOL_VERSION_pkg_config(/;"	d
+MIN_TOOL_VERSION_pkg_config	haskell/.stack-work/ghci/beb81bf5/cabal_macros.h	/^#define MIN_TOOL_VERSION_pkg_config(/;"	d
+MIN_TOOL_VERSION_pkg_config	haskell/.stack-work/ghci/c02f9ab2/cabal_macros.h	/^#define MIN_TOOL_VERSION_pkg_config(/;"	d
+MIN_TOOL_VERSION_pkg_config	haskell/.stack-work/ghci/cd427bdd/cabal_macros.h	/^#define MIN_TOOL_VERSION_pkg_config(/;"	d
+MIN_TOOL_VERSION_pkg_config	haskell/.stack-work/ghci/d16e17c5/cabal_macros.h	/^#define MIN_TOOL_VERSION_pkg_config(/;"	d
+MIN_TOOL_VERSION_pkg_config	haskell/.stack-work/ghci/e58c95ce/cabal_macros.h	/^#define MIN_TOOL_VERSION_pkg_config(/;"	d
+MIN_TOOL_VERSION_runghc	haskell/.stack-work/ghci/14b60bd6/cabal_macros.h	/^#define MIN_TOOL_VERSION_runghc(/;"	d
+MIN_TOOL_VERSION_runghc	haskell/.stack-work/ghci/1d9c49ce/cabal_macros.h	/^#define MIN_TOOL_VERSION_runghc(/;"	d
+MIN_TOOL_VERSION_runghc	haskell/.stack-work/ghci/25764501/cabal_macros.h	/^#define MIN_TOOL_VERSION_runghc(/;"	d
+MIN_TOOL_VERSION_runghc	haskell/.stack-work/ghci/353d26f7/cabal_macros.h	/^#define MIN_TOOL_VERSION_runghc(/;"	d
+MIN_TOOL_VERSION_runghc	haskell/.stack-work/ghci/3dfd4971/cabal_macros.h	/^#define MIN_TOOL_VERSION_runghc(/;"	d
+MIN_TOOL_VERSION_runghc	haskell/.stack-work/ghci/41174174/cabal_macros.h	/^#define MIN_TOOL_VERSION_runghc(/;"	d
+MIN_TOOL_VERSION_runghc	haskell/.stack-work/ghci/474f60f6/cabal_macros.h	/^#define MIN_TOOL_VERSION_runghc(/;"	d
+MIN_TOOL_VERSION_runghc	haskell/.stack-work/ghci/56556b86/cabal_macros.h	/^#define MIN_TOOL_VERSION_runghc(/;"	d
+MIN_TOOL_VERSION_runghc	haskell/.stack-work/ghci/5b327582/cabal_macros.h	/^#define MIN_TOOL_VERSION_runghc(/;"	d
+MIN_TOOL_VERSION_runghc	haskell/.stack-work/ghci/73acc961/cabal_macros.h	/^#define MIN_TOOL_VERSION_runghc(/;"	d
+MIN_TOOL_VERSION_runghc	haskell/.stack-work/ghci/7e0984c9/cabal_macros.h	/^#define MIN_TOOL_VERSION_runghc(/;"	d
+MIN_TOOL_VERSION_runghc	haskell/.stack-work/ghci/8eb09d1b/cabal_macros.h	/^#define MIN_TOOL_VERSION_runghc(/;"	d
+MIN_TOOL_VERSION_runghc	haskell/.stack-work/ghci/9397ed07/cabal_macros.h	/^#define MIN_TOOL_VERSION_runghc(/;"	d
+MIN_TOOL_VERSION_runghc	haskell/.stack-work/ghci/9837103d/cabal_macros.h	/^#define MIN_TOOL_VERSION_runghc(/;"	d
+MIN_TOOL_VERSION_runghc	haskell/.stack-work/ghci/aaa6b315/cabal_macros.h	/^#define MIN_TOOL_VERSION_runghc(/;"	d
+MIN_TOOL_VERSION_runghc	haskell/.stack-work/ghci/ab975605/cabal_macros.h	/^#define MIN_TOOL_VERSION_runghc(/;"	d
+MIN_TOOL_VERSION_runghc	haskell/.stack-work/ghci/beb81bf5/cabal_macros.h	/^#define MIN_TOOL_VERSION_runghc(/;"	d
+MIN_TOOL_VERSION_runghc	haskell/.stack-work/ghci/c02f9ab2/cabal_macros.h	/^#define MIN_TOOL_VERSION_runghc(/;"	d
+MIN_TOOL_VERSION_runghc	haskell/.stack-work/ghci/cd427bdd/cabal_macros.h	/^#define MIN_TOOL_VERSION_runghc(/;"	d
+MIN_TOOL_VERSION_runghc	haskell/.stack-work/ghci/d16e17c5/cabal_macros.h	/^#define MIN_TOOL_VERSION_runghc(/;"	d
+MIN_TOOL_VERSION_runghc	haskell/.stack-work/ghci/e58c95ce/cabal_macros.h	/^#define MIN_TOOL_VERSION_runghc(/;"	d
+MIN_VERSION_aoc2018	haskell/.stack-work/ghci/14b60bd6/cabal_macros.h	/^#define MIN_VERSION_aoc2018(/;"	d
+MIN_VERSION_aoc2018	haskell/.stack-work/ghci/1d9c49ce/cabal_macros.h	/^#define MIN_VERSION_aoc2018(/;"	d
+MIN_VERSION_aoc2018	haskell/.stack-work/ghci/25764501/cabal_macros.h	/^#define MIN_VERSION_aoc2018(/;"	d
+MIN_VERSION_aoc2018	haskell/.stack-work/ghci/353d26f7/cabal_macros.h	/^#define MIN_VERSION_aoc2018(/;"	d
+MIN_VERSION_aoc2018	haskell/.stack-work/ghci/3dfd4971/cabal_macros.h	/^#define MIN_VERSION_aoc2018(/;"	d
+MIN_VERSION_aoc2018	haskell/.stack-work/ghci/41174174/cabal_macros.h	/^#define MIN_VERSION_aoc2018(/;"	d
+MIN_VERSION_aoc2018	haskell/.stack-work/ghci/474f60f6/cabal_macros.h	/^#define MIN_VERSION_aoc2018(/;"	d
+MIN_VERSION_aoc2018	haskell/.stack-work/ghci/56556b86/cabal_macros.h	/^#define MIN_VERSION_aoc2018(/;"	d
+MIN_VERSION_aoc2018	haskell/.stack-work/ghci/5b327582/cabal_macros.h	/^#define MIN_VERSION_aoc2018(/;"	d
+MIN_VERSION_aoc2018	haskell/.stack-work/ghci/73acc961/cabal_macros.h	/^#define MIN_VERSION_aoc2018(/;"	d
+MIN_VERSION_aoc2018	haskell/.stack-work/ghci/7e0984c9/cabal_macros.h	/^#define MIN_VERSION_aoc2018(/;"	d
+MIN_VERSION_aoc2018	haskell/.stack-work/ghci/8eb09d1b/cabal_macros.h	/^#define MIN_VERSION_aoc2018(/;"	d
+MIN_VERSION_aoc2018	haskell/.stack-work/ghci/9397ed07/cabal_macros.h	/^#define MIN_VERSION_aoc2018(/;"	d
+MIN_VERSION_aoc2018	haskell/.stack-work/ghci/9837103d/cabal_macros.h	/^#define MIN_VERSION_aoc2018(/;"	d
+MIN_VERSION_aoc2018	haskell/.stack-work/ghci/aaa6b315/cabal_macros.h	/^#define MIN_VERSION_aoc2018(/;"	d
+MIN_VERSION_aoc2018	haskell/.stack-work/ghci/ab975605/cabal_macros.h	/^#define MIN_VERSION_aoc2018(/;"	d
+MIN_VERSION_aoc2018	haskell/.stack-work/ghci/beb81bf5/cabal_macros.h	/^#define MIN_VERSION_aoc2018(/;"	d
+MIN_VERSION_aoc2018	haskell/.stack-work/ghci/c02f9ab2/cabal_macros.h	/^#define MIN_VERSION_aoc2018(/;"	d
+MIN_VERSION_aoc2018	haskell/.stack-work/ghci/cd427bdd/cabal_macros.h	/^#define MIN_VERSION_aoc2018(/;"	d
+MIN_VERSION_aoc2018	haskell/.stack-work/ghci/d16e17c5/cabal_macros.h	/^#define MIN_VERSION_aoc2018(/;"	d
+MIN_VERSION_aoc2018	haskell/.stack-work/ghci/e58c95ce/cabal_macros.h	/^#define MIN_VERSION_aoc2018(/;"	d
+MIN_VERSION_base	haskell/.stack-work/ghci/14b60bd6/cabal_macros.h	/^#define MIN_VERSION_base(/;"	d
+MIN_VERSION_base	haskell/.stack-work/ghci/1d9c49ce/cabal_macros.h	/^#define MIN_VERSION_base(/;"	d
+MIN_VERSION_base	haskell/.stack-work/ghci/25764501/cabal_macros.h	/^#define MIN_VERSION_base(/;"	d
+MIN_VERSION_base	haskell/.stack-work/ghci/353d26f7/cabal_macros.h	/^#define MIN_VERSION_base(/;"	d
+MIN_VERSION_base	haskell/.stack-work/ghci/3dfd4971/cabal_macros.h	/^#define MIN_VERSION_base(/;"	d
+MIN_VERSION_base	haskell/.stack-work/ghci/41174174/cabal_macros.h	/^#define MIN_VERSION_base(/;"	d
+MIN_VERSION_base	haskell/.stack-work/ghci/474f60f6/cabal_macros.h	/^#define MIN_VERSION_base(/;"	d
+MIN_VERSION_base	haskell/.stack-work/ghci/56556b86/cabal_macros.h	/^#define MIN_VERSION_base(/;"	d
+MIN_VERSION_base	haskell/.stack-work/ghci/5b327582/cabal_macros.h	/^#define MIN_VERSION_base(/;"	d
+MIN_VERSION_base	haskell/.stack-work/ghci/73acc961/cabal_macros.h	/^#define MIN_VERSION_base(/;"	d
+MIN_VERSION_base	haskell/.stack-work/ghci/7e0984c9/cabal_macros.h	/^#define MIN_VERSION_base(/;"	d
+MIN_VERSION_base	haskell/.stack-work/ghci/8eb09d1b/cabal_macros.h	/^#define MIN_VERSION_base(/;"	d
+MIN_VERSION_base	haskell/.stack-work/ghci/9397ed07/cabal_macros.h	/^#define MIN_VERSION_base(/;"	d
+MIN_VERSION_base	haskell/.stack-work/ghci/9837103d/cabal_macros.h	/^#define MIN_VERSION_base(/;"	d
+MIN_VERSION_base	haskell/.stack-work/ghci/aaa6b315/cabal_macros.h	/^#define MIN_VERSION_base(/;"	d
+MIN_VERSION_base	haskell/.stack-work/ghci/ab975605/cabal_macros.h	/^#define MIN_VERSION_base(/;"	d
+MIN_VERSION_base	haskell/.stack-work/ghci/beb81bf5/cabal_macros.h	/^#define MIN_VERSION_base(/;"	d
+MIN_VERSION_base	haskell/.stack-work/ghci/c02f9ab2/cabal_macros.h	/^#define MIN_VERSION_base(/;"	d
+MIN_VERSION_base	haskell/.stack-work/ghci/cd427bdd/cabal_macros.h	/^#define MIN_VERSION_base(/;"	d
+MIN_VERSION_base	haskell/.stack-work/ghci/d16e17c5/cabal_macros.h	/^#define MIN_VERSION_base(/;"	d
+MIN_VERSION_base	haskell/.stack-work/ghci/e58c95ce/cabal_macros.h	/^#define MIN_VERSION_base(/;"	d
+MIN_VERSION_containers	haskell/.stack-work/ghci/1d9c49ce/cabal_macros.h	/^#define MIN_VERSION_containers(/;"	d
+MIN_VERSION_containers	haskell/.stack-work/ghci/353d26f7/cabal_macros.h	/^#define MIN_VERSION_containers(/;"	d
+MIN_VERSION_containers	haskell/.stack-work/ghci/3dfd4971/cabal_macros.h	/^#define MIN_VERSION_containers(/;"	d
+MIN_VERSION_containers	haskell/.stack-work/ghci/8eb09d1b/cabal_macros.h	/^#define MIN_VERSION_containers(/;"	d
+MIN_VERSION_containers	haskell/.stack-work/ghci/ab975605/cabal_macros.h	/^#define MIN_VERSION_containers(/;"	d
+MIN_VERSION_containers	haskell/.stack-work/ghci/cd427bdd/cabal_macros.h	/^#define MIN_VERSION_containers(/;"	d
+MIN_VERSION_containers	haskell/.stack-work/ghci/d16e17c5/cabal_macros.h	/^#define MIN_VERSION_containers(/;"	d
+MIN_VERSION_optparse_applicative	haskell/.stack-work/ghci/1d9c49ce/cabal_macros.h	/^#define MIN_VERSION_optparse_applicative(/;"	d
+MIN_VERSION_optparse_applicative	haskell/.stack-work/ghci/25764501/cabal_macros.h	/^#define MIN_VERSION_optparse_applicative(/;"	d
+MIN_VERSION_optparse_applicative	haskell/.stack-work/ghci/353d26f7/cabal_macros.h	/^#define MIN_VERSION_optparse_applicative(/;"	d
+MIN_VERSION_optparse_applicative	haskell/.stack-work/ghci/3dfd4971/cabal_macros.h	/^#define MIN_VERSION_optparse_applicative(/;"	d
+MIN_VERSION_optparse_applicative	haskell/.stack-work/ghci/5b327582/cabal_macros.h	/^#define MIN_VERSION_optparse_applicative(/;"	d
+MIN_VERSION_optparse_applicative	haskell/.stack-work/ghci/7e0984c9/cabal_macros.h	/^#define MIN_VERSION_optparse_applicative(/;"	d
+MIN_VERSION_optparse_applicative	haskell/.stack-work/ghci/8eb09d1b/cabal_macros.h	/^#define MIN_VERSION_optparse_applicative(/;"	d
+MIN_VERSION_optparse_applicative	haskell/.stack-work/ghci/9837103d/cabal_macros.h	/^#define MIN_VERSION_optparse_applicative(/;"	d
+MIN_VERSION_optparse_applicative	haskell/.stack-work/ghci/ab975605/cabal_macros.h	/^#define MIN_VERSION_optparse_applicative(/;"	d
+MIN_VERSION_optparse_applicative	haskell/.stack-work/ghci/beb81bf5/cabal_macros.h	/^#define MIN_VERSION_optparse_applicative(/;"	d
+MIN_VERSION_optparse_applicative	haskell/.stack-work/ghci/c02f9ab2/cabal_macros.h	/^#define MIN_VERSION_optparse_applicative(/;"	d
+MIN_VERSION_optparse_applicative	haskell/.stack-work/ghci/cd427bdd/cabal_macros.h	/^#define MIN_VERSION_optparse_applicative(/;"	d
+MIN_VERSION_optparse_applicative	haskell/.stack-work/ghci/d16e17c5/cabal_macros.h	/^#define MIN_VERSION_optparse_applicative(/;"	d
+MIN_VERSION_optparse_applicative	haskell/.stack-work/ghci/e58c95ce/cabal_macros.h	/^#define MIN_VERSION_optparse_applicative(/;"	d
+MIN_VERSION_parsers	haskell/.stack-work/ghci/8eb09d1b/cabal_macros.h	/^#define MIN_VERSION_parsers(/;"	d
+MIN_VERSION_parsers	haskell/.stack-work/ghci/ab975605/cabal_macros.h	/^#define MIN_VERSION_parsers(/;"	d
+MIN_VERSION_safe	haskell/.stack-work/ghci/1d9c49ce/cabal_macros.h	/^#define MIN_VERSION_safe(/;"	d
+MIN_VERSION_safe_exceptions	haskell/.stack-work/ghci/41174174/cabal_macros.h	/^#define MIN_VERSION_safe_exceptions(/;"	d
+MIN_VERSION_safe_exceptions	haskell/.stack-work/ghci/474f60f6/cabal_macros.h	/^#define MIN_VERSION_safe_exceptions(/;"	d
+MIN_VERSION_safe_exceptions	haskell/.stack-work/ghci/56556b86/cabal_macros.h	/^#define MIN_VERSION_safe_exceptions(/;"	d
+MIN_VERSION_safe_exceptions	haskell/.stack-work/ghci/73acc961/cabal_macros.h	/^#define MIN_VERSION_safe_exceptions(/;"	d
+MIN_VERSION_safe_exceptions	haskell/.stack-work/ghci/aaa6b315/cabal_macros.h	/^#define MIN_VERSION_safe_exceptions(/;"	d
+MIN_VERSION_safe_exceptions	haskell/.stack-work/ghci/c02f9ab2/cabal_macros.h	/^#define MIN_VERSION_safe_exceptions(/;"	d
+MIN_VERSION_text	haskell/.stack-work/ghci/1d9c49ce/cabal_macros.h	/^#define MIN_VERSION_text(/;"	d
+MIN_VERSION_text	haskell/.stack-work/ghci/25764501/cabal_macros.h	/^#define MIN_VERSION_text(/;"	d
+MIN_VERSION_text	haskell/.stack-work/ghci/353d26f7/cabal_macros.h	/^#define MIN_VERSION_text(/;"	d
+MIN_VERSION_text	haskell/.stack-work/ghci/3dfd4971/cabal_macros.h	/^#define MIN_VERSION_text(/;"	d
+MIN_VERSION_text	haskell/.stack-work/ghci/474f60f6/cabal_macros.h	/^#define MIN_VERSION_text(/;"	d
+MIN_VERSION_text	haskell/.stack-work/ghci/56556b86/cabal_macros.h	/^#define MIN_VERSION_text(/;"	d
+MIN_VERSION_text	haskell/.stack-work/ghci/5b327582/cabal_macros.h	/^#define MIN_VERSION_text(/;"	d
+MIN_VERSION_text	haskell/.stack-work/ghci/73acc961/cabal_macros.h	/^#define MIN_VERSION_text(/;"	d
+MIN_VERSION_text	haskell/.stack-work/ghci/7e0984c9/cabal_macros.h	/^#define MIN_VERSION_text(/;"	d
+MIN_VERSION_text	haskell/.stack-work/ghci/8eb09d1b/cabal_macros.h	/^#define MIN_VERSION_text(/;"	d
+MIN_VERSION_text	haskell/.stack-work/ghci/9837103d/cabal_macros.h	/^#define MIN_VERSION_text(/;"	d
+MIN_VERSION_text	haskell/.stack-work/ghci/ab975605/cabal_macros.h	/^#define MIN_VERSION_text(/;"	d
+MIN_VERSION_text	haskell/.stack-work/ghci/beb81bf5/cabal_macros.h	/^#define MIN_VERSION_text(/;"	d
+MIN_VERSION_text	haskell/.stack-work/ghci/c02f9ab2/cabal_macros.h	/^#define MIN_VERSION_text(/;"	d
+MIN_VERSION_text	haskell/.stack-work/ghci/cd427bdd/cabal_macros.h	/^#define MIN_VERSION_text(/;"	d
+MIN_VERSION_text	haskell/.stack-work/ghci/d16e17c5/cabal_macros.h	/^#define MIN_VERSION_text(/;"	d
+MIN_VERSION_text	haskell/.stack-work/ghci/e58c95ce/cabal_macros.h	/^#define MIN_VERSION_text(/;"	d
+MIN_VERSION_trifecta	haskell/.stack-work/ghci/8eb09d1b/cabal_macros.h	/^#define MIN_VERSION_trifecta(/;"	d
+MIN_VERSION_trifecta	haskell/.stack-work/ghci/ab975605/cabal_macros.h	/^#define MIN_VERSION_trifecta(/;"	d
+MIN_VERSION_trifecta	haskell/.stack-work/ghci/d16e17c5/cabal_macros.h	/^#define MIN_VERSION_trifecta(/;"	d
+MIN_VERSION_unique	haskell/.stack-work/ghci/cd427bdd/cabal_macros.h	/^#define MIN_VERSION_unique(/;"	d
+TOOL_VERSION_alex	haskell/.stack-work/ghci/14b60bd6/cabal_macros.h	/^#define TOOL_VERSION_alex /;"	d
+TOOL_VERSION_alex	haskell/.stack-work/ghci/1d9c49ce/cabal_macros.h	/^#define TOOL_VERSION_alex /;"	d
+TOOL_VERSION_alex	haskell/.stack-work/ghci/25764501/cabal_macros.h	/^#define TOOL_VERSION_alex /;"	d
+TOOL_VERSION_alex	haskell/.stack-work/ghci/353d26f7/cabal_macros.h	/^#define TOOL_VERSION_alex /;"	d
+TOOL_VERSION_alex	haskell/.stack-work/ghci/3dfd4971/cabal_macros.h	/^#define TOOL_VERSION_alex /;"	d
+TOOL_VERSION_alex	haskell/.stack-work/ghci/41174174/cabal_macros.h	/^#define TOOL_VERSION_alex /;"	d
+TOOL_VERSION_alex	haskell/.stack-work/ghci/474f60f6/cabal_macros.h	/^#define TOOL_VERSION_alex /;"	d
+TOOL_VERSION_alex	haskell/.stack-work/ghci/56556b86/cabal_macros.h	/^#define TOOL_VERSION_alex /;"	d
+TOOL_VERSION_alex	haskell/.stack-work/ghci/5b327582/cabal_macros.h	/^#define TOOL_VERSION_alex /;"	d
+TOOL_VERSION_alex	haskell/.stack-work/ghci/73acc961/cabal_macros.h	/^#define TOOL_VERSION_alex /;"	d
+TOOL_VERSION_alex	haskell/.stack-work/ghci/7e0984c9/cabal_macros.h	/^#define TOOL_VERSION_alex /;"	d
+TOOL_VERSION_alex	haskell/.stack-work/ghci/8eb09d1b/cabal_macros.h	/^#define TOOL_VERSION_alex /;"	d
+TOOL_VERSION_alex	haskell/.stack-work/ghci/9397ed07/cabal_macros.h	/^#define TOOL_VERSION_alex /;"	d
+TOOL_VERSION_alex	haskell/.stack-work/ghci/9837103d/cabal_macros.h	/^#define TOOL_VERSION_alex /;"	d
+TOOL_VERSION_alex	haskell/.stack-work/ghci/aaa6b315/cabal_macros.h	/^#define TOOL_VERSION_alex /;"	d
+TOOL_VERSION_alex	haskell/.stack-work/ghci/ab975605/cabal_macros.h	/^#define TOOL_VERSION_alex /;"	d
+TOOL_VERSION_alex	haskell/.stack-work/ghci/beb81bf5/cabal_macros.h	/^#define TOOL_VERSION_alex /;"	d
+TOOL_VERSION_alex	haskell/.stack-work/ghci/c02f9ab2/cabal_macros.h	/^#define TOOL_VERSION_alex /;"	d
+TOOL_VERSION_alex	haskell/.stack-work/ghci/cd427bdd/cabal_macros.h	/^#define TOOL_VERSION_alex /;"	d
+TOOL_VERSION_alex	haskell/.stack-work/ghci/d16e17c5/cabal_macros.h	/^#define TOOL_VERSION_alex /;"	d
+TOOL_VERSION_alex	haskell/.stack-work/ghci/e58c95ce/cabal_macros.h	/^#define TOOL_VERSION_alex /;"	d
+TOOL_VERSION_cpphs	haskell/.stack-work/ghci/14b60bd6/cabal_macros.h	/^#define TOOL_VERSION_cpphs /;"	d
+TOOL_VERSION_cpphs	haskell/.stack-work/ghci/1d9c49ce/cabal_macros.h	/^#define TOOL_VERSION_cpphs /;"	d
+TOOL_VERSION_cpphs	haskell/.stack-work/ghci/25764501/cabal_macros.h	/^#define TOOL_VERSION_cpphs /;"	d
+TOOL_VERSION_cpphs	haskell/.stack-work/ghci/353d26f7/cabal_macros.h	/^#define TOOL_VERSION_cpphs /;"	d
+TOOL_VERSION_cpphs	haskell/.stack-work/ghci/3dfd4971/cabal_macros.h	/^#define TOOL_VERSION_cpphs /;"	d
+TOOL_VERSION_cpphs	haskell/.stack-work/ghci/41174174/cabal_macros.h	/^#define TOOL_VERSION_cpphs /;"	d
+TOOL_VERSION_cpphs	haskell/.stack-work/ghci/474f60f6/cabal_macros.h	/^#define TOOL_VERSION_cpphs /;"	d
+TOOL_VERSION_cpphs	haskell/.stack-work/ghci/56556b86/cabal_macros.h	/^#define TOOL_VERSION_cpphs /;"	d
+TOOL_VERSION_cpphs	haskell/.stack-work/ghci/5b327582/cabal_macros.h	/^#define TOOL_VERSION_cpphs /;"	d
+TOOL_VERSION_cpphs	haskell/.stack-work/ghci/73acc961/cabal_macros.h	/^#define TOOL_VERSION_cpphs /;"	d
+TOOL_VERSION_cpphs	haskell/.stack-work/ghci/7e0984c9/cabal_macros.h	/^#define TOOL_VERSION_cpphs /;"	d
+TOOL_VERSION_cpphs	haskell/.stack-work/ghci/8eb09d1b/cabal_macros.h	/^#define TOOL_VERSION_cpphs /;"	d
+TOOL_VERSION_cpphs	haskell/.stack-work/ghci/9397ed07/cabal_macros.h	/^#define TOOL_VERSION_cpphs /;"	d
+TOOL_VERSION_cpphs	haskell/.stack-work/ghci/9837103d/cabal_macros.h	/^#define TOOL_VERSION_cpphs /;"	d
+TOOL_VERSION_cpphs	haskell/.stack-work/ghci/aaa6b315/cabal_macros.h	/^#define TOOL_VERSION_cpphs /;"	d
+TOOL_VERSION_cpphs	haskell/.stack-work/ghci/ab975605/cabal_macros.h	/^#define TOOL_VERSION_cpphs /;"	d
+TOOL_VERSION_cpphs	haskell/.stack-work/ghci/beb81bf5/cabal_macros.h	/^#define TOOL_VERSION_cpphs /;"	d
+TOOL_VERSION_cpphs	haskell/.stack-work/ghci/c02f9ab2/cabal_macros.h	/^#define TOOL_VERSION_cpphs /;"	d
+TOOL_VERSION_cpphs	haskell/.stack-work/ghci/cd427bdd/cabal_macros.h	/^#define TOOL_VERSION_cpphs /;"	d
+TOOL_VERSION_cpphs	haskell/.stack-work/ghci/d16e17c5/cabal_macros.h	/^#define TOOL_VERSION_cpphs /;"	d
+TOOL_VERSION_cpphs	haskell/.stack-work/ghci/e58c95ce/cabal_macros.h	/^#define TOOL_VERSION_cpphs /;"	d
+TOOL_VERSION_gcc	haskell/.stack-work/ghci/14b60bd6/cabal_macros.h	/^#define TOOL_VERSION_gcc /;"	d
+TOOL_VERSION_gcc	haskell/.stack-work/ghci/1d9c49ce/cabal_macros.h	/^#define TOOL_VERSION_gcc /;"	d
+TOOL_VERSION_gcc	haskell/.stack-work/ghci/25764501/cabal_macros.h	/^#define TOOL_VERSION_gcc /;"	d
+TOOL_VERSION_gcc	haskell/.stack-work/ghci/353d26f7/cabal_macros.h	/^#define TOOL_VERSION_gcc /;"	d
+TOOL_VERSION_gcc	haskell/.stack-work/ghci/3dfd4971/cabal_macros.h	/^#define TOOL_VERSION_gcc /;"	d
+TOOL_VERSION_gcc	haskell/.stack-work/ghci/41174174/cabal_macros.h	/^#define TOOL_VERSION_gcc /;"	d
+TOOL_VERSION_gcc	haskell/.stack-work/ghci/474f60f6/cabal_macros.h	/^#define TOOL_VERSION_gcc /;"	d
+TOOL_VERSION_gcc	haskell/.stack-work/ghci/56556b86/cabal_macros.h	/^#define TOOL_VERSION_gcc /;"	d
+TOOL_VERSION_gcc	haskell/.stack-work/ghci/5b327582/cabal_macros.h	/^#define TOOL_VERSION_gcc /;"	d
+TOOL_VERSION_gcc	haskell/.stack-work/ghci/73acc961/cabal_macros.h	/^#define TOOL_VERSION_gcc /;"	d
+TOOL_VERSION_gcc	haskell/.stack-work/ghci/7e0984c9/cabal_macros.h	/^#define TOOL_VERSION_gcc /;"	d
+TOOL_VERSION_gcc	haskell/.stack-work/ghci/8eb09d1b/cabal_macros.h	/^#define TOOL_VERSION_gcc /;"	d
+TOOL_VERSION_gcc	haskell/.stack-work/ghci/9397ed07/cabal_macros.h	/^#define TOOL_VERSION_gcc /;"	d
+TOOL_VERSION_gcc	haskell/.stack-work/ghci/9837103d/cabal_macros.h	/^#define TOOL_VERSION_gcc /;"	d
+TOOL_VERSION_gcc	haskell/.stack-work/ghci/aaa6b315/cabal_macros.h	/^#define TOOL_VERSION_gcc /;"	d
+TOOL_VERSION_gcc	haskell/.stack-work/ghci/ab975605/cabal_macros.h	/^#define TOOL_VERSION_gcc /;"	d
+TOOL_VERSION_gcc	haskell/.stack-work/ghci/beb81bf5/cabal_macros.h	/^#define TOOL_VERSION_gcc /;"	d
+TOOL_VERSION_gcc	haskell/.stack-work/ghci/c02f9ab2/cabal_macros.h	/^#define TOOL_VERSION_gcc /;"	d
+TOOL_VERSION_gcc	haskell/.stack-work/ghci/cd427bdd/cabal_macros.h	/^#define TOOL_VERSION_gcc /;"	d
+TOOL_VERSION_gcc	haskell/.stack-work/ghci/d16e17c5/cabal_macros.h	/^#define TOOL_VERSION_gcc /;"	d
+TOOL_VERSION_gcc	haskell/.stack-work/ghci/e58c95ce/cabal_macros.h	/^#define TOOL_VERSION_gcc /;"	d
+TOOL_VERSION_ghc	haskell/.stack-work/ghci/14b60bd6/cabal_macros.h	/^#define TOOL_VERSION_ghc /;"	d
+TOOL_VERSION_ghc	haskell/.stack-work/ghci/1d9c49ce/cabal_macros.h	/^#define TOOL_VERSION_ghc /;"	d
+TOOL_VERSION_ghc	haskell/.stack-work/ghci/25764501/cabal_macros.h	/^#define TOOL_VERSION_ghc /;"	d
+TOOL_VERSION_ghc	haskell/.stack-work/ghci/353d26f7/cabal_macros.h	/^#define TOOL_VERSION_ghc /;"	d
+TOOL_VERSION_ghc	haskell/.stack-work/ghci/3dfd4971/cabal_macros.h	/^#define TOOL_VERSION_ghc /;"	d
+TOOL_VERSION_ghc	haskell/.stack-work/ghci/41174174/cabal_macros.h	/^#define TOOL_VERSION_ghc /;"	d
+TOOL_VERSION_ghc	haskell/.stack-work/ghci/474f60f6/cabal_macros.h	/^#define TOOL_VERSION_ghc /;"	d
+TOOL_VERSION_ghc	haskell/.stack-work/ghci/56556b86/cabal_macros.h	/^#define TOOL_VERSION_ghc /;"	d
+TOOL_VERSION_ghc	haskell/.stack-work/ghci/5b327582/cabal_macros.h	/^#define TOOL_VERSION_ghc /;"	d
+TOOL_VERSION_ghc	haskell/.stack-work/ghci/73acc961/cabal_macros.h	/^#define TOOL_VERSION_ghc /;"	d
+TOOL_VERSION_ghc	haskell/.stack-work/ghci/7e0984c9/cabal_macros.h	/^#define TOOL_VERSION_ghc /;"	d
+TOOL_VERSION_ghc	haskell/.stack-work/ghci/8eb09d1b/cabal_macros.h	/^#define TOOL_VERSION_ghc /;"	d
+TOOL_VERSION_ghc	haskell/.stack-work/ghci/9397ed07/cabal_macros.h	/^#define TOOL_VERSION_ghc /;"	d
+TOOL_VERSION_ghc	haskell/.stack-work/ghci/9837103d/cabal_macros.h	/^#define TOOL_VERSION_ghc /;"	d
+TOOL_VERSION_ghc	haskell/.stack-work/ghci/aaa6b315/cabal_macros.h	/^#define TOOL_VERSION_ghc /;"	d
+TOOL_VERSION_ghc	haskell/.stack-work/ghci/ab975605/cabal_macros.h	/^#define TOOL_VERSION_ghc /;"	d
+TOOL_VERSION_ghc	haskell/.stack-work/ghci/beb81bf5/cabal_macros.h	/^#define TOOL_VERSION_ghc /;"	d
+TOOL_VERSION_ghc	haskell/.stack-work/ghci/c02f9ab2/cabal_macros.h	/^#define TOOL_VERSION_ghc /;"	d
+TOOL_VERSION_ghc	haskell/.stack-work/ghci/cd427bdd/cabal_macros.h	/^#define TOOL_VERSION_ghc /;"	d
+TOOL_VERSION_ghc	haskell/.stack-work/ghci/d16e17c5/cabal_macros.h	/^#define TOOL_VERSION_ghc /;"	d
+TOOL_VERSION_ghc	haskell/.stack-work/ghci/e58c95ce/cabal_macros.h	/^#define TOOL_VERSION_ghc /;"	d
+TOOL_VERSION_ghc_pkg	haskell/.stack-work/ghci/14b60bd6/cabal_macros.h	/^#define TOOL_VERSION_ghc_pkg /;"	d
+TOOL_VERSION_ghc_pkg	haskell/.stack-work/ghci/1d9c49ce/cabal_macros.h	/^#define TOOL_VERSION_ghc_pkg /;"	d
+TOOL_VERSION_ghc_pkg	haskell/.stack-work/ghci/25764501/cabal_macros.h	/^#define TOOL_VERSION_ghc_pkg /;"	d
+TOOL_VERSION_ghc_pkg	haskell/.stack-work/ghci/353d26f7/cabal_macros.h	/^#define TOOL_VERSION_ghc_pkg /;"	d
+TOOL_VERSION_ghc_pkg	haskell/.stack-work/ghci/3dfd4971/cabal_macros.h	/^#define TOOL_VERSION_ghc_pkg /;"	d
+TOOL_VERSION_ghc_pkg	haskell/.stack-work/ghci/41174174/cabal_macros.h	/^#define TOOL_VERSION_ghc_pkg /;"	d
+TOOL_VERSION_ghc_pkg	haskell/.stack-work/ghci/474f60f6/cabal_macros.h	/^#define TOOL_VERSION_ghc_pkg /;"	d
+TOOL_VERSION_ghc_pkg	haskell/.stack-work/ghci/56556b86/cabal_macros.h	/^#define TOOL_VERSION_ghc_pkg /;"	d
+TOOL_VERSION_ghc_pkg	haskell/.stack-work/ghci/5b327582/cabal_macros.h	/^#define TOOL_VERSION_ghc_pkg /;"	d
+TOOL_VERSION_ghc_pkg	haskell/.stack-work/ghci/73acc961/cabal_macros.h	/^#define TOOL_VERSION_ghc_pkg /;"	d
+TOOL_VERSION_ghc_pkg	haskell/.stack-work/ghci/7e0984c9/cabal_macros.h	/^#define TOOL_VERSION_ghc_pkg /;"	d
+TOOL_VERSION_ghc_pkg	haskell/.stack-work/ghci/8eb09d1b/cabal_macros.h	/^#define TOOL_VERSION_ghc_pkg /;"	d
+TOOL_VERSION_ghc_pkg	haskell/.stack-work/ghci/9397ed07/cabal_macros.h	/^#define TOOL_VERSION_ghc_pkg /;"	d
+TOOL_VERSION_ghc_pkg	haskell/.stack-work/ghci/9837103d/cabal_macros.h	/^#define TOOL_VERSION_ghc_pkg /;"	d
+TOOL_VERSION_ghc_pkg	haskell/.stack-work/ghci/aaa6b315/cabal_macros.h	/^#define TOOL_VERSION_ghc_pkg /;"	d
+TOOL_VERSION_ghc_pkg	haskell/.stack-work/ghci/ab975605/cabal_macros.h	/^#define TOOL_VERSION_ghc_pkg /;"	d
+TOOL_VERSION_ghc_pkg	haskell/.stack-work/ghci/beb81bf5/cabal_macros.h	/^#define TOOL_VERSION_ghc_pkg /;"	d
+TOOL_VERSION_ghc_pkg	haskell/.stack-work/ghci/c02f9ab2/cabal_macros.h	/^#define TOOL_VERSION_ghc_pkg /;"	d
+TOOL_VERSION_ghc_pkg	haskell/.stack-work/ghci/cd427bdd/cabal_macros.h	/^#define TOOL_VERSION_ghc_pkg /;"	d
+TOOL_VERSION_ghc_pkg	haskell/.stack-work/ghci/d16e17c5/cabal_macros.h	/^#define TOOL_VERSION_ghc_pkg /;"	d
+TOOL_VERSION_ghc_pkg	haskell/.stack-work/ghci/e58c95ce/cabal_macros.h	/^#define TOOL_VERSION_ghc_pkg /;"	d
+TOOL_VERSION_haddock	haskell/.stack-work/ghci/14b60bd6/cabal_macros.h	/^#define TOOL_VERSION_haddock /;"	d
+TOOL_VERSION_haddock	haskell/.stack-work/ghci/1d9c49ce/cabal_macros.h	/^#define TOOL_VERSION_haddock /;"	d
+TOOL_VERSION_haddock	haskell/.stack-work/ghci/25764501/cabal_macros.h	/^#define TOOL_VERSION_haddock /;"	d
+TOOL_VERSION_haddock	haskell/.stack-work/ghci/353d26f7/cabal_macros.h	/^#define TOOL_VERSION_haddock /;"	d
+TOOL_VERSION_haddock	haskell/.stack-work/ghci/3dfd4971/cabal_macros.h	/^#define TOOL_VERSION_haddock /;"	d
+TOOL_VERSION_haddock	haskell/.stack-work/ghci/41174174/cabal_macros.h	/^#define TOOL_VERSION_haddock /;"	d
+TOOL_VERSION_haddock	haskell/.stack-work/ghci/474f60f6/cabal_macros.h	/^#define TOOL_VERSION_haddock /;"	d
+TOOL_VERSION_haddock	haskell/.stack-work/ghci/56556b86/cabal_macros.h	/^#define TOOL_VERSION_haddock /;"	d
+TOOL_VERSION_haddock	haskell/.stack-work/ghci/5b327582/cabal_macros.h	/^#define TOOL_VERSION_haddock /;"	d
+TOOL_VERSION_haddock	haskell/.stack-work/ghci/73acc961/cabal_macros.h	/^#define TOOL_VERSION_haddock /;"	d
+TOOL_VERSION_haddock	haskell/.stack-work/ghci/7e0984c9/cabal_macros.h	/^#define TOOL_VERSION_haddock /;"	d
+TOOL_VERSION_haddock	haskell/.stack-work/ghci/8eb09d1b/cabal_macros.h	/^#define TOOL_VERSION_haddock /;"	d
+TOOL_VERSION_haddock	haskell/.stack-work/ghci/9397ed07/cabal_macros.h	/^#define TOOL_VERSION_haddock /;"	d
+TOOL_VERSION_haddock	haskell/.stack-work/ghci/9837103d/cabal_macros.h	/^#define TOOL_VERSION_haddock /;"	d
+TOOL_VERSION_haddock	haskell/.stack-work/ghci/aaa6b315/cabal_macros.h	/^#define TOOL_VERSION_haddock /;"	d
+TOOL_VERSION_haddock	haskell/.stack-work/ghci/ab975605/cabal_macros.h	/^#define TOOL_VERSION_haddock /;"	d
+TOOL_VERSION_haddock	haskell/.stack-work/ghci/beb81bf5/cabal_macros.h	/^#define TOOL_VERSION_haddock /;"	d
+TOOL_VERSION_haddock	haskell/.stack-work/ghci/c02f9ab2/cabal_macros.h	/^#define TOOL_VERSION_haddock /;"	d
+TOOL_VERSION_haddock	haskell/.stack-work/ghci/cd427bdd/cabal_macros.h	/^#define TOOL_VERSION_haddock /;"	d
+TOOL_VERSION_haddock	haskell/.stack-work/ghci/d16e17c5/cabal_macros.h	/^#define TOOL_VERSION_haddock /;"	d
+TOOL_VERSION_haddock	haskell/.stack-work/ghci/e58c95ce/cabal_macros.h	/^#define TOOL_VERSION_haddock /;"	d
+TOOL_VERSION_happy	haskell/.stack-work/ghci/14b60bd6/cabal_macros.h	/^#define TOOL_VERSION_happy /;"	d
+TOOL_VERSION_happy	haskell/.stack-work/ghci/1d9c49ce/cabal_macros.h	/^#define TOOL_VERSION_happy /;"	d
+TOOL_VERSION_happy	haskell/.stack-work/ghci/25764501/cabal_macros.h	/^#define TOOL_VERSION_happy /;"	d
+TOOL_VERSION_happy	haskell/.stack-work/ghci/353d26f7/cabal_macros.h	/^#define TOOL_VERSION_happy /;"	d
+TOOL_VERSION_happy	haskell/.stack-work/ghci/3dfd4971/cabal_macros.h	/^#define TOOL_VERSION_happy /;"	d
+TOOL_VERSION_happy	haskell/.stack-work/ghci/41174174/cabal_macros.h	/^#define TOOL_VERSION_happy /;"	d
+TOOL_VERSION_happy	haskell/.stack-work/ghci/474f60f6/cabal_macros.h	/^#define TOOL_VERSION_happy /;"	d
+TOOL_VERSION_happy	haskell/.stack-work/ghci/56556b86/cabal_macros.h	/^#define TOOL_VERSION_happy /;"	d
+TOOL_VERSION_happy	haskell/.stack-work/ghci/5b327582/cabal_macros.h	/^#define TOOL_VERSION_happy /;"	d
+TOOL_VERSION_happy	haskell/.stack-work/ghci/73acc961/cabal_macros.h	/^#define TOOL_VERSION_happy /;"	d
+TOOL_VERSION_happy	haskell/.stack-work/ghci/7e0984c9/cabal_macros.h	/^#define TOOL_VERSION_happy /;"	d
+TOOL_VERSION_happy	haskell/.stack-work/ghci/8eb09d1b/cabal_macros.h	/^#define TOOL_VERSION_happy /;"	d
+TOOL_VERSION_happy	haskell/.stack-work/ghci/9397ed07/cabal_macros.h	/^#define TOOL_VERSION_happy /;"	d
+TOOL_VERSION_happy	haskell/.stack-work/ghci/9837103d/cabal_macros.h	/^#define TOOL_VERSION_happy /;"	d
+TOOL_VERSION_happy	haskell/.stack-work/ghci/aaa6b315/cabal_macros.h	/^#define TOOL_VERSION_happy /;"	d
+TOOL_VERSION_happy	haskell/.stack-work/ghci/ab975605/cabal_macros.h	/^#define TOOL_VERSION_happy /;"	d
+TOOL_VERSION_happy	haskell/.stack-work/ghci/beb81bf5/cabal_macros.h	/^#define TOOL_VERSION_happy /;"	d
+TOOL_VERSION_happy	haskell/.stack-work/ghci/c02f9ab2/cabal_macros.h	/^#define TOOL_VERSION_happy /;"	d
+TOOL_VERSION_happy	haskell/.stack-work/ghci/cd427bdd/cabal_macros.h	/^#define TOOL_VERSION_happy /;"	d
+TOOL_VERSION_happy	haskell/.stack-work/ghci/d16e17c5/cabal_macros.h	/^#define TOOL_VERSION_happy /;"	d
+TOOL_VERSION_happy	haskell/.stack-work/ghci/e58c95ce/cabal_macros.h	/^#define TOOL_VERSION_happy /;"	d
+TOOL_VERSION_hpc	haskell/.stack-work/ghci/14b60bd6/cabal_macros.h	/^#define TOOL_VERSION_hpc /;"	d
+TOOL_VERSION_hpc	haskell/.stack-work/ghci/1d9c49ce/cabal_macros.h	/^#define TOOL_VERSION_hpc /;"	d
+TOOL_VERSION_hpc	haskell/.stack-work/ghci/25764501/cabal_macros.h	/^#define TOOL_VERSION_hpc /;"	d
+TOOL_VERSION_hpc	haskell/.stack-work/ghci/353d26f7/cabal_macros.h	/^#define TOOL_VERSION_hpc /;"	d
+TOOL_VERSION_hpc	haskell/.stack-work/ghci/3dfd4971/cabal_macros.h	/^#define TOOL_VERSION_hpc /;"	d
+TOOL_VERSION_hpc	haskell/.stack-work/ghci/41174174/cabal_macros.h	/^#define TOOL_VERSION_hpc /;"	d
+TOOL_VERSION_hpc	haskell/.stack-work/ghci/474f60f6/cabal_macros.h	/^#define TOOL_VERSION_hpc /;"	d
+TOOL_VERSION_hpc	haskell/.stack-work/ghci/56556b86/cabal_macros.h	/^#define TOOL_VERSION_hpc /;"	d
+TOOL_VERSION_hpc	haskell/.stack-work/ghci/5b327582/cabal_macros.h	/^#define TOOL_VERSION_hpc /;"	d
+TOOL_VERSION_hpc	haskell/.stack-work/ghci/73acc961/cabal_macros.h	/^#define TOOL_VERSION_hpc /;"	d
+TOOL_VERSION_hpc	haskell/.stack-work/ghci/7e0984c9/cabal_macros.h	/^#define TOOL_VERSION_hpc /;"	d
+TOOL_VERSION_hpc	haskell/.stack-work/ghci/8eb09d1b/cabal_macros.h	/^#define TOOL_VERSION_hpc /;"	d
+TOOL_VERSION_hpc	haskell/.stack-work/ghci/9397ed07/cabal_macros.h	/^#define TOOL_VERSION_hpc /;"	d
+TOOL_VERSION_hpc	haskell/.stack-work/ghci/9837103d/cabal_macros.h	/^#define TOOL_VERSION_hpc /;"	d
+TOOL_VERSION_hpc	haskell/.stack-work/ghci/aaa6b315/cabal_macros.h	/^#define TOOL_VERSION_hpc /;"	d
+TOOL_VERSION_hpc	haskell/.stack-work/ghci/ab975605/cabal_macros.h	/^#define TOOL_VERSION_hpc /;"	d
+TOOL_VERSION_hpc	haskell/.stack-work/ghci/beb81bf5/cabal_macros.h	/^#define TOOL_VERSION_hpc /;"	d
+TOOL_VERSION_hpc	haskell/.stack-work/ghci/c02f9ab2/cabal_macros.h	/^#define TOOL_VERSION_hpc /;"	d
+TOOL_VERSION_hpc	haskell/.stack-work/ghci/cd427bdd/cabal_macros.h	/^#define TOOL_VERSION_hpc /;"	d
+TOOL_VERSION_hpc	haskell/.stack-work/ghci/d16e17c5/cabal_macros.h	/^#define TOOL_VERSION_hpc /;"	d
+TOOL_VERSION_hpc	haskell/.stack-work/ghci/e58c95ce/cabal_macros.h	/^#define TOOL_VERSION_hpc /;"	d
+TOOL_VERSION_hsc2hs	haskell/.stack-work/ghci/14b60bd6/cabal_macros.h	/^#define TOOL_VERSION_hsc2hs /;"	d
+TOOL_VERSION_hsc2hs	haskell/.stack-work/ghci/1d9c49ce/cabal_macros.h	/^#define TOOL_VERSION_hsc2hs /;"	d
+TOOL_VERSION_hsc2hs	haskell/.stack-work/ghci/25764501/cabal_macros.h	/^#define TOOL_VERSION_hsc2hs /;"	d
+TOOL_VERSION_hsc2hs	haskell/.stack-work/ghci/353d26f7/cabal_macros.h	/^#define TOOL_VERSION_hsc2hs /;"	d
+TOOL_VERSION_hsc2hs	haskell/.stack-work/ghci/3dfd4971/cabal_macros.h	/^#define TOOL_VERSION_hsc2hs /;"	d
+TOOL_VERSION_hsc2hs	haskell/.stack-work/ghci/41174174/cabal_macros.h	/^#define TOOL_VERSION_hsc2hs /;"	d
+TOOL_VERSION_hsc2hs	haskell/.stack-work/ghci/474f60f6/cabal_macros.h	/^#define TOOL_VERSION_hsc2hs /;"	d
+TOOL_VERSION_hsc2hs	haskell/.stack-work/ghci/56556b86/cabal_macros.h	/^#define TOOL_VERSION_hsc2hs /;"	d
+TOOL_VERSION_hsc2hs	haskell/.stack-work/ghci/5b327582/cabal_macros.h	/^#define TOOL_VERSION_hsc2hs /;"	d
+TOOL_VERSION_hsc2hs	haskell/.stack-work/ghci/73acc961/cabal_macros.h	/^#define TOOL_VERSION_hsc2hs /;"	d
+TOOL_VERSION_hsc2hs	haskell/.stack-work/ghci/7e0984c9/cabal_macros.h	/^#define TOOL_VERSION_hsc2hs /;"	d
+TOOL_VERSION_hsc2hs	haskell/.stack-work/ghci/8eb09d1b/cabal_macros.h	/^#define TOOL_VERSION_hsc2hs /;"	d
+TOOL_VERSION_hsc2hs	haskell/.stack-work/ghci/9397ed07/cabal_macros.h	/^#define TOOL_VERSION_hsc2hs /;"	d
+TOOL_VERSION_hsc2hs	haskell/.stack-work/ghci/9837103d/cabal_macros.h	/^#define TOOL_VERSION_hsc2hs /;"	d
+TOOL_VERSION_hsc2hs	haskell/.stack-work/ghci/aaa6b315/cabal_macros.h	/^#define TOOL_VERSION_hsc2hs /;"	d
+TOOL_VERSION_hsc2hs	haskell/.stack-work/ghci/ab975605/cabal_macros.h	/^#define TOOL_VERSION_hsc2hs /;"	d
+TOOL_VERSION_hsc2hs	haskell/.stack-work/ghci/beb81bf5/cabal_macros.h	/^#define TOOL_VERSION_hsc2hs /;"	d
+TOOL_VERSION_hsc2hs	haskell/.stack-work/ghci/c02f9ab2/cabal_macros.h	/^#define TOOL_VERSION_hsc2hs /;"	d
+TOOL_VERSION_hsc2hs	haskell/.stack-work/ghci/cd427bdd/cabal_macros.h	/^#define TOOL_VERSION_hsc2hs /;"	d
+TOOL_VERSION_hsc2hs	haskell/.stack-work/ghci/d16e17c5/cabal_macros.h	/^#define TOOL_VERSION_hsc2hs /;"	d
+TOOL_VERSION_hsc2hs	haskell/.stack-work/ghci/e58c95ce/cabal_macros.h	/^#define TOOL_VERSION_hsc2hs /;"	d
+TOOL_VERSION_hscolour	haskell/.stack-work/ghci/14b60bd6/cabal_macros.h	/^#define TOOL_VERSION_hscolour /;"	d
+TOOL_VERSION_hscolour	haskell/.stack-work/ghci/1d9c49ce/cabal_macros.h	/^#define TOOL_VERSION_hscolour /;"	d
+TOOL_VERSION_hscolour	haskell/.stack-work/ghci/25764501/cabal_macros.h	/^#define TOOL_VERSION_hscolour /;"	d
+TOOL_VERSION_hscolour	haskell/.stack-work/ghci/353d26f7/cabal_macros.h	/^#define TOOL_VERSION_hscolour /;"	d
+TOOL_VERSION_hscolour	haskell/.stack-work/ghci/3dfd4971/cabal_macros.h	/^#define TOOL_VERSION_hscolour /;"	d
+TOOL_VERSION_hscolour	haskell/.stack-work/ghci/41174174/cabal_macros.h	/^#define TOOL_VERSION_hscolour /;"	d
+TOOL_VERSION_hscolour	haskell/.stack-work/ghci/474f60f6/cabal_macros.h	/^#define TOOL_VERSION_hscolour /;"	d
+TOOL_VERSION_hscolour	haskell/.stack-work/ghci/56556b86/cabal_macros.h	/^#define TOOL_VERSION_hscolour /;"	d
+TOOL_VERSION_hscolour	haskell/.stack-work/ghci/5b327582/cabal_macros.h	/^#define TOOL_VERSION_hscolour /;"	d
+TOOL_VERSION_hscolour	haskell/.stack-work/ghci/73acc961/cabal_macros.h	/^#define TOOL_VERSION_hscolour /;"	d
+TOOL_VERSION_hscolour	haskell/.stack-work/ghci/7e0984c9/cabal_macros.h	/^#define TOOL_VERSION_hscolour /;"	d
+TOOL_VERSION_hscolour	haskell/.stack-work/ghci/8eb09d1b/cabal_macros.h	/^#define TOOL_VERSION_hscolour /;"	d
+TOOL_VERSION_hscolour	haskell/.stack-work/ghci/9397ed07/cabal_macros.h	/^#define TOOL_VERSION_hscolour /;"	d
+TOOL_VERSION_hscolour	haskell/.stack-work/ghci/9837103d/cabal_macros.h	/^#define TOOL_VERSION_hscolour /;"	d
+TOOL_VERSION_hscolour	haskell/.stack-work/ghci/aaa6b315/cabal_macros.h	/^#define TOOL_VERSION_hscolour /;"	d
+TOOL_VERSION_hscolour	haskell/.stack-work/ghci/ab975605/cabal_macros.h	/^#define TOOL_VERSION_hscolour /;"	d
+TOOL_VERSION_hscolour	haskell/.stack-work/ghci/beb81bf5/cabal_macros.h	/^#define TOOL_VERSION_hscolour /;"	d
+TOOL_VERSION_hscolour	haskell/.stack-work/ghci/c02f9ab2/cabal_macros.h	/^#define TOOL_VERSION_hscolour /;"	d
+TOOL_VERSION_hscolour	haskell/.stack-work/ghci/cd427bdd/cabal_macros.h	/^#define TOOL_VERSION_hscolour /;"	d
+TOOL_VERSION_hscolour	haskell/.stack-work/ghci/d16e17c5/cabal_macros.h	/^#define TOOL_VERSION_hscolour /;"	d
+TOOL_VERSION_hscolour	haskell/.stack-work/ghci/e58c95ce/cabal_macros.h	/^#define TOOL_VERSION_hscolour /;"	d
+TOOL_VERSION_pkg_config	haskell/.stack-work/ghci/14b60bd6/cabal_macros.h	/^#define TOOL_VERSION_pkg_config /;"	d
+TOOL_VERSION_pkg_config	haskell/.stack-work/ghci/1d9c49ce/cabal_macros.h	/^#define TOOL_VERSION_pkg_config /;"	d
+TOOL_VERSION_pkg_config	haskell/.stack-work/ghci/25764501/cabal_macros.h	/^#define TOOL_VERSION_pkg_config /;"	d
+TOOL_VERSION_pkg_config	haskell/.stack-work/ghci/353d26f7/cabal_macros.h	/^#define TOOL_VERSION_pkg_config /;"	d
+TOOL_VERSION_pkg_config	haskell/.stack-work/ghci/3dfd4971/cabal_macros.h	/^#define TOOL_VERSION_pkg_config /;"	d
+TOOL_VERSION_pkg_config	haskell/.stack-work/ghci/41174174/cabal_macros.h	/^#define TOOL_VERSION_pkg_config /;"	d
+TOOL_VERSION_pkg_config	haskell/.stack-work/ghci/474f60f6/cabal_macros.h	/^#define TOOL_VERSION_pkg_config /;"	d
+TOOL_VERSION_pkg_config	haskell/.stack-work/ghci/56556b86/cabal_macros.h	/^#define TOOL_VERSION_pkg_config /;"	d
+TOOL_VERSION_pkg_config	haskell/.stack-work/ghci/5b327582/cabal_macros.h	/^#define TOOL_VERSION_pkg_config /;"	d
+TOOL_VERSION_pkg_config	haskell/.stack-work/ghci/73acc961/cabal_macros.h	/^#define TOOL_VERSION_pkg_config /;"	d
+TOOL_VERSION_pkg_config	haskell/.stack-work/ghci/7e0984c9/cabal_macros.h	/^#define TOOL_VERSION_pkg_config /;"	d
+TOOL_VERSION_pkg_config	haskell/.stack-work/ghci/8eb09d1b/cabal_macros.h	/^#define TOOL_VERSION_pkg_config /;"	d
+TOOL_VERSION_pkg_config	haskell/.stack-work/ghci/9397ed07/cabal_macros.h	/^#define TOOL_VERSION_pkg_config /;"	d
+TOOL_VERSION_pkg_config	haskell/.stack-work/ghci/9837103d/cabal_macros.h	/^#define TOOL_VERSION_pkg_config /;"	d
+TOOL_VERSION_pkg_config	haskell/.stack-work/ghci/aaa6b315/cabal_macros.h	/^#define TOOL_VERSION_pkg_config /;"	d
+TOOL_VERSION_pkg_config	haskell/.stack-work/ghci/ab975605/cabal_macros.h	/^#define TOOL_VERSION_pkg_config /;"	d
+TOOL_VERSION_pkg_config	haskell/.stack-work/ghci/beb81bf5/cabal_macros.h	/^#define TOOL_VERSION_pkg_config /;"	d
+TOOL_VERSION_pkg_config	haskell/.stack-work/ghci/c02f9ab2/cabal_macros.h	/^#define TOOL_VERSION_pkg_config /;"	d
+TOOL_VERSION_pkg_config	haskell/.stack-work/ghci/cd427bdd/cabal_macros.h	/^#define TOOL_VERSION_pkg_config /;"	d
+TOOL_VERSION_pkg_config	haskell/.stack-work/ghci/d16e17c5/cabal_macros.h	/^#define TOOL_VERSION_pkg_config /;"	d
+TOOL_VERSION_pkg_config	haskell/.stack-work/ghci/e58c95ce/cabal_macros.h	/^#define TOOL_VERSION_pkg_config /;"	d
+TOOL_VERSION_runghc	haskell/.stack-work/ghci/14b60bd6/cabal_macros.h	/^#define TOOL_VERSION_runghc /;"	d
+TOOL_VERSION_runghc	haskell/.stack-work/ghci/1d9c49ce/cabal_macros.h	/^#define TOOL_VERSION_runghc /;"	d
+TOOL_VERSION_runghc	haskell/.stack-work/ghci/25764501/cabal_macros.h	/^#define TOOL_VERSION_runghc /;"	d
+TOOL_VERSION_runghc	haskell/.stack-work/ghci/353d26f7/cabal_macros.h	/^#define TOOL_VERSION_runghc /;"	d
+TOOL_VERSION_runghc	haskell/.stack-work/ghci/3dfd4971/cabal_macros.h	/^#define TOOL_VERSION_runghc /;"	d
+TOOL_VERSION_runghc	haskell/.stack-work/ghci/41174174/cabal_macros.h	/^#define TOOL_VERSION_runghc /;"	d
+TOOL_VERSION_runghc	haskell/.stack-work/ghci/474f60f6/cabal_macros.h	/^#define TOOL_VERSION_runghc /;"	d
+TOOL_VERSION_runghc	haskell/.stack-work/ghci/56556b86/cabal_macros.h	/^#define TOOL_VERSION_runghc /;"	d
+TOOL_VERSION_runghc	haskell/.stack-work/ghci/5b327582/cabal_macros.h	/^#define TOOL_VERSION_runghc /;"	d
+TOOL_VERSION_runghc	haskell/.stack-work/ghci/73acc961/cabal_macros.h	/^#define TOOL_VERSION_runghc /;"	d
+TOOL_VERSION_runghc	haskell/.stack-work/ghci/7e0984c9/cabal_macros.h	/^#define TOOL_VERSION_runghc /;"	d
+TOOL_VERSION_runghc	haskell/.stack-work/ghci/8eb09d1b/cabal_macros.h	/^#define TOOL_VERSION_runghc /;"	d
+TOOL_VERSION_runghc	haskell/.stack-work/ghci/9397ed07/cabal_macros.h	/^#define TOOL_VERSION_runghc /;"	d
+TOOL_VERSION_runghc	haskell/.stack-work/ghci/9837103d/cabal_macros.h	/^#define TOOL_VERSION_runghc /;"	d
+TOOL_VERSION_runghc	haskell/.stack-work/ghci/aaa6b315/cabal_macros.h	/^#define TOOL_VERSION_runghc /;"	d
+TOOL_VERSION_runghc	haskell/.stack-work/ghci/ab975605/cabal_macros.h	/^#define TOOL_VERSION_runghc /;"	d
+TOOL_VERSION_runghc	haskell/.stack-work/ghci/beb81bf5/cabal_macros.h	/^#define TOOL_VERSION_runghc /;"	d
+TOOL_VERSION_runghc	haskell/.stack-work/ghci/c02f9ab2/cabal_macros.h	/^#define TOOL_VERSION_runghc /;"	d
+TOOL_VERSION_runghc	haskell/.stack-work/ghci/cd427bdd/cabal_macros.h	/^#define TOOL_VERSION_runghc /;"	d
+TOOL_VERSION_runghc	haskell/.stack-work/ghci/d16e17c5/cabal_macros.h	/^#define TOOL_VERSION_runghc /;"	d
+TOOL_VERSION_runghc	haskell/.stack-work/ghci/e58c95ce/cabal_macros.h	/^#define TOOL_VERSION_runghc /;"	d
+VERSION_aoc2018	haskell/.stack-work/ghci/14b60bd6/cabal_macros.h	/^#define VERSION_aoc2018 /;"	d
+VERSION_aoc2018	haskell/.stack-work/ghci/1d9c49ce/cabal_macros.h	/^#define VERSION_aoc2018 /;"	d
+VERSION_aoc2018	haskell/.stack-work/ghci/25764501/cabal_macros.h	/^#define VERSION_aoc2018 /;"	d
+VERSION_aoc2018	haskell/.stack-work/ghci/353d26f7/cabal_macros.h	/^#define VERSION_aoc2018 /;"	d
+VERSION_aoc2018	haskell/.stack-work/ghci/3dfd4971/cabal_macros.h	/^#define VERSION_aoc2018 /;"	d
+VERSION_aoc2018	haskell/.stack-work/ghci/41174174/cabal_macros.h	/^#define VERSION_aoc2018 /;"	d
+VERSION_aoc2018	haskell/.stack-work/ghci/474f60f6/cabal_macros.h	/^#define VERSION_aoc2018 /;"	d
+VERSION_aoc2018	haskell/.stack-work/ghci/56556b86/cabal_macros.h	/^#define VERSION_aoc2018 /;"	d
+VERSION_aoc2018	haskell/.stack-work/ghci/5b327582/cabal_macros.h	/^#define VERSION_aoc2018 /;"	d
+VERSION_aoc2018	haskell/.stack-work/ghci/73acc961/cabal_macros.h	/^#define VERSION_aoc2018 /;"	d
+VERSION_aoc2018	haskell/.stack-work/ghci/7e0984c9/cabal_macros.h	/^#define VERSION_aoc2018 /;"	d
+VERSION_aoc2018	haskell/.stack-work/ghci/8eb09d1b/cabal_macros.h	/^#define VERSION_aoc2018 /;"	d
+VERSION_aoc2018	haskell/.stack-work/ghci/9397ed07/cabal_macros.h	/^#define VERSION_aoc2018 /;"	d
+VERSION_aoc2018	haskell/.stack-work/ghci/9837103d/cabal_macros.h	/^#define VERSION_aoc2018 /;"	d
+VERSION_aoc2018	haskell/.stack-work/ghci/aaa6b315/cabal_macros.h	/^#define VERSION_aoc2018 /;"	d
+VERSION_aoc2018	haskell/.stack-work/ghci/ab975605/cabal_macros.h	/^#define VERSION_aoc2018 /;"	d
+VERSION_aoc2018	haskell/.stack-work/ghci/beb81bf5/cabal_macros.h	/^#define VERSION_aoc2018 /;"	d
+VERSION_aoc2018	haskell/.stack-work/ghci/c02f9ab2/cabal_macros.h	/^#define VERSION_aoc2018 /;"	d
+VERSION_aoc2018	haskell/.stack-work/ghci/cd427bdd/cabal_macros.h	/^#define VERSION_aoc2018 /;"	d
+VERSION_aoc2018	haskell/.stack-work/ghci/d16e17c5/cabal_macros.h	/^#define VERSION_aoc2018 /;"	d
+VERSION_aoc2018	haskell/.stack-work/ghci/e58c95ce/cabal_macros.h	/^#define VERSION_aoc2018 /;"	d
+VERSION_base	haskell/.stack-work/ghci/14b60bd6/cabal_macros.h	/^#define VERSION_base /;"	d
+VERSION_base	haskell/.stack-work/ghci/1d9c49ce/cabal_macros.h	/^#define VERSION_base /;"	d
+VERSION_base	haskell/.stack-work/ghci/25764501/cabal_macros.h	/^#define VERSION_base /;"	d
+VERSION_base	haskell/.stack-work/ghci/353d26f7/cabal_macros.h	/^#define VERSION_base /;"	d
+VERSION_base	haskell/.stack-work/ghci/3dfd4971/cabal_macros.h	/^#define VERSION_base /;"	d
+VERSION_base	haskell/.stack-work/ghci/41174174/cabal_macros.h	/^#define VERSION_base /;"	d
+VERSION_base	haskell/.stack-work/ghci/474f60f6/cabal_macros.h	/^#define VERSION_base /;"	d
+VERSION_base	haskell/.stack-work/ghci/56556b86/cabal_macros.h	/^#define VERSION_base /;"	d
+VERSION_base	haskell/.stack-work/ghci/5b327582/cabal_macros.h	/^#define VERSION_base /;"	d
+VERSION_base	haskell/.stack-work/ghci/73acc961/cabal_macros.h	/^#define VERSION_base /;"	d
+VERSION_base	haskell/.stack-work/ghci/7e0984c9/cabal_macros.h	/^#define VERSION_base /;"	d
+VERSION_base	haskell/.stack-work/ghci/8eb09d1b/cabal_macros.h	/^#define VERSION_base /;"	d
+VERSION_base	haskell/.stack-work/ghci/9397ed07/cabal_macros.h	/^#define VERSION_base /;"	d
+VERSION_base	haskell/.stack-work/ghci/9837103d/cabal_macros.h	/^#define VERSION_base /;"	d
+VERSION_base	haskell/.stack-work/ghci/aaa6b315/cabal_macros.h	/^#define VERSION_base /;"	d
+VERSION_base	haskell/.stack-work/ghci/ab975605/cabal_macros.h	/^#define VERSION_base /;"	d
+VERSION_base	haskell/.stack-work/ghci/beb81bf5/cabal_macros.h	/^#define VERSION_base /;"	d
+VERSION_base	haskell/.stack-work/ghci/c02f9ab2/cabal_macros.h	/^#define VERSION_base /;"	d
+VERSION_base	haskell/.stack-work/ghci/cd427bdd/cabal_macros.h	/^#define VERSION_base /;"	d
+VERSION_base	haskell/.stack-work/ghci/d16e17c5/cabal_macros.h	/^#define VERSION_base /;"	d
+VERSION_base	haskell/.stack-work/ghci/e58c95ce/cabal_macros.h	/^#define VERSION_base /;"	d
+VERSION_containers	haskell/.stack-work/ghci/1d9c49ce/cabal_macros.h	/^#define VERSION_containers /;"	d
+VERSION_containers	haskell/.stack-work/ghci/353d26f7/cabal_macros.h	/^#define VERSION_containers /;"	d
+VERSION_containers	haskell/.stack-work/ghci/3dfd4971/cabal_macros.h	/^#define VERSION_containers /;"	d
+VERSION_containers	haskell/.stack-work/ghci/8eb09d1b/cabal_macros.h	/^#define VERSION_containers /;"	d
+VERSION_containers	haskell/.stack-work/ghci/ab975605/cabal_macros.h	/^#define VERSION_containers /;"	d
+VERSION_containers	haskell/.stack-work/ghci/cd427bdd/cabal_macros.h	/^#define VERSION_containers /;"	d
+VERSION_containers	haskell/.stack-work/ghci/d16e17c5/cabal_macros.h	/^#define VERSION_containers /;"	d
+VERSION_optparse_applicative	haskell/.stack-work/ghci/1d9c49ce/cabal_macros.h	/^#define VERSION_optparse_applicative /;"	d
+VERSION_optparse_applicative	haskell/.stack-work/ghci/25764501/cabal_macros.h	/^#define VERSION_optparse_applicative /;"	d
+VERSION_optparse_applicative	haskell/.stack-work/ghci/353d26f7/cabal_macros.h	/^#define VERSION_optparse_applicative /;"	d
+VERSION_optparse_applicative	haskell/.stack-work/ghci/3dfd4971/cabal_macros.h	/^#define VERSION_optparse_applicative /;"	d
+VERSION_optparse_applicative	haskell/.stack-work/ghci/5b327582/cabal_macros.h	/^#define VERSION_optparse_applicative /;"	d
+VERSION_optparse_applicative	haskell/.stack-work/ghci/7e0984c9/cabal_macros.h	/^#define VERSION_optparse_applicative /;"	d
+VERSION_optparse_applicative	haskell/.stack-work/ghci/8eb09d1b/cabal_macros.h	/^#define VERSION_optparse_applicative /;"	d
+VERSION_optparse_applicative	haskell/.stack-work/ghci/9837103d/cabal_macros.h	/^#define VERSION_optparse_applicative /;"	d
+VERSION_optparse_applicative	haskell/.stack-work/ghci/ab975605/cabal_macros.h	/^#define VERSION_optparse_applicative /;"	d
+VERSION_optparse_applicative	haskell/.stack-work/ghci/beb81bf5/cabal_macros.h	/^#define VERSION_optparse_applicative /;"	d
+VERSION_optparse_applicative	haskell/.stack-work/ghci/c02f9ab2/cabal_macros.h	/^#define VERSION_optparse_applicative /;"	d
+VERSION_optparse_applicative	haskell/.stack-work/ghci/cd427bdd/cabal_macros.h	/^#define VERSION_optparse_applicative /;"	d
+VERSION_optparse_applicative	haskell/.stack-work/ghci/d16e17c5/cabal_macros.h	/^#define VERSION_optparse_applicative /;"	d
+VERSION_optparse_applicative	haskell/.stack-work/ghci/e58c95ce/cabal_macros.h	/^#define VERSION_optparse_applicative /;"	d
+VERSION_parsers	haskell/.stack-work/ghci/8eb09d1b/cabal_macros.h	/^#define VERSION_parsers /;"	d
+VERSION_parsers	haskell/.stack-work/ghci/ab975605/cabal_macros.h	/^#define VERSION_parsers /;"	d
+VERSION_safe	haskell/.stack-work/ghci/1d9c49ce/cabal_macros.h	/^#define VERSION_safe /;"	d
+VERSION_safe_exceptions	haskell/.stack-work/ghci/41174174/cabal_macros.h	/^#define VERSION_safe_exceptions /;"	d
+VERSION_safe_exceptions	haskell/.stack-work/ghci/474f60f6/cabal_macros.h	/^#define VERSION_safe_exceptions /;"	d
+VERSION_safe_exceptions	haskell/.stack-work/ghci/56556b86/cabal_macros.h	/^#define VERSION_safe_exceptions /;"	d
+VERSION_safe_exceptions	haskell/.stack-work/ghci/73acc961/cabal_macros.h	/^#define VERSION_safe_exceptions /;"	d
+VERSION_safe_exceptions	haskell/.stack-work/ghci/aaa6b315/cabal_macros.h	/^#define VERSION_safe_exceptions /;"	d
+VERSION_safe_exceptions	haskell/.stack-work/ghci/c02f9ab2/cabal_macros.h	/^#define VERSION_safe_exceptions /;"	d
+VERSION_text	haskell/.stack-work/ghci/1d9c49ce/cabal_macros.h	/^#define VERSION_text /;"	d
+VERSION_text	haskell/.stack-work/ghci/25764501/cabal_macros.h	/^#define VERSION_text /;"	d
+VERSION_text	haskell/.stack-work/ghci/353d26f7/cabal_macros.h	/^#define VERSION_text /;"	d
+VERSION_text	haskell/.stack-work/ghci/3dfd4971/cabal_macros.h	/^#define VERSION_text /;"	d
+VERSION_text	haskell/.stack-work/ghci/474f60f6/cabal_macros.h	/^#define VERSION_text /;"	d
+VERSION_text	haskell/.stack-work/ghci/56556b86/cabal_macros.h	/^#define VERSION_text /;"	d
+VERSION_text	haskell/.stack-work/ghci/5b327582/cabal_macros.h	/^#define VERSION_text /;"	d
+VERSION_text	haskell/.stack-work/ghci/73acc961/cabal_macros.h	/^#define VERSION_text /;"	d
+VERSION_text	haskell/.stack-work/ghci/7e0984c9/cabal_macros.h	/^#define VERSION_text /;"	d
+VERSION_text	haskell/.stack-work/ghci/8eb09d1b/cabal_macros.h	/^#define VERSION_text /;"	d
+VERSION_text	haskell/.stack-work/ghci/9837103d/cabal_macros.h	/^#define VERSION_text /;"	d
+VERSION_text	haskell/.stack-work/ghci/ab975605/cabal_macros.h	/^#define VERSION_text /;"	d
+VERSION_text	haskell/.stack-work/ghci/beb81bf5/cabal_macros.h	/^#define VERSION_text /;"	d
+VERSION_text	haskell/.stack-work/ghci/c02f9ab2/cabal_macros.h	/^#define VERSION_text /;"	d
+VERSION_text	haskell/.stack-work/ghci/cd427bdd/cabal_macros.h	/^#define VERSION_text /;"	d
+VERSION_text	haskell/.stack-work/ghci/d16e17c5/cabal_macros.h	/^#define VERSION_text /;"	d
+VERSION_text	haskell/.stack-work/ghci/e58c95ce/cabal_macros.h	/^#define VERSION_text /;"	d
+VERSION_trifecta	haskell/.stack-work/ghci/8eb09d1b/cabal_macros.h	/^#define VERSION_trifecta /;"	d
+VERSION_trifecta	haskell/.stack-work/ghci/ab975605/cabal_macros.h	/^#define VERSION_trifecta /;"	d
+VERSION_trifecta	haskell/.stack-work/ghci/d16e17c5/cabal_macros.h	/^#define VERSION_trifecta /;"	d
+VERSION_unique	haskell/.stack-work/ghci/cd427bdd/cabal_macros.h	/^#define VERSION_unique /;"	d
+abi	haskell/.stack-work/install/x86_64-osx/lts-12.20/8.4.4/pkgdb/aoc2018-0.1.0.0-Ll1k61wffz29iy6OuFVK3Y.conf	/^abi: 4fecd0d89061122d2319c7e6cffe0ea6$/;"	k
+author	haskell/.stack-work/install/x86_64-osx/lts-12.20/8.4.4/pkgdb/aoc2018-0.1.0.0-Ll1k61wffz29iy6OuFVK3Y.conf	/^author: Florian Beeres$/;"	k
+copyright	haskell/.stack-work/install/x86_64-osx/lts-12.20/8.4.4/pkgdb/aoc2018-0.1.0.0-Ll1k61wffz29iy6OuFVK3Y.conf	/^copyright: GNU$/;"	k
+depends	haskell/.stack-work/install/x86_64-osx/lts-12.20/8.4.4/pkgdb/aoc2018-0.1.0.0-Ll1k61wffz29iy6OuFVK3Y.conf	/^abi-depends: base-4.11.1.0=b368cab58fa51949d1638013a72f7adf$/;"	k
+depends	haskell/.stack-work/install/x86_64-osx/lts-12.20/8.4.4/pkgdb/aoc2018-0.1.0.0-Ll1k61wffz29iy6OuFVK3Y.conf	/^depends:$/;"	k
+description	haskell/.stack-work/install/x86_64-osx/lts-12.20/8.4.4/pkgdb/aoc2018-0.1.0.0-Ll1k61wffz29iy6OuFVK3Y.conf	/^description:$/;"	k
+dir	haskell/.stack-work/install/x86_64-osx/lts-12.20/8.4.4/pkgdb/aoc2018-0.1.0.0-Ll1k61wffz29iy6OuFVK3Y.conf	/^data-dir: \/Users\/yuuki\/private\/aoc2018\/haskell\/.stack-work\/install\/x86_64-osx\/lts-12.20/;"	k
+dirs	haskell/.stack-work/install/x86_64-osx/lts-12.20/8.4.4/pkgdb/aoc2018-0.1.0.0-Ll1k61wffz29iy6OuFVK3Y.conf	/^dynamic-library-dirs: \/Users\/yuuki\/private\/aoc2018\/haskell\/.stack-work\/install\/x86_64-os/;"	k
+dirs	haskell/.stack-work/install/x86_64-osx/lts-12.20/8.4.4/pkgdb/aoc2018-0.1.0.0-Ll1k61wffz29iy6OuFVK3Y.conf	/^import-dirs: \/Users\/yuuki\/private\/aoc2018\/haskell\/.stack-work\/install\/x86_64-osx\/lts-12/;"	k
+dirs	haskell/.stack-work/install/x86_64-osx/lts-12.20/8.4.4/pkgdb/aoc2018-0.1.0.0-Ll1k61wffz29iy6OuFVK3Y.conf	/^library-dirs: \/Users\/yuuki\/private\/aoc2018\/haskell\/.stack-work\/install\/x86_64-osx\/lts-1/;"	k
+exposed	haskell/.stack-work/install/x86_64-osx/lts-12.20/8.4.4/pkgdb/aoc2018-0.1.0.0-Ll1k61wffz29iy6OuFVK3Y.conf	/^exposed: True$/;"	k
+homepage	haskell/.stack-work/install/x86_64-osx/lts-12.20/8.4.4/pkgdb/aoc2018-0.1.0.0-Ll1k61wffz29iy6OuFVK3Y.conf	/^homepage: https:\/\/github.com\/cideM\/aoc2018#readme$/;"	k
+html	haskell/.stack-work/install/x86_64-osx/lts-12.20/8.4.4/pkgdb/aoc2018-0.1.0.0-Ll1k61wffz29iy6OuFVK3Y.conf	/^haddock-html: \/Users\/yuuki\/private\/aoc2018\/haskell\/.stack-work\/install\/x86_64-osx\/lts-1/;"	k
+id	haskell/.stack-work/install/x86_64-osx/lts-12.20/8.4.4/pkgdb/aoc2018-0.1.0.0-Ll1k61wffz29iy6OuFVK3Y.conf	/^id: aoc2018-0.1.0.0-Ll1k61wffz29iy6OuFVK3Y$/;"	k
+interfaces	haskell/.stack-work/install/x86_64-osx/lts-12.20/8.4.4/pkgdb/aoc2018-0.1.0.0-Ll1k61wffz29iy6OuFVK3Y.conf	/^haddock-interfaces: \/Users\/yuuki\/private\/aoc2018\/haskell\/.stack-work\/install\/x86_64-osx\//;"	k
+key	haskell/.stack-work/install/x86_64-osx/lts-12.20/8.4.4/pkgdb/aoc2018-0.1.0.0-Ll1k61wffz29iy6OuFVK3Y.conf	/^key: aoc2018-0.1.0.0-Ll1k61wffz29iy6OuFVK3Y$/;"	k
+libraries	haskell/.stack-work/install/x86_64-osx/lts-12.20/8.4.4/pkgdb/aoc2018-0.1.0.0-Ll1k61wffz29iy6OuFVK3Y.conf	/^hs-libraries: HSaoc2018-0.1.0.0-Ll1k61wffz29iy6OuFVK3Y$/;"	k
+license	haskell/.stack-work/install/x86_64-osx/lts-12.20/8.4.4/pkgdb/aoc2018-0.1.0.0-Ll1k61wffz29iy6OuFVK3Y.conf	/^license: BSD-3-Clause$/;"	k
+maintainer	haskell/.stack-work/install/x86_64-osx/lts-12.20/8.4.4/pkgdb/aoc2018-0.1.0.0-Ll1k61wffz29iy6OuFVK3Y.conf	/^maintainer: yuuki@protonmail.com$/;"	k
+modules	haskell/.stack-work/install/x86_64-osx/lts-12.20/8.4.4/pkgdb/aoc2018-0.1.0.0-Ll1k61wffz29iy6OuFVK3Y.conf	/^exposed-modules:$/;"	k
+modules	haskell/.stack-work/install/x86_64-osx/lts-12.20/8.4.4/pkgdb/aoc2018-0.1.0.0-Ll1k61wffz29iy6OuFVK3Y.conf	/^hidden-modules: Paths_aoc2018$/;"	k
+name	haskell/.stack-work/install/x86_64-osx/lts-12.20/8.4.4/pkgdb/aoc2018-0.1.0.0-Ll1k61wffz29iy6OuFVK3Y.conf	/^name: aoc2018$/;"	k
+version	haskell/.stack-work/install/x86_64-osx/lts-12.20/8.4.4/pkgdb/aoc2018-0.1.0.0-Ll1k61wffz29iy6OuFVK3Y.conf	/^version: 0.1.0.0$/;"	k

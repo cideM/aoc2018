@@ -60,7 +60,7 @@ claim2Points c =
   ]
 
 trackOverlap :: [Point] -> Map Point Count
-trackOverlap = List.foldr' f Map.empty
+trackOverlap = List.foldr f Map.empty
  where
   f p m = case Map.lookup p m of
     (Just v) -> Map.insert p (v + 1) m
