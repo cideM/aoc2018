@@ -59,8 +59,8 @@ claim2Points c =
   , y <- [top c + 1 .. top c + height c]
   ]
 
-overlap :: [Point] -> Map Point Count
-overlap = List.foldr f Map.empty
+trackOverlap :: [Point] -> Map Point Count
+trackOverlap = List.foldr' f Map.empty
  where
   f p m = case Map.lookup p m of
     (Just v) -> Map.insert p (v + 1) m
@@ -77,7 +77,7 @@ run :: Text -> Either ErrMsg Text
 run t = case claims of
   (Failure _) -> Left "Parsing failed"
   (Success cs) ->
-    let overlaps          = overlap . concat $ fmap claim2Points cs
+    let overlaps          = trackOverlap . concat $ fmap claim2Points cs
         overlappingInches = Map.size $ Map.filter (>= 2) overlaps
     in  case notOverlapping cs of
           Nothing -> Left "You deaded"
@@ -88,8 +88,6 @@ run t = case claims of
 prog :: DayProg
 prog = DayProg "day2" run
 
--- Bonus points if you understand the question and THEN start coding.
--- None of the below is of any use. ^_^
 claimOverlap :: Claim -> Claim -> Maybe Overlap
 claimOverlap c1 c2 = do
   y <- yOverlap c1 c2
@@ -103,7 +101,6 @@ claimOverlap c1 c2 = do
         upperBound = max t1 t2
         -- ^ The lower edge of the two top square edges
         oy         = lowerBound - upperBound
-                                                    -- ^ Overlap on y
     in  if oy > 0 then Just oy else Nothing
   xOverlap Claim { left = l1, width = w1 } Claim { left = l2, width = w2 } =
     let rightBound = min (l1 + w1) (l2 + w2)
