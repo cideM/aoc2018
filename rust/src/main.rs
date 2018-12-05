@@ -1,4 +1,4 @@
-use aoc_lib::day1;
+use aoc_lib::day4;
 use clap::{App, Arg};
 use failure::Error;
 use std::collections::HashMap;
@@ -51,13 +51,13 @@ fn main() -> Result<(), Error> {
         f.read_to_string(&mut input)?;
     }
 
-    let day1_prog = DayProg {
-        name: "day1",
-        run: day1::run,
+    let day4_prog = DayProg {
+        name: "day4",
+        run: day4::run,
     };
 
     let mut day_progs = HashMap::new();
-    day_progs.insert("1", day1_prog);
+    day_progs.insert("4", day4_prog);
 
     if let Some(d) = matches.value_of("day") {
         let prog = day_progs.get(d).expect("No program for that day! :(");
