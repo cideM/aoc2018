@@ -61,7 +61,7 @@ fn main() -> Result<(), Error> {
 
     if let Some(d) = matches.value_of("day") {
         let prog = day_progs.get(d).expect("No program for that day! :(");
-        print!("{}", (prog.run)(&input)?);
+        println!("Solution: {}", (prog.run)(&input)?);
     };
 
     Ok(())
