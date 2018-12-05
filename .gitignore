@@ -3,3 +3,4 @@ haskell/aoc2018.cabal
 rust/target/
 rust/**/*.rs.bk
 *~
+tags
