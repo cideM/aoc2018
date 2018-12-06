@@ -112,7 +112,10 @@ pub mod day4 {
 
                             // Add all minutes when guard slept
                             for i in last_min..event.timestamp.min {
-                                *x.sleep_frequency_per_min.entry(i).or_insert(0) += 1 as TimeAsleep;
+                                x.sleep_frequency_per_min
+                                    .entry(i)
+                                    .and_modify(|e| *e += 1 as TimeAsleep)
+                                    .or_insert(0);
                             }
                         }
                     }
@@ -162,16 +165,15 @@ pub mod day4 {
         // slept most on any particular minute.
         for (guard_id, sleep_data) in sleep_data.iter() {
             for (min, time_asleep) in sleep_data.sleep_frequency_per_min.iter() {
-
-                let mut e = *min_most_slept
+                min_most_slept
                     .entry(*min)
+                    .and_modify(|e| {
+                        if time_asleep > &e.1 {
+                            e.0 = *guard_id;
+                            e.1 = *time_asleep;
+                        }
+                    })
                     .or_insert((*guard_id, *time_asleep));
-
-                let (_, ref cur_time_asleep) = e;
-
-                if time_asleep > cur_time_asleep {
-                    e = (*guard_id, *time_asleep);
-                }
             }
         }
 
@@ -180,7 +182,7 @@ pub mod day4 {
             .max_by_key(|(_, (_, time_asleep))| -> TimeAsleep { *time_asleep })
             .unwrap();
 
-        guard_id.0 * *min as u32
+        guard_id.0 * u32::from(*min)
     }
 
     pub fn run(data: &str) -> Result<String, Error> {
@@ -205,5 +207,126 @@ pub mod day4 {
         let solution2 = part2(&aggregated_data);
 
         Ok(format!("{:#?} {:#?}", solution1, solution2))
+    }
+}
+
+pub mod day5 {
+    use failure::Error;
+    use std::collections::HashMap;
+
+    #[derive(Debug, Eq, PartialEq)]
+    pub enum PolymerCheck {
+        Fuse,
+        Keep,
+    }
+
+    pub fn check_pair(a: char, b: char) -> PolymerCheck {
+        if a.to_lowercase().collect::<Vec<_>>() != b.to_lowercase().collect::<Vec<_>>() {
+            return PolymerCheck::Keep;
+        }
+
+        if a.is_uppercase() && b.is_uppercase() {
+            return PolymerCheck::Keep;
+        }
+
+        if a.is_lowercase() && b.is_lowercase() {
+            return PolymerCheck::Keep;
+        }
+
+        PolymerCheck::Fuse
+    }
+
+    pub fn react_polymer(s: &str) -> String {
+        let mut fuse_occurred: bool = false;
+        let orig_len = s.len();
+        let mut out: String = String::with_capacity(orig_len);
+        let chars = s.chars().enumerate();
+        let mut last_char: Option<char> = None;
+
+        for (i, c) in chars {
+            if last_char.is_none() {
+                last_char = Some(c);
+                continue;
+            }
+
+            match check_pair(last_char.unwrap(), c) {
+                PolymerCheck::Keep => {
+                    out.push(last_char.unwrap());
+                    last_char = Some(c);
+
+                    if i == orig_len - 1 {
+                        out.push(c);
+                    }
+                }
+                PolymerCheck::Fuse => {
+                    last_char = None;
+                    fuse_occurred = true;
+                }
+            }
+        }
+
+        if fuse_occurred == true {
+            react_polymer(&out)
+        } else {
+            out
+        }
+    }
+
+    pub fn remove_polymer(s: &str) -> usize {
+        let letters = "abcdefghijklmnopqrstuvwxyz";
+
+        let mut removed_lenghts: HashMap<char, usize> = HashMap::new();
+
+        for c in letters.chars() {
+            let without = s.replace(c, "").replace(&c.to_uppercase().to_string(), "");
+            removed_lenghts.insert(c, react_polymer(&without).len());
+        }
+
+        let (_, min_length) = removed_lenghts.iter().min_by_key(|(_, &len)| len).unwrap();
+
+        *min_length
+    }
+
+    pub fn run(data: &str) -> Result<String, Error> {
+        let reacted = react_polymer(data);
+
+        Ok(format!(
+            "length: {}, shortest: {}",
+            reacted.len(),
+            remove_polymer(data)
+        ))
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::day5::{check_pair, react_polymer, remove_polymer, PolymerCheck};
+
+    #[test]
+    fn it_checks_pairs() {
+        assert_eq!(check_pair('a', 'A'), PolymerCheck::Fuse);
+        assert_eq!(check_pair('A', 'A'), PolymerCheck::Keep);
+        assert_eq!(check_pair('B', 'A'), PolymerCheck::Keep);
+        assert_eq!(check_pair('b', 'b'), PolymerCheck::Keep);
+        assert_eq!(check_pair('A', 'b'), PolymerCheck::Keep);
+        assert_eq!(check_pair('B', 'b'), PolymerCheck::Fuse);
+    }
+
+    #[test]
+    fn it_reacts() {
+        assert_eq!(react_polymer("aAbbAb"), String::from("bbAb"));
+        assert_eq!(
+            react_polymer("dabAcCaCBAcCcaDA"),
+            String::from("dabCBAcaDA")
+        );
+        assert_eq!(
+            react_polymer("YyLlXxYKkbNnQqBFfxXbyYWwBhHyYTCBbCjIiqwtTWQ"),
+            String::from("YTCCjq")
+        );
+    }
+
+    #[test]
+    fn it_calculates_smallest() {
+        assert_eq!(remove_polymer("dabAcCaCBAcCcaDA"), 4);
     }
 }
