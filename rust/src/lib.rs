@@ -212,7 +212,8 @@ pub mod day4 {
 
 pub mod day5 {
     use failure::Error;
-    use std::collections::HashMap;
+    use std::sync::{Arc, Mutex};
+    use std::thread;
 
     #[derive(Debug, Eq, PartialEq)]
     pub enum PolymerCheck {
@@ -272,35 +273,80 @@ pub mod day5 {
         }
     }
 
-    pub fn remove_polymer(s: &str) -> usize {
+    pub fn run(data: &str) -> Result<String, Error> {
         let letters = "abcdefghijklmnopqrstuvwxyz";
 
-        let mut removed_lenghts: HashMap<char, usize> = HashMap::new();
+        let res: Arc<Mutex<(Option<usize>, Option<usize>)>> = Arc::new(Mutex::new((None, None)));
+        let mut hs = Vec::new();
 
+        // I need to clone the data twice. Once here for this thread,
+        // and then several times later on for the other threads. Ugly but it works and it's
+        // acceptable for this part.
+        let data1 = data.to_owned();
+        let res1 = Arc::clone(&res);
+
+        hs.push(thread::spawn(move || {
+            let len = react_polymer(&data1).len();
+            let mut solutions = res1.lock().unwrap();
+
+            solutions.1 = Some(len);
+        }));
+
+        // Remove the letter and its uppercase variant from the source, then react it.
+        // There's a great optimization by realizing that you can also just react once and then
+        // remove the letters. I got that from a reddit post https://blog.jle.im/entry/alchemical-groups.html
         for c in letters.chars() {
-            let without = s.replace(c, "").replace(&c.to_uppercase().to_string(), "");
-            removed_lenghts.insert(c, react_polymer(&without).len());
+            let res = Arc::clone(&res);
+            let data = data.to_owned();
+
+            let h = thread::spawn(move || {
+                let cleaned = data
+                    .replace(c, "")
+                    .replace(&c.to_uppercase().to_string(), "");
+                let len = react_polymer(&cleaned).len();
+                let mut solutions = res.lock().unwrap();
+
+                if let Some(min) = solutions.0 {
+                    if len < min {
+                        solutions.0 = Some(len);
+                    }
+                } else {
+                    solutions.0 = Some(len);
+                }
+            });
+
+            hs.push(h);
         }
 
-        let (_, min_length) = removed_lenghts.iter().min_by_key(|(_, &len)| len).unwrap();
+        for h in hs {
+            h.join().unwrap();
+        }
 
-        *min_length
+        let (min, _) = *res.lock().unwrap();
+
+        Ok(format!("length: {}, shortest: {}", min.unwrap(), 0))
+    }
+}
+
+pub mod day6 {
+    pub struct Point {
+        pub x: isize,
+        pub y: isize,
     }
 
-    pub fn run(data: &str) -> Result<String, Error> {
-        let reacted = react_polymer(data);
+    // Taxicab Distance between (x_1,y_1) and (x_2,y_2)=|x_2-x_1|+|y_2-y_1|
 
-        Ok(format!(
-            "length: {}, shortest: {}",
-            reacted.len(),
-            remove_polymer(data)
-        ))
+    pub fn distance(p1: &Point, p2: &Point) -> isize {
+        let dx = p2.x - p1.x;
+        let dy = p2.y - p1.y;
+
+        dx.abs() + dy.abs()
     }
 }
 
 #[cfg(test)]
 mod tests {
-    use super::day5::{check_pair, react_polymer, remove_polymer, PolymerCheck};
+    use super::day5::{check_pair, react_polymer, PolymerCheck};
 
     #[test]
     fn it_checks_pairs() {
@@ -323,10 +369,5 @@ mod tests {
             react_polymer("YyLlXxYKkbNnQqBFfxXbyYWwBhHyYTCBbCjIiqwtTWQ"),
             String::from("YTCCjq")
         );
-    }
-
-    #[test]
-    fn it_calculates_smallest() {
-        assert_eq!(remove_polymer("dabAcCaCBAcCcaDA"), 4);
     }
 }
