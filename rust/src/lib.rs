@@ -329,6 +329,7 @@ pub mod day5 {
 }
 
 pub mod day6 {
+    #[derive(Eq, PartialEq, Debug)]
     pub struct Point {
         pub x: isize,
         pub y: isize,
@@ -342,11 +343,44 @@ pub mod day6 {
 
         dx.abs() + dy.abs()
     }
+
+    pub fn find_center(ps: &[Point]) -> Option<&Point> {
+        // Iterate over the points. Put each point (base) in a singleton vector,
+        // zip it with all other points, and calculate the distance between base
+        // and the other points (comp). Fold that zipped iterator down to the
+        // average distance between base and all comps.
+        ps.iter()
+            .map(|p| {
+                let total_dist: isize = ps.iter().map(|comp| distance(p, comp)).sum();
+
+                (p, total_dist / ps.len() as isize)
+            })
+            .min_by_key(|(_, avg)| avg.clone())
+            .map(|(p, _)| p)
+    }
+
+    pub fn find_edge_points(ps: &[Point]) -> Vec<&Point> {
+        let min_x = ps.iter().min_by_key(|p| p.x).map(|p| p.x).unwrap();
+        let max_x = ps.iter().max_by_key(|p| p.x).map(|p| p.x).unwrap();
+        let min_y = ps.iter().min_by_key(|p| p.y).map(|p| p.y).unwrap();
+        let max_y = ps.iter().max_by_key(|p| p.y).map(|p| p.y).unwrap();
+
+        let edge_coords = vec![min_x, min_y, max_x, max_y];
+
+        ps.iter()
+            .filter(|p| {
+                edge_coords
+                    .iter()
+                    .any(|&coord| p.x == coord || p.y == coord)
+            })
+            .collect()
+    }
 }
 
 #[cfg(test)]
 mod tests {
     use super::day5::{check_pair, react_polymer, PolymerCheck};
+    use super::day6::{find_center, find_edge_points, Point};
 
     #[test]
     fn it_checks_pairs() {
@@ -368,6 +402,34 @@ mod tests {
         assert_eq!(
             react_polymer("YyLlXxYKkbNnQqBFfxXbyYWwBhHyYTCBbCjIiqwtTWQ"),
             String::from("YTCCjq")
+        );
+    }
+
+    #[test]
+    fn it_finds_center() {
+        let ps: Vec<Point> = vec![(1, 1), (1, 6), (8, 3), (3, 4), (5, 5), (8, 9)]
+            .iter()
+            .map(|(x, y)| Point { x: *x, y: *y })
+            .collect();
+
+        assert_eq!(find_center(&ps).unwrap(), &Point { x: 3, y: 4 });
+    }
+
+    #[test]
+    fn it_finds_edges() {
+        let ps: Vec<Point> = vec![(1, 1), (1, 6), (8, 3), (3, 4), (5, 5), (8, 9)]
+            .iter()
+            .map(|(x, y)| Point { x: *x, y: *y })
+            .collect();
+
+        assert_eq!(
+            find_edge_points(&ps),
+            vec![
+                &Point { x: 1, y: 1 },
+                &Point { x: 1, y: 6 },
+                &Point { x: 8, y: 3 },
+                &Point { x: 8, y: 9 }
+            ]
         );
     }
 }
