@@ -10,8 +10,8 @@ const parseLine = l => {
   };
 };
 
-const parseData = lines => {
-  return lines.split("\n").reduce((acc, l) => {
+const parseData = lines =>
+  lines.split("\n").reduce((acc, l) => {
     const { required, step } = parseLine(l);
 
     return {
@@ -20,7 +20,6 @@ const parseData = lines => {
       [step]: (acc[step] || []).concat(required)
     };
   }, {});
-};
 
 const runDeps = deps => {
   const go = (pending = Object.keys(deps), completed = []) => {
@@ -70,20 +69,6 @@ const workCosts = [
 
 const getCost = char => 60 + workCosts.indexOf(char.toLowerCase()) + 1;
 
-// const runDepsWithWorkers = (deps, workerCount) => {
-//   let state = {
-//     completed: [],
-//     pending: Object.keys(deps),
-//     idleWorkers: workerCount,
-//     time: 0,
-//     runningTasks: [] // { doneAt: 123, step: "A"}
-//   }
-
-//   while (state.pending.length !== 0) {
-//     console.log(JSON.stringify(state, null, 2));
-
-//   }
-// }
 const stepsStillPending = (steps, completedSteps, runningTasks) =>
   steps.filter(
     step =>
@@ -95,8 +80,8 @@ const runDepsWithWorkers = (deps, workerCount) => {
     let currentCompletedSteps = state.completed;
     let currentRunningTasks = [];
 
-    // Add tasks that are now (state.time) completed, as indicated by their completion time
-    // (doneAt), to the completed tasks.
+    // Add tasks that are now (state.time) completed - as indicated by their
+    // completion time (doneAt) - to the completed tasks.
     for (const task of state.runningTasks) {
       if (task.doneAt === state.time) currentCompletedSteps.push(task.step);
       else currentRunningTasks.push(task);
@@ -112,19 +97,23 @@ const runDepsWithWorkers = (deps, workerCount) => {
     if (currentPendingSteps.length === 0 && currentRunningTasks.length === 0)
       return state.time;
 
-    // This can now be worked on since their dependencies are done.
-    // Only take as many as we have idle workers
+    // Closes over currentCompletedSteps and deps and extracted just for readability
+    const depsAreDone = step =>
+      deps[step].every(r => currentCompletedSteps.includes(r));
+
+    const availableWorkers = workerCount - currentRunningTasks.length;
+
+    // These tasks can now be worked on since their dependencies are done. Only
+    // take as many as we have idle workers.
     const tasksToStart = currentPendingSteps
-      .filter(step => deps[step].every(r => currentCompletedSteps.includes(r)))
+      .filter(depsAreDone)
       .sort()
-      .slice(0, workerCount - currentRunningTasks.length)
+      .slice(0, availableWorkers)
       // Turn the steps (string) into tasks { doneAt: number, step: string }
       .map(step => ({
         step,
         doneAt: state.time + getCost(step)
       }));
-
-    // console.log("DEBUG", state.time, currentRunningTasks, tasksToStart);
 
     const nextRunningTasks = currentRunningTasks.concat(tasksToStart);
     const nextPendingSteps = stepsStillPending(
@@ -141,9 +130,6 @@ const runDepsWithWorkers = (deps, workerCount) => {
       time: state.time + 1,
       pending: nextPendingSteps
     };
-
-    // console.log(JSON.stringify(state, null, 2));
-    // console.log(JSON.stringify(nextState, null, 2));
 
     return go(nextState);
   };
