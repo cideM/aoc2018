@@ -6,9 +6,9 @@ Every day lives in its own module. Call the CLI with the day (as a number) and t
 
 ## Haskell
 
-1. [ ] :star:
-2. [ ] :star:
-3. [ ] :star:
+1. [x] :bell: 
+2. [x] :bell:
+3. [x] :bell:
 4. [ ] :zzz:
 5. [ ] :zzz:
 6. [ ] :zzz:
@@ -25,9 +25,9 @@ Every day lives in its own module. Call the CLI with the day (as a number) and t
 1. [ ] :zzz:
 2. [ ] :zzz:
 3. [ ] :zzz:
-4. [ ] :star:
-5. [ ] :star:
-6. [ ] :zzz:
+4. [x] :bell:
+5. [x] :bell:
+6. [x] :bell:
 7. [ ] :zzz:
 8. [ ] :zzz:
 9. [ ] :zzz:
