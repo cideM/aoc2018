@@ -60,6 +60,9 @@ pub fn react_polymer(s: &str) -> String {
     }
 }
 
+/// run uses threads to speed up the data processing which is cool! The implementation is rather
+/// ad-hoc though, starting with the tuple Mutex holding part1 and part2. But at least I'm using
+/// threads, which is a first in my programming career.
 pub fn run(data: &str) -> Result<String, Error> {
     let letters = "abcdefghijklmnopqrstuvwxyz";
 
@@ -109,9 +112,9 @@ pub fn run(data: &str) -> Result<String, Error> {
         h.join().unwrap();
     }
 
-    let (min, _) = *res.lock().unwrap();
+    let (part1, part2) = *res.lock().unwrap();
 
-    Ok(format!("length: {}, shortest: {}", min.unwrap(), 0))
+    Ok(format!("length: {}, shortest: {}", part1.unwrap(), part2.unwrap()))
 }
 
 #[cfg(test)]
