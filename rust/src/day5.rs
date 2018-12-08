@@ -53,7 +53,7 @@ pub fn react_polymer(s: &str) -> String {
         }
     }
 
-    if fuse_occurred == true {
+    if fuse_occurred {
         react_polymer(&out)
     } else {
         out
@@ -114,7 +114,11 @@ pub fn run(data: &str) -> Result<String, Error> {
 
     let (part1, part2) = *res.lock().unwrap();
 
-    Ok(format!("length: {}, shortest: {}", part1.unwrap(), part2.unwrap()))
+    Ok(format!(
+        "length: {}, shortest: {}",
+        part1.unwrap(),
+        part2.unwrap()
+    ))
 }
 
 #[cfg(test)]

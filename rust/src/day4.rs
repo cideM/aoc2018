@@ -1,7 +1,6 @@
 /// This is the first day I did in Rust. This file is not at all idiomatic and is lacking things
 /// like custom iterators, proper error handling and probably steers clear of some trait
 /// implementations that might have been useful.
-
 use failure::Error;
 use lazy_static::lazy_static;
 use regex::Regex;
@@ -44,20 +43,16 @@ impl FromStr for Event {
             min: caps["min"].parse()?,
         };
 
-        let mut kind: Option<GuardEvent> = None;
-
-        if let Some(_) = s.find("begins") {
+        let kind: Option<GuardEvent> = if s.find("begins").is_some() {
             let id: GuardID = s.parse::<GuardID>().unwrap();
-            kind = Some(GuardEvent::BeginShift(id));
-        }
-
-        if let Some(_) = s.find("asleep") {
-            kind = Some(GuardEvent::FallAsleep);
-        }
-
-        if let Some(_) = s.find("wakes") {
-            kind = Some(GuardEvent::WakeUp);
-        }
+            Some(GuardEvent::BeginShift(id))
+        } else if s.find("asleep").is_some() {
+            Some(GuardEvent::FallAsleep)
+        } else if s.find("wakes").is_some() {
+            Some(GuardEvent::WakeUp)
+        } else {
+            None
+        };
 
         Ok(Event {
             timestamp: t,
@@ -98,7 +93,7 @@ impl FromStr for GuardID {
 }
 
 fn aggregate_sleep_data(
-    events_by_guard: HashMap<GuardID, Vec<Event>>,
+    events_by_guard: &HashMap<GuardID, Vec<Event>>,
 ) -> HashMap<GuardID, GuardSleepData> {
     let mut aggregated_data: HashMap<GuardID, GuardSleepData> = HashMap::new();
     // As we iterate over the timestamp, keep track of the minute of the last timestamp.
@@ -154,7 +149,7 @@ fn part1(sleep_data: &HashMap<GuardID, GuardSleepData>) -> u32 {
         .max_by_key(|(_, ref freq)| -> TimeAsleep { **freq })
         .unwrap();
 
-    id_most_asleep.0 * *min_most_asleep as u32
+    id_most_asleep.0 * u32::from(*min_most_asleep)
 }
 
 fn part2(sleep_data: &HashMap<GuardID, GuardSleepData>) -> u32 {
@@ -204,7 +199,7 @@ pub fn run(data: &str) -> Result<String, Error> {
         events_by_guard.entry(cur).or_default().push(event);
     }
 
-    let aggregated_data = aggregate_sleep_data(events_by_guard);
+    let aggregated_data = aggregate_sleep_data(&events_by_guard);
 
     let solution1 = part1(&aggregated_data);
     let solution2 = part2(&aggregated_data);

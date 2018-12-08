@@ -8,7 +8,7 @@ pub fn run(data: &str) -> Result<String, Error> {
     let max_x = points.iter().max_by_key(|p| p.x).map(|p| p.x).unwrap();
     let max_y = points.iter().max_by_key(|p| p.y).map(|p| p.y).unwrap();
 
-    let grid: Grid = Grid::new(Point {
+    let grid: Grid = Grid::new(&Point {
         x: max_x * 2,
         y: max_y * 2,
     });
@@ -26,12 +26,7 @@ pub fn run(data: &str) -> Result<String, Error> {
 
     let size_largest_area: usize = owned_points
         .iter()
-        .filter(|(_, owned_ps)| {
-            owned_ps.iter().all(|owned| {
-                // println!("{:?}", owned);
-                owned.is_on_border(&grid) == false
-            })
-        })
+        .filter(|(_, owned_ps)| owned_ps.iter().all(|owned| !owned.is_on_border(&grid)))
         .map(|(_, owned_points)| owned_points.len())
         .max()
         .unwrap();
@@ -127,7 +122,7 @@ pub struct Grid {
 
 impl Grid {
     // TODO: This should not need isized since it cant have neg width height
-    pub fn new(opposite: Point) -> Grid {
+    pub fn new(opposite: &Point) -> Grid {
         Grid {
             origin: Point { x: 0, y: 0 },
             opposite: opposite.clone(),
@@ -186,9 +181,9 @@ impl<'a> Iterator for GridIterator<'a> {
         }
 
         if !self.done {
-            return Some(current_point);
+            Some(current_point)
         } else {
-            return None;
+            None
         }
     }
 }
@@ -232,13 +227,13 @@ mod tests {
 
     fn it_checks_if_point_is_on_border() {
         let p = Point { x: 8, y: 3 };
-        let g = Grid::new(Point { x: 8, y: 0 });
+        let g = Grid::new(&Point { x: 8, y: 0 });
 
         assert_eq!(p.is_on_border(&g), true);
 
         // Haha the point is actually outside the grid... whatever. FIXME
         let p = Point { x: 8, y: 3 };
-        let g = Grid::new(Point { x: 2, y: 3 });
+        let g = Grid::new(&Point { x: 2, y: 3 });
 
         assert_eq!(p.is_on_border(&g), true)
     }
