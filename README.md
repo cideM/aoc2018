@@ -1,37 +1,44 @@
 # :christmas_tree: Advent of Code 2018 :santa:
 
-Every day lives in its own module. Call the CLI with the day (as a number) and the filepath of the data. Alternatively, supply data via stdin. As always, `aoc2018 -h` helps :)
+Every language has its own folder. The CLI is the same for all of them.
 
-`aoc2018 -d 1 -f link/to/data`
+### Rust
 
-## Haskell
+```shell
+cd rust
+cargo run --release -- -f ../data/day4.txt -d 4
+```
 
-1. [x] :bell: 
-2. [x] :bell:
-3. [x] :bell:
-4. [ ] :zzz:
-5. [ ] :zzz:
-6. [ ] :zzz:
-7. [ ] :zzz:
-8. [ ] :zzz:
-9. [ ] :zzz:
-10. [ ] :zzz:
-11. [ ] :zzz:
-12. [ ] :zzz:
-13. [ ] :zzz:
+### Node
 
-## Rust
+```shell
+cd node
+./bin/run -d 7 -f ../data/day7.txt
+```
 
-1. [ ] :zzz:
-2. [ ] :zzz:
-3. [ ] :zzz:
-4. [x] :bell:
-5. [x] :bell:
-6. [x] :bell:
-7. [ ] :zzz:
-8. [ ] :zzz:
-9. [ ] :zzz:
-10. [ ] :zzz:
-11. [ ] :zzz:
-12. [ ] :zzz:
-13. [ ] :zzz:
+### Haskell
+
+(requires `stack run` command which is not available in e.g., `stack` 1.7)
+
+```shell
+cd haskell
+stack run -- -d 3 -f ../data/day3.txt
+```
+
+## Progress
+
+|     | Rust   | Haskell | Node   |
+| --- | ------ | ------- | ------ |
+| 1   | :zzz:  | :bell:  | :zzz:  |
+| 2   | :zzz:  | :bell:  | :zzz:  |
+| 3   | :zzz:  | :bell:  | :zzz:  |
+| 4   | :bell: | :zzz:   | :zzz:  |
+| 5   | :bell: | :zzz:   | :zzz:  |
+| 6   | :bell: | :zzz:   | :zzz:  |
+| 7   | :zzz:  | :zzz:   | :bell: |
+| 8   | :bell: | :zzz:   | :zzz:  |
+| 9   | :zzz:  | :zzz:   | :zzz:  |
+| 10  | :zzz:  | :zzz:   | :zzz:  |
+| 11  | :zzz:  | :zzz:   | :zzz:  |
+| 12  | :zzz:  | :zzz:   | :zzz:  |
+| 13  | :zzz:  | :zzz:   | :zzz:  |
