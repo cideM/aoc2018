@@ -98,22 +98,30 @@ pub fn make_tree(d: &[usize]) -> Result<Node, Error> {
 
     let mut child_count = 0;
 
-    // 2 3 0 3 10 11 12 1 1 0 1 99 2 1 1 2
-    // A----------------------------------
-    //     B----------- C-----------
-    //                      D-----
     for v in d {
         match parse_state {
             ParseState::Header(ParseHeaderState::ChildCount) => {
+                // There's nothing really to do here. We just keep track of the
+                // child_count value and move on. Alternatively this could be
+                // passed to the next state through MetaCount but it feels
+                // strange to pass the *child count* to the MetaCount enum. Then
+                // again it would just be a matter of naming in the pattern
+                // matching... :thinking-face:
                 child_count = *v;
                 parse_state = ParseState::Header(ParseHeaderState::MetaCount);
             }
             ParseState::Header(ParseHeaderState::MetaCount) => {
+                // Rename just for readability
                 let meta_count = v;
+
+                // We have enough data to create a node so let's go ahead and do
+                // it and add it to our stack
                 let n = Node::new(child_count, *meta_count);
 
                 stack.push(n);
 
+                // Fork in the road. The next value is either a header of a new
+                // node, or meta data for the current node.
                 parse_state = if *meta_count > 0 && child_count == 0 {
                     ParseState::Metadata(*meta_count)
                 } else {
@@ -121,6 +129,9 @@ pub fn make_tree(d: &[usize]) -> Result<Node, Error> {
                 }
             }
             ParseState::Metadata(num_entries_left) => {
+                // As long as we have meta data to add to the current node we
+                // just peek at it through the stack, push the meta data and
+                // move on
                 if num_entries_left > 1 {
                     if let Some(node) = stack.last_mut() {
                         node.metadata.push(*v);
@@ -129,26 +140,30 @@ pub fn make_tree(d: &[usize]) -> Result<Node, Error> {
                         return Err(format_err!("No node on stack to push meta data entry to"));
                     }
                 } else {
-                    // Node is done, get it from the stack
+                    // If there is only one meta data entry for the current node
+                    // left, we add it to that node...
                     if let Some(mut cur_node) = stack.pop() {
                         cur_node.metadata.push(*v);
 
                         if let Some(parent) = stack.last_mut() {
                             parent.children.push(cur_node);
 
+                            // ... and check what the next value is going to be.
+                            // We're done with the current node, so the next
+                            // value can be: a header of a new node or meta data
+                            // of the parent. Which one it is is apparent from
+                            // the parent's header and the parent's child and
+                            // meta data. In other words: does parent have the
+                            // values it needs? Then next value has to be a new
+                            // node header. Otherwise it's meta data for the
+                            // parent
                             if parent.needs_metadata() && !parent.needs_children() {
-                                // Parent has enough children, next segment has
-                                // to be meta data for parent
                                 parse_state = ParseState::Metadata(parent.header.meta_count);
                             } else {
-                                // We pushed a child to the parent but the
-                                // parent still needs more children. But we're
-                                // done with the current meta data segment, so
-                                // what comes next has to be another child.
                                 parse_state = ParseState::Header(ParseHeaderState::ChildCount);
                             }
                         } else {
-                            // Stack is empty, return current node which is root. Done.
+                            // Stack is empty, return current node which, is root. Tree is done.
                             return Ok(cur_node);
                         }
                     } else {
