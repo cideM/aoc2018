@@ -26,6 +26,7 @@ dependencies:
   - containers
   - trifecta
   - parsers
+  - mtl
 
 library:
   source-dirs: src
