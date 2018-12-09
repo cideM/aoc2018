@@ -1,15 +1,13 @@
 {-# LANGUAGE OverloadedStrings #-}
 
--- {-# LANGUAGE DeriveFunctor #-}
--- {-# LANGUAGE DeriveFoldable #-}
--- {-# LANGUAGE DeriveTraversable #-}
 module Day9 where
 
 import qualified Data.Foldable as Foldable
 import qualified Data.List as List
 import qualified Data.Map as Map
 import Data.Map (Map)
-import qualified Data.Ord as Ord
+import qualified Data.Sequence as Seq
+import Data.Sequence (Seq((:<|)), Seq, (<|), (><), (|>))
 import qualified Data.Text as Text
 import Data.Text (Text)
 import Text.Parser.Char
@@ -20,22 +18,26 @@ type Marble = Int
 
 type Player = Int
 
-turns :: Int -> Int -> [(Player, Marble)]
-turns playerCount maxMarble =
-  take maxMarble . zip (concat $ repeat [1 .. playerCount]) $
-  concat (repeat [1 .. maxMarble])
+type PlayerCount = Int
+
+type MarbleCount = Int
+
+turns :: PlayerCount -> MarbleCount -> [(Player, Marble)]
+turns pCount mCount =
+  take mCount . zip (concat $ repeat [1 .. pCount]) $
+  concat (repeat [1 .. mCount])
 
 run :: Text -> Either ErrMsg Text
 run t =
   let input = parseString inputP mempty $ Text.unpack t
    in case input of
         (Failure _) -> Left "Parsing failed"
-        (Success (playerCount, maxMarble)) ->
-          let (_, score1) = game $ turns playerCount maxMarble
-              highscore1 = List.maximum $ Map.elems score1
-              (_, score2) = game $ turns playerCount (maxMarble * 100)
-              highscore2 = List.maximum $ Map.elems score2
-           in Right . Text.pack $ show highscore1 ++ show highscore2
+        (Success (pCount, mCount)) ->
+          let (_, score) = game $ turns pCount mCount
+              (_, score2) = game $ turns pCount (mCount * 100)
+              getHighscore = List.maximum . Map.elems
+           in Right . Text.pack $
+              show (getHighscore score) ++ " " ++ show (getHighscore score2)
 
 inputP :: Parser (Player, Marble)
 inputP = do
@@ -58,33 +60,34 @@ inputP = do
 -- ^^^^^^^^^^ rotate and join
 -- The list is different of course but since it represents a circle it's still a
 -- valid sequence
-insertMarble :: a -> [a] -> [a]
-insertMarble x [x'] = [x', x]
-insertMarble x [x', x''] = [x', x, x'']
-insertMarble x xs =
-  let (left, right) = splitAt 2 xs
-   in x : right ++ left
+insertMarble :: a -> Seq a -> Seq a
+insertMarble x xs
+  | Seq.length xs == 1 = xs |> x
+  | Seq.length xs == 2 =
+    let (l, r) = Seq.splitAt 1 xs
+     in (l |> x) >< r
+  | otherwise =
+    let (l, r) = Seq.splitAt 2 xs
+     in (x <| r) >< l
 
 type CurrentIndex = Int
 
-game :: [(Player, Marble)] -> ([Marble], Map Player Int)
-game = Foldable.foldl' f ([0], Map.empty)
+game :: [(Player, Marble)] -> (Seq Marble, Map Player Int)
+game = Foldable.foldl' f (Seq.singleton 0, Map.empty)
   where
-    f :: ([Marble], Map Player Int)
+    f :: (Seq Marble, Map Player Int)
       -> (Player, Marble)
-      -> ([Marble], Map Player Int)
+      -> (Seq Marble, Map Player Int)
     f (circle, score) (player, marble)
       -- | Scoring turn, remove marble, adjust score
       | marble `rem` 23 == 0 =
-        let (left, x:xs) = splitAt (length circle - 7) circle
+        let (left, x :<| xs) = Seq.splitAt (length circle - 7) circle
             newScore = Map.insertWith (+) player (marble + x) score
-
-         in (xs ++ left, newScore)
+         in (xs >< left, newScore)
       -- | Normal turn, just add marble
       | otherwise =
         let newCircle = insertMarble marble circle
          in (newCircle, score)
-
 
 prog :: DayProg
 prog = DayProg "day9" run
