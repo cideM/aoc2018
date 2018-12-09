@@ -10,6 +10,7 @@ import qualified Day1
 import qualified Day2
 import qualified Day3
 import qualified Day8
+import qualified Day9
 import Options.Applicative
 import Prelude hiding (FilePath, lookup)
 import Types
@@ -37,7 +38,7 @@ opts = Options <$> inputP <*> dayP
 days :: Map DayNum DayProg
 days =
   Map'.fromList
-    [("1", Day1.prog), ("2", Day2.prog), ("3", Day3.prog), ("8", Day8.prog)]
+    [("1", Day1.prog), ("2", Day2.prog), ("3", Day3.prog), ("8", Day8.prog), ("9", Day9.prog)]
 
 readDataFromFile :: FilePath -> IO Text
 readDataFromFile fp = TextIO.readFile $ Text.unpack fp

@@ -27,6 +27,7 @@ dependencies:
   - trifecta
   - parsers
   - mtl
+  - vector
 
 library:
   source-dirs: src
