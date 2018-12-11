@@ -28,6 +28,7 @@ dependencies:
   - parsers
   - mtl
   - vector
+  - split
 
 library:
   source-dirs: src
