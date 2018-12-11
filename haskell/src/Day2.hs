@@ -1,17 +1,14 @@
 {-# LANGUAGE OverloadedStrings #-}
 
+-- TODO: I learned a lot during AOC. I should try to refactor this so it uses way less lists, more vectors/sequences/sets and more predefined functions rather than rolling my own.
+
 module Day2
   ( prog
   , compareElems
   ) where
 
-import qualified Data.Foldable as Foldable
 import qualified Data.List as List
-import Data.Set (Set)
-import qualified Data.Set as Set
 import Data.Text as Text
-import Data.Text.Read as Read
-import qualified Data.Traversable as Traversable
 import Types
 
 type Checksum = Int
@@ -22,10 +19,6 @@ data Day2Result =
   Day2Result !Checksum
              !CommonChars
   deriving (Show)
-
-type Twos = Int
-
-type Threes = Int
 
 -- | similarSets returns a list of integers. Each integer represents the length of
 -- a set of similar elements. Those lengths are unique, meaning if a list
@@ -69,17 +62,17 @@ common :: Eq a => [a] -> [a] -> [a]
 common xs ys = fmap fst . List.filter (uncurry (==)) $ List.zip xs ys
 
 run :: Text -> Either ErrMsg Text
-run t = Right . Text.pack . show $ Day2Result (twos * threes) $ Text.pack common
+run t = Right . Text.pack . show $ Day2Result (twos * threes) $ Text.pack common'
   where
     ls = Text.unpack <$> Text.lines t
-    common = compareElems diffBy1 ls
+    common' = compareElems diffBy1 ls
   -- We take the list of lists (newline delimited strings) and compare each
   -- element with all other elements using diffBy1 as comparator.
     foldFn xs (x, y) =
-      let twos = List.length $ List.filter (2 ==) xs
+      let twos' = List.length $ List.filter (2 ==) xs
         -- ^ Get the number of occurences of 2 resp. 3 (below) in the list
-          threes = List.length $ List.filter (3 ==) xs
-       in (x + twos, y + threes)
+          threes' = List.length $ List.filter (3 ==) xs
+       in (x + twos', y + threes')
         -- ^ Now we have the number of 2 and 3 element 
     (twos, threes) = List.foldr foldFn (0, 0) $ fmap similarSets ls
   -- ^ Mapping similarSets over our list of texts gives us the groups of

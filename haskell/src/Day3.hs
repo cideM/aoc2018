@@ -80,10 +80,10 @@ run t =
     (Failure _) -> Left "Parsing failed"
     (Success cs) ->
       let overlaps = trackOverlap . concat $ fmap claim2Points cs
-          overlappingInches = Map.size $ Map.filter (>= 2) overlaps
+          overlappingInches' = Map.size $ Map.filter (>= 2) overlaps
        in case notOverlapping cs of
             Nothing -> Left "You deaded"
-            Just x -> Right . Text.pack . show $ Day2Result x overlappingInches
+            Just x -> Right . Text.pack . show $ Day2Result x overlappingInches'
   where
     claims = traverse (parseString claimP mempty . Text.unpack) $ Text.lines t
 

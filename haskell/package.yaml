@@ -32,6 +32,11 @@ dependencies:
 
 library:
   source-dirs: src
+  ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    - -Wall
 
 executables:
   aoc2018-exe:

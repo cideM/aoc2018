@@ -4,7 +4,6 @@ module Day1
   ( prog
   ) where
 
-import Data.Set (Set)
 import qualified Data.Set as Set
 import Data.Text as Text
 import Data.Text.Read as Read
