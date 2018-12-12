@@ -4,8 +4,8 @@
 module Day11 where
 
 import qualified Data.Foldable as Foldable
-import qualified Data.Map as Map
-import Data.Map (Map)
+import qualified Data.Map.Strict as Map
+import Data.Map.Strict (Map)
 import qualified Data.Semigroup as Semigroup
 import qualified Data.Text as Text
 import Data.Text (Text)
