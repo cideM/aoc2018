@@ -31,11 +31,10 @@ AoC.flags = {
     char: "d",
     description: "Which day to run"
   }),
-  stdin: flags.string({
+  stdin: flags.boolean({
     char: "s",
     description: "Whether to read data for exercise from stdin",
     exclusive: ["file"],
-    default: false
   }),
   file: flags.string({
     char: "f",

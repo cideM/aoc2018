@@ -1,4 +1,3 @@
-// TODO: CLI
 const gridSize = 300;
 
 const powerLevel = (serialNum, { x, y }) => {
@@ -101,4 +100,12 @@ const run = (serialNum, size, maxSquares) => {
   };
 };
 
-console.log(run(3999, 300, 300));
+module.exports = {
+  id: "11",
+  run: data => {
+    const serialNum = Number(data);
+
+    console.log(data)
+    return JSON.stringify(run(serialNum, 300, 300));
+  }
+};
