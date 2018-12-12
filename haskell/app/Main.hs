@@ -12,6 +12,7 @@ import qualified Day3
 import qualified Day8
 import qualified Day9
 import qualified Day10
+import qualified Day11
 import           Options.Applicative
 import           Prelude                 hiding ( FilePath
                                                 , lookup
@@ -43,13 +44,14 @@ days = Map'.fromList
   , ("8" , Day8.prog)
   , ("9" , Day9.prog)
   , ("10", Day10.prog)
+  , ("11", Day11.prog)
   ]
 
 readDataFromFile :: FilePath -> IO Text
 readDataFromFile fp = TextIO.readFile $ Text.unpack fp
 
 readDataFromStdIn :: IO Text
-readDataFromStdIn = TextIO.getContents
+readDataFromStdIn = TextIO.putStrLn "Input: " >> TextIO.getContents
 
 readData :: Options -> IO Text
 readData (Options (FileInput p) _) = readDataFromFile p
