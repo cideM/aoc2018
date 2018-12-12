@@ -9,9 +9,9 @@ import Data.Map.Strict (Map)
 import qualified Data.Semigroup as Semigroup
 import qualified Data.Text as Text
 import Data.Text (Text)
-import Debug.Trace
 import qualified Data.Vector as Vector
 import Data.Vector (Vector, (!?))
+import Debug.Trace
 import Types
 
 type Cell = (Int, Int, Int) -- ^ x y powerlevel
@@ -39,6 +39,16 @@ makeGrid serialNum size =
 getCell :: Vector (Vector Cell) -> Int -> Int -> Maybe Cell
 getCell grid x y = grid !? (y - 1) >>= flip (!?) (x - 1)
 
+-- | If we calculate this square first
+-- o o #
+-- o o #
+-- # # #
+-- and then this
+-- o o o
+-- o o o
+-- o o o
+-- we cache the first grid and then add the new cells (or rather their summed
+-- fuel value) to the old cache.
 getMissingCells :: Grid -> Cell -> Int -> Maybe [Cell]
 getMissingCells grid (x, y, _) squareSize =
     sequence $ missingCellsRight ++ missingCellsBottom
@@ -56,18 +66,39 @@ type MaxFuel = Int
 
 type BestSquare = Int
 
--- TODO: comments
+-- | Takes a grid and the maximum square size. Iterates over the square sizes,
+-- computing the square with the most fuel in all possible grids.
 getBestSquare :: Grid -> Int -> (Maybe Cell, BestSquare, MaxFuel, Map Cell Int)
 getBestSquare grid maxSquareSize =
     Foldable.foldr'
         (\currentSquareSize cache ->
-             traceShow currentSquareSize $ Foldable.foldr' (sumRow currentSquareSize) cache grid')
+             traceShow currentSquareSize $
+             Foldable.foldr' (sumRow currentSquareSize) cache grid')
         (Nothing, 0, 0, Map.empty)
         (reverse [0 .. maxSquareSize])
   where
     grid' = Vector.foldr1' (Vector.++) grid -- ^ grid flattened
     getMissingCells' = getMissingCells grid
-    sumRow sqSize cell@(_, _, power) (origin, bestSqSize, bestFuel, cache) =
+    -- | I cache the fuel for all cells for each square size we're going
+    -- through. So when I'm calculating the squares of square size 5 I can use
+    -- the cached values of square size 4 and just add the new cells to the
+    -- mix.
+    sumRow ::
+           Int
+        -> Cell
+        -> (Maybe Cell, BestSquare, MaxFuel, Map Cell Int)
+        -> (Maybe Cell, BestSquare, MaxFuel, Map Cell Int)
+    sumRow sqSize cell@(_, _, power)
+        -- | Don't break this line...
+                   (origin
+                    -- ^ the origin of the square that currently has the most fuel
+                    , bestSqSize
+                      -- ^ the square size of the above square
+                      , bestFuel
+                        -- ^ fuel in the above square
+                        , cache)
+                        -- ^ the map holding the squares and fuels from the last iteration
+     =
         let missingFuel =
                 maybe
                     0
