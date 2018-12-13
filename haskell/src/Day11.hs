@@ -126,9 +126,10 @@ gridSize = 299 -- ^ Vector.generate starts from 0 so we just add 1 but then need
 -- | Square size 3 means current cell + 2 so when we return we need to add 1 to
 -- reflect the dimensions of the square rather than its extent from the origin
 run :: Text -> Either ErrMsg Text
-run t = Right . Text.pack . show $ (cell, squareSize + 1)
+run t = Right . Text.pack . show $ (cell1, squareSize1 + 1)
   where
-    (cell, squareSize, _, _) = getBestSquare grid 300
+    -- (cell, squareSize, _, _) = getBestSquare grid 300
+    (cell1, squareSize1, _, _) = getBestSquare grid 2
     grid = makeGrid serialNum gridSize
     serialNum = read $ Text.unpack t
 

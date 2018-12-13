@@ -28,6 +28,7 @@ dependencies:
   - parsers
   - mtl
   - vector
+  - extra
   - split
   - array
 
