@@ -1,3 +1,5 @@
+// This is ugly but it works
+
 const parse = data => {
   const lines = data.split("\n");
 
@@ -31,14 +33,11 @@ const evolve = (rules, line) => {
 };
 
 const count = (line, zeroIndex) => {
-  // console.log(zeroIndex)
   const left = line
     .slice(0, zeroIndex)
     .split("")
     .reverse();
   const right = line.slice(zeroIndex).split("");
-  // console.log("l",left.join(""))
-  // console.log("r",right.join(""))
 
   const leftCount = left
     .map((char, index) => (char === "#" ? index + 1 : 0))
@@ -96,8 +95,6 @@ module.exports = {
       }
     }
 
-    console.log("after20", after20);
-
     const garden2 = evoluationIter(rules, initial);
 
     let plantsAddedPerYear = [];
@@ -108,6 +105,11 @@ module.exports = {
     let plantsUntilSteady = 0
     let generationWhenSteady = 0
     let steadyAverage = 0
+
+    // Should try to create a declarative, functional version of this. We keep track of how many plants we add in an
+    // arbitrary time period. Once that amount seems to remain steady, we take the plants we have until then,
+    // extrapolate how many plants we'll add until the given future generation (by just multiplying generations left
+    // with our average). The sum of those two values is the number of plants at that future point in time.
 
     for (const generation of garden2) {
       addedLast = generation.count - lastPlantCount;
@@ -137,28 +139,3 @@ module.exports = {
     return JSON.stringify({ after20, plantsAtEndpoint })
   }
 };
-
-// age    count
-// 50000  480
-// 100000 367
-// 150000 620
-// 200000 1093
-// 250000 498
-// 300000 488
-// 350000 967
-// 400000 622
-// 450000 485
-// 500000 359
-// 550000 373
-// 600000 480
-// 650000 367
-
-// 1 2 3 4 5 6 7 8 9 10
-// 0 1 2 3 4 5 6 7 8 9 10
-// 1 2 3 4 5 6 4 5 6 4 5
-
-// repeatsAfter index 3
-// repeat length 3
-// repeat sequence 4 5 6
-// missing 7
-// index in repat 7 % 3 = 1 - 1 -> 4
