@@ -1,12 +1,10 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE NamedFieldPuns #-}
+{-# LANGUAGE RecordWildCards #-}
 
 module Day11 where
 
-import qualified Data.Foldable as Foldable
-import qualified Data.Map.Strict as Map
-import Data.Map.Strict (Map)
-import qualified Data.Semigroup as Semigroup
+import qualified Data.List.Extra as Extra
 import qualified Data.Text as Text
 import Data.Text (Text)
 import qualified Data.Vector as Vector
@@ -14,124 +12,106 @@ import Data.Vector (Vector, (!?))
 import Debug.Trace
 import Types
 
-type Cell = (Int, Int, Int) -- ^ x y powerlevel
+type Coords = (Int, Int)
 
-type Grid = Vector (Vector Cell)
+newtype Power =
+    Power Int
+    deriving (Ord, Eq, Show)
 
-powerlevel :: Int -> (Int, Int) -> Int
-powerlevel serialNum (x, y) =
+newtype BoxSize =
+    BoxSize Int
+    deriving (Ord, Eq, Show)
+
+data Cell = Cell
+    { x :: !Int
+    , y :: !Int
+    , power :: !Int
+    } deriving (Show, Eq, Ord)
+
+data Grid = Grid
+    { size :: !Int
+    , cells :: Vector Cell
+    } deriving (Show, Eq)
+
+plevel :: Int -> (Int, Int) -> Int
+plevel serialNum (x, y) =
     let rackID = x + 10
      in (((rackID * y + serialNum) * rackID) `div` 100 `mod` 10) - 5
 
-makeGrid :: Int -> Int -> Grid
-makeGrid serialNum size =
-    Vector.generate
-        size
-        (\y' ->
-             Vector.generate
-                 size
-                 (\x' ->
-                      let x = x' + 1 -- ^ See gridSize comment
-                          y = y' + 1
-                          p = powerlevel serialNum (x, y)
-                       in (x, y, p)))
+mkGrid :: Int -> Int -> Grid
+mkGrid size serialNum =
+    Grid size . Vector.fromList $ do
+        y <- [1 .. size]
+        x <- [1 .. size]
+        let p = plevel serialNum (x, y)
+        return $ Cell x y p
 
-getCell :: Vector (Vector Cell) -> Int -> Int -> Maybe Cell
-getCell grid x y = grid !? (y - 1) >>= flip (!?) (x - 1)
-
--- | If we calculate this square first
--- o o #
--- o o #
--- # # #
--- and then this
--- o o o
--- o o o
--- o o o
--- we cache the first grid and then add the new cells (or rather their summed
--- fuel value) to the old cache.
-getMissingCells :: Grid -> Cell -> Int -> Maybe [Cell]
-getMissingCells grid (x, y, _) squareSize =
-    sequence $ missingCellsRight ++ missingCellsBottom
-  where
-    getCell' = getCell grid
-    missingCellsRight =
-        [ getCell' (x + squareSize) y'
-            -- | Skip last one otherwise we're counting it twice
-        | y' <- [y .. y + (squareSize - 1)]
-        ]
-    missingCellsBottom =
-        [getCell' x' (y + squareSize) | x' <- [x .. x + squareSize]]
-
-type MaxFuel = Int
-
-type BestSquare = Int
-
--- | Takes a grid and the maximum square size. Iterates over the square sizes,
--- computing the square with the most fuel in all possible grids.
-getBestSquare :: Grid -> Int -> (Maybe Cell, BestSquare, MaxFuel, Map Cell Int)
-getBestSquare grid maxSquareSize =
-    Foldable.foldr'
-        (\currentSquareSize cache ->
-             traceShow currentSquareSize $
-             Foldable.foldr' (sumRow currentSquareSize) cache grid')
-        (Nothing, 0, 0, Map.empty)
-        (reverse [0 .. maxSquareSize])
-  where
-    grid' = Vector.foldr1' (Vector.++) grid -- ^ grid flattened
-    getMissingCells' = getMissingCells grid
-    -- | I cache the fuel for all cells for each square size we're going
-    -- through. So when I'm calculating the squares of square size 5 I can use
-    -- the cached values of square size 4 and just add the new cells to the
-    -- mix.
-    sumRow ::
-           Int
-        -> Cell
-        -> (Maybe Cell, BestSquare, MaxFuel, Map Cell Int)
-        -> (Maybe Cell, BestSquare, MaxFuel, Map Cell Int)
-    sumRow sqSize cell@(_, _, power)
-        -- | Don't break this line...
-                   (origin
-                    -- ^ the origin of the square that currently has the most fuel
-                    , bestSqSize
-                      -- ^ the square size of the above square
-                      , bestFuel
-                        -- ^ fuel in the above square
-                        , cache)
-                        -- ^ the map holding the squares and fuels from the last iteration
-     =
-        let missingFuel =
-                maybe
-                    0
-                    (Foldable.foldMap (\(_, _, plevel) -> Semigroup.Sum plevel))
-                    (getMissingCells' cell sqSize)
-            cachedFuel = Map.lookup cell cache
-         in maybe
-                (Just cell, sqSize, power, Map.insert cell power cache)
-                (\cached ->
-                     let fuel = Semigroup.getSum missingFuel + cached
-                      in if fuel > bestFuel
-                             then ( Just cell
-                                  , sqSize
-                                  , fuel
-                                  , Map.insert cell fuel cache)
-                             else ( origin
-                                  , bestSqSize
-                                  , bestFuel
-                                  , Map.insert cell fuel cache))
-                cachedFuel
-
-gridSize :: Int
-gridSize = 299 -- ^ Vector.generate starts from 0 so we just add 1 but then need to stop at 299
-
--- | Square size 3 means current cell + 2 so when we return we need to add 1 to
--- reflect the dimensions of the square rather than its extent from the origin
 run :: Text -> Either ErrMsg Text
-run t = Right . Text.pack . show $ (cell1, squareSize1 + 1)
+run t =
+    let g = mkGrid 300 . read $ Text.unpack t
+        p1 = part1 g
+        p2 = part2 g
+        p1Result = Extra.maximumOn fst3 p1
+        p2Result = Extra.maximumOn fst3 p2
+     in Right . Text.pack $ show p1Result ++ " " ++ show p2Result
+
+getCell :: Grid -> Int -> Int -> Maybe Cell
+getCell Grid {..} x y = cells !? ((x - 1) + (y - 1) * size)
+
+part1 :: Grid -> [(Int, Int, Int)]
+part1 g@Grid {..} = do
+    x <- [1 .. size]
+    y <- [1 .. size]
+    let total =
+            foldr
+                (\(x', y') accum ->
+                     maybe
+                         accum
+                         ((+) accum . power)
+                         (getCell' (x + x') (y + y')))
+                0 $ do
+                x' <- [0 .. 2]
+                y' <- [0 .. 2]
+                return (x', y')
+    return (total, x, y)
   where
-    -- (cell, squareSize, _, _) = getBestSquare grid 300
-    (cell1, squareSize1, _, _) = getBestSquare grid 2
-    grid = makeGrid serialNum gridSize
-    serialNum = read $ Text.unpack t
+    getCell' = getCell g
+
+trd :: (a, a, a) -> a
+trd (_, _, x) = x
+
+boxes :: Grid -> Int -> Int -> Vector (BoxSize, Vector Coords)
+boxes grid x y =
+    let maxBoxSize x' y' = (size grid) - max x' y'
+     in Vector.fromList $ do
+            s <- [1 .. maxBoxSize x y]
+            let temp = do
+                    a <- [0 .. s - 1]
+                    return [(x + s, y + a), (x + a, y + s)]
+            return (BoxSize s, Vector.fromList $ (x + s, y + s) : concat temp)
+
+fst3 :: (a, b, a) -> a
+fst3 (x, _, _) = x
+
+-- I'm pretty sure this is broken right now. An older version works (check git
+-- log) but I wanted to improve performance :(
+part2 :: Grid -> [(Int, Coords, Int)] -- ^ Power, Key, Grid
+part2 g@Grid {size = gridSize} = do
+    x <- [1 .. gridSize - 1]
+    y <- [1 .. gridSize - 1]
+    let (BoxSize size, Power total) =
+            Extra.maximumOn snd . fst $
+            Vector.foldl' (sumBox g) ([], getOrZero' x y) $ boxes g x y
+    return (total, (x, y), size)
+  where
+    sumBox g (results, accumSum) (BoxSize size, coords) =
+        let power =
+                Vector.foldr'
+                    (\(x,y) s -> s + getOrZero' x y)
+                    0
+                    coords
+         in ((BoxSize size, Power power) : results, accumSum + power)
+    getOrZero' x y = maybe 0 power $ getCell g x y
 
 prog :: DayProg
-prog = DayProg "day9" run
+prog = DayProg "day11" run
