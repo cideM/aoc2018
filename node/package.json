@@ -41,6 +41,7 @@
   "scripts": {
     "posttest": "eslint .",
     "test": "ava",
-    "testw": "ava --watch"
+    "testv": "ava --verbose",
+    "testw": "ava --verbose --watch"
   }
 }
