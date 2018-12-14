@@ -1,37 +1,27 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE FlexibleContexts #-}
 
 module Day11 where
 
+import qualified Data.Array.Unboxed as UArray
+import Data.Array.Unboxed (UArray, (!))
+import qualified Data.Foldable as Foldable
 import qualified Data.List.Extra as Extra
 import qualified Data.Text as Text
 import Data.Text (Text)
-import qualified Data.Vector as Vector
-import Data.Vector (Vector, (!?))
-import Debug.Trace
+import qualified Data.Vector.Unboxed as UVector
+import Text.Printf
 import Types
 
 type Coords = (Int, Int)
 
-newtype Power =
-    Power Int
-    deriving (Ord, Eq, Show)
+type Power = Int
 
-newtype BoxSize =
-    BoxSize Int
-    deriving (Ord, Eq, Show)
+type BoxSize = Int
 
-data Cell = Cell
-    { x :: !Int
-    , y :: !Int
-    , power :: !Int
-    } deriving (Show, Eq, Ord)
-
-data Grid = Grid
-    { size :: !Int
-    , cells :: Vector Cell
-    } deriving (Show, Eq)
+type Grid = UArray (Int, Int) Int
 
 plevel :: Int -> (Int, Int) -> Int
 plevel serialNum (x, y) =
@@ -40,11 +30,17 @@ plevel serialNum (x, y) =
 
 mkGrid :: Int -> Int -> Grid
 mkGrid size serialNum =
-    Grid size . Vector.fromList $ do
+    UArray.array ((1, 1), (size, size)) $ do
         y <- [1 .. size]
         x <- [1 .. size]
-        let p = plevel serialNum (x, y)
-        return $ Cell x y p
+        return ((x, y), plevel serialNum (x, y))
+
+printGrid :: Grid -> IO ()
+printGrid g =
+    let gridSize = uncurry max . snd $ UArray.bounds g
+     in mapM_ (putStrLn . unwords) .
+        map (map $ Text.Printf.printf "%+d") . Extra.chunksOf gridSize $
+        UArray.elems g
 
 run :: Text -> Either ErrMsg Text
 run t =
@@ -52,66 +48,53 @@ run t =
         p1 = part1 g
         p2 = part2 g
         p1Result = Extra.maximumOn fst3 p1
-        p2Result = Extra.maximumOn fst3 p2
-     in Right . Text.pack $ show p1Result ++ " " ++ show p2Result
-
-getCell :: Grid -> Int -> Int -> Maybe Cell
-getCell Grid {..} x y = cells !? ((x - 1) + (y - 1) * size)
+     in Right . Text.pack $ show p1Result ++ " " ++ show p2
 
 part1 :: Grid -> [(Int, Int, Int)]
-part1 g@Grid {..} = do
-    x <- [1 .. size]
-    y <- [1 .. size]
+part1 g = do
+    x <- [1 .. maxX - 2]
+    y <- [1 .. maxY - 2]
     let total =
-            foldr
-                (\(x', y') accum ->
-                     maybe
-                         accum
-                         ((+) accum . power)
-                         (getCell' (x + x') (y + y')))
-                0 $ do
+            foldl (\accum (x', y') -> accum + (g ! (x + x', y + y'))) 0 $ do
                 x' <- [0 .. 2]
                 y' <- [0 .. 2]
                 return (x', y')
     return (total, x, y)
   where
-    getCell' = getCell g
+    maxX = fst . snd $ UArray.bounds g
+    maxY = snd . snd $ UArray.bounds g
 
 trd :: (a, a, a) -> a
 trd (_, _, x) = x
 
-boxes :: Grid -> Int -> Int -> Vector (BoxSize, Vector Coords)
-boxes grid x y =
-    let maxBoxSize x' y' = (size grid) - max x' y'
-     in Vector.fromList $ do
-            s <- [1 .. maxBoxSize x y]
+boxes :: Grid -> Int -> Int -> UVector.Vector (BoxSize, Power)
+boxes g x y =
+    let gridSize = uncurry max . snd $ UArray.bounds g
+        maxBoxSize x' y' = gridSize - max x' y'
+     in snd . Foldable.foldl' f (0, UVector.empty) $ do
+            s <- [0 .. maxBoxSize x y]
             let temp = do
                     a <- [0 .. s - 1]
-                    return [(x + s, y + a), (x + a, y + s)]
-            return (BoxSize s, Vector.fromList $ (x + s, y + s) : concat temp)
+                    return $ g ! (x + s, y + a) + g ! (x + a, y + s)
+            return (s, g ! (x + s, y + s) + (sum temp))
+  where
+    f (p', acc) (bsize, p) =
+        let pow' = p + p'
+         in (pow', UVector.snoc acc (bsize, pow'))
 
 fst3 :: (a, b, a) -> a
 fst3 (x, _, _) = x
 
--- I'm pretty sure this is broken right now. An older version works (check git
--- log) but I wanted to improve performance :(
-part2 :: Grid -> [(Int, Coords, Int)] -- ^ Power, Key, Grid
-part2 g@Grid {size = gridSize} = do
-    x <- [1 .. gridSize - 1]
-    y <- [1 .. gridSize - 1]
-    let (BoxSize size, Power total) =
-            Extra.maximumOn snd . fst $
-            Vector.foldl' (sumBox g) ([], getOrZero' x y) $ boxes g x y
-    return (total, (x, y), size)
+part2 :: Grid -> (Int, Coords, Int) -- ^ Power, Key, Grid
+part2 g =
+    Foldable.maximumBy (\x1 x2 -> fst3 x1 `compare` fst3 x2) $ do
+        x <- [1 .. maxX]
+        y <- [1 .. maxY]
+        let (size, total) = UVector.maximumBy (\x1 x2 -> snd x1 `compare` snd x2) $ boxes g x y
+        return (total, (x, y), size + 1)
   where
-    sumBox g (results, accumSum) (BoxSize size, coords) =
-        let power =
-                Vector.foldr'
-                    (\(x,y) s -> s + getOrZero' x y)
-                    0
-                    coords
-         in ((BoxSize size, Power power) : results, accumSum + power)
-    getOrZero' x y = maybe 0 power $ getCell g x y
+    maxX = fst . snd $ UArray.bounds g
+    maxY = snd . snd $ UArray.bounds g
 
 prog :: DayProg
 prog = DayProg "day11" run

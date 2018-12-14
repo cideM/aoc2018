@@ -14,7 +14,7 @@ type FilePath = Text
 
 data Input
   = FileInput !FilePath
-  | StdIn
+  | CliInput !String
 
 type DayNum = Text
 
