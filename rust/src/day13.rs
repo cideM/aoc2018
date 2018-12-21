@@ -1,3 +1,4 @@
+// TODO: Finish this (it's currently only implemented in Haskell)
 use failure::Error;
 
 #[derive(Debug)]
@@ -36,7 +37,6 @@ pub fn run(data: &str) -> Result<String, Error> {
 
     for (y, line) in data.lines().enumerate() {
         for (x, c) in line.chars().enumerate() {
-
             if c != ' ' {
                 let matched_car = match c {
                     '^' => Some(Car {
