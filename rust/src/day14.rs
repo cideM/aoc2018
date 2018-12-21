@@ -1,64 +1,10 @@
 use failure::Error;
 
-fn to_individual_digits(num: usize) -> Vec<usize> {
+fn to_individual_digits(num: u32) -> Vec<u32> {
     num.to_string()
         .chars()
-        .map(|d| d.to_digit(10).unwrap() as usize)
+        .map(|d| d.to_digit(10).unwrap())
         .collect()
-}
-
-struct Kitchen {
-    cooks: Vec<usize>,
-    recipes: Vec<usize>,
-}
-
-struct KitchenIterator {
-    cooks: Vec<usize>,
-    recipes: Vec<usize>,
-}
-
-impl Iterator for KitchenIterator {
-    type Item = Kitchen;
-
-    fn next(&mut self) -> Option<Kitchen> {
-        let mut new_recipe_score = 0;
-        let mut elf_steps = vec![];
-
-        for &index in self.cooks.iter() {
-            let current_recipe_score = self.recipes[(index as usize)];
-            new_recipe_score += current_recipe_score;
-            elf_steps.push(1 + current_recipe_score);
-        }
-
-        let mut new_recipe_score = to_individual_digits(new_recipe_score);
-
-        self.recipes.append(&mut new_recipe_score);
-
-        let scores_len = self.recipes.len();
-
-        for (index, &steps) in elf_steps.iter().enumerate() {
-            let current_index = self.cooks[index];
-            let new_index = current_index + steps;
-            self.cooks[index] = new_index % (scores_len);
-        }
-
-        Some(Kitchen {
-            cooks: self.cooks,
-            recipes: self.recipes,
-        })
-    }
-}
-
-impl IntoIterator for Kitchen {
-    type Item = Kitchen;
-    type IntoIter = KitchenIterator;
-
-    fn into_iter(self) -> Self::IntoIter {
-        KitchenIterator {
-            cooks: self.cooks,
-            recipes: self.recipes,
-        }
-    }
 }
 
 fn add_recipe<'a>(scores: &'a mut Vec<u32>, elves: &'a mut [u32]) -> () {
