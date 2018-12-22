@@ -30,7 +30,8 @@ fn add_recipe<'a>(scores: &'a mut Vec<u32>, elves: &'a mut [u32]) -> () {
     }
 }
 
-pub fn run(input: &str) -> Result<String, Error> {
+fn part1(input: &str) -> String {
+    println!("{}", input);
     let recipes_to_make = input.parse::<usize>().unwrap();
     let mut scores = vec![3, 7];
     let mut elves = vec![0, 1];
@@ -39,12 +40,14 @@ pub fn run(input: &str) -> Result<String, Error> {
         add_recipe(&mut scores, &mut elves);
     }
 
-    let part1 = &scores[recipes_to_make..recipes_to_make + 10]
+    scores[recipes_to_make..recipes_to_make + 10]
         .iter()
         .map(|s| s.to_string())
         .collect::<Vec<String>>()
-        .concat();
+        .concat()
+}
 
+fn part2(input: &str) -> String {
     let pattern: Vec<u32> = input
         .chars()
         .map(|char| char.to_digit(10).unwrap())
@@ -66,5 +69,16 @@ pub fn run(input: &str) -> Result<String, Error> {
         add_recipe(&mut scores, &mut elves);
     }
 
-    Ok(format!("part1: {:?} part2: {:?}", part1, part2))
+    format!("{}", part2)
+}
+
+pub fn run(input: &str) -> Result<String, Error> {
+    let input = input.trim();
+    let part1_solution = part1(input);
+    let part2_solution = part2(input);
+
+    Ok(format!(
+        "part1: {:?} part2: {:?}",
+        part1_solution, part2_solution
+    ))
 }
