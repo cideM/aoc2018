@@ -9,6 +9,7 @@ import qualified Data.Text.IO as TextIO
 import qualified Day1
 import qualified Day10
 import qualified Day13
+import qualified Day15
 import qualified Day2
 import qualified Day3
 import qualified Day8
@@ -56,6 +57,7 @@ days =
         , ("10", Day10.prog)
         , ("11", Day11.prog)
         , ("13", Day13.prog)
+        , ("15", Day15.prog)
         ]
 
 readData :: Options -> IO Text
