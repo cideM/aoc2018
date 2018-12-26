@@ -1,12 +1,9 @@
 {-# LANGUAGE QuasiQuotes #-}
 {-# LANGUAGE RecordWildCards #-}
 {-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE TupleSections #-}
 
 module Day15 where
 
--- FIXME: This program is excruciatingly slow. No idea why. Profiling revealed
--- that `go` is slow, big surprise. -_-
 import qualified Control.Monad as Monad
 import qualified Data.Array.Unboxed as UArray
 import Data.Array.Unboxed (UArray, (!))
@@ -15,8 +12,6 @@ import qualified Data.List as List
 import qualified Data.List.Extra as Extra
 import qualified Data.Map.Strict as Map'
 import qualified Data.Maybe as Maybe
-import qualified Data.Sequence as Seq
-import Data.Sequence (Seq((:<|), Empty), (><))
 import qualified Data.Set as Set
 import Data.Text (Text)
 import qualified Data.Text as Text
@@ -24,71 +19,6 @@ import qualified Data.Text.IO as TextIO
 import Debug.Trace
 import Text.RawString.QQ
 import Types
-
--- Elf should move right since *targets* are sorted in reading order
-edgeCase1 :: Text
-edgeCase1 =
-  Text.strip
-    [r|
-#######
-#######
-#.E..G#
-#.#####
-#G#####
-#######
-#######
-        |]
-
--- Elf should move left
-edgeCase2 :: Text
-edgeCase2 =
-  Text.strip
-    [r|
-########
-#..E..G#
-#G######
-########
-        |]
-
-testData2 :: Text
-testData2 =
-  Text.strip
-    [r|
-#######
-#G..#E#
-#E#E.E#
-#G.##.#
-#...#E#
-#...E.#
-#######
-    |]
-
-edgeCase3 :: Text
-edgeCase3 =
-  Text.strip
-    [r|
-#####
-#.E.#
-#.G.#
-#.G.#
-#...#
-#####
-        |]
-
-testDataFuckYou :: Text
-testDataFuckYou =
-  Text.strip
-    [r|
-#########
-#G..G..G#
-#.......#
-#.......#
-#G..E..G#
-#.......#
-#.......#
-#G..G..G#
-#########
-        |]
 
 data Coords =
   Coords Int
@@ -135,20 +65,17 @@ getUnits makeUnit battlefield = foldl f Map'.empty $ UArray.assocs battlefield
       | tile == 'E' = Map'.insert (Coords x y) (makeUnit Elf) acc
       | otherwise = acc
 
-inRange :: Coords -> Coords -> Bool
-inRange (Coords x y) (Coords x' y') =
-  (x == x' || y == y') && (x' - x == 1 || y' - y == 1)
-
 isGameOver :: GameState -> Bool
 isGameOver = (==) 1 . List.length . List.nub . map team . Map'.elems
 
-getTargets :: Unit -> GameState -> [(Coords, Unit)]
-getTargets Unit {team = currentTeam} state =
+getTargets :: Coords -> GameState -> Maybe [(Coords, Unit)]
+getTargets coords state = do
+  Unit {team = currentTeam} <- Map'.lookup coords state
   let targetTeam =
         if currentTeam == Goblin
           then Elf
           else Goblin
-  in filter ((==) targetTeam . team . snd) $ Map'.assocs state
+  return $ filter ((==) targetTeam . team . snd) $ Map'.assocs state
 
 surroundingTiles :: Coords -> [Coords]
 surroundingTiles (Coords x y) =
@@ -164,8 +91,7 @@ tileIsFree :: GameState -> Battlefield -> Coords -> Bool
 tileIsFree state battlefield target =
   let lookup' key = Map'.lookup key state
       isNotAWall (Coords x' y') = (/=) '#' $ battlefield ! (x', y')
-      isInGrid = inGrid battlefield
-  in Maybe.isNothing (lookup' target) && isInGrid target && isNotAWall target
+  in Maybe.isNothing (lookup' target) && isNotAWall target
 
 otherTeam :: GameState -> Coords -> Team
 otherTeam state coords =
@@ -182,16 +108,15 @@ hasTargetInReach state coords =
 
 pathToTarget :: Battlefield -> GameState -> Coords -> Maybe Coords
 pathToTarget battlefield state start = do
-  unit <- Map'.lookup start state
-  if hasTargetInReach state start
-    then Nothing
-    else let targetCells =
-               concatMap (surroundingTiles . fst) $ getTargets unit state
-             initial =
-               filter
-                 (\x -> all ($ fst x) [isFree, isInGridAndNotWall])
-                 [(tile, tile) | tile <- surroundingTiles start]
-         in go targetCells initial $ Set.singleton start
+  targets <- getTargets start state
+  let targetCells = concatMap (surroundingTiles . fst) targets
+  Monad.guard . not $ start `elem` targetCells
+  let initial =
+        [ (tile, tile)
+        | tile <- surroundingTiles start
+        , all ($ tile) [isInGridAndNotWall, isFree]
+        ]
+  go targetCells initial $ Set.singleton start
   where
     isInGridAndNotWall c@(Coords x y) =
       let char = battlefield ! (x, y)
@@ -202,20 +127,20 @@ pathToTarget battlefield state start = do
     go _ [] _ = Nothing
     go targetCells xs seen =
       let isUnknown c = not $ Set.member c seen
-          targetsInReach :: [(Coords, Coords)]
           targetsInReach = filter (flip elem targetCells . fst) xs
       in if not $ null targetsInReach
            then Just . snd $
                 List.minimumBy (\a b -> fst a `compare` fst b) targetsInReach
-           else let newFrontiers :: [(Coords, Coords)]
-                    newFrontiers =
-                      List.nubBy (\a b -> fst a == fst b) .
-                      filter
-                        (\x ->
-                           all ($ fst x) [isUnknown, isFree, isInGridAndNotWall]) $
+           else let newFrontiers =
+                      List.nubBy (\a b -> fst a == fst b) $
                       concatMap
                         (\(current, first) ->
-                           map (, first) $ surroundingTiles current)
+                           [ (tile, first)
+                           | tile <- surroundingTiles current
+                           , all
+                               ($ tile)
+                               [isUnknown, isFree, isInGridAndNotWall]
+                           ])
                         xs
                 in go
                      targetCells
@@ -326,6 +251,10 @@ run t =
         in "Part2: " ++ show best
   in Right . Text.pack $ show p1 ++ "\n" ++ show p2
 
+prog :: DayProg
+prog = DayProg "day11" run
+
+-- Debugging stuff
 alignGrid :: Battlefield -> [((Int, Int), Char)]
 alignGrid field =
   concat .
@@ -377,5 +306,67 @@ runDebug maxRounds battlefield state = go state 0
              then TextIO.putStrLn . Text.pack $ show (rounds, lastState)
              else go lastState (rounds + 1)
 
-prog :: DayProg
-prog = DayProg "day11" run
+-- Elf should move right since *targets* are sorted in reading order
+edgeCase1 :: Text
+edgeCase1 =
+  Text.strip
+    [r|
+#######
+#######
+#.E..G#
+#.#####
+#G#####
+#######
+#######
+        |]
+
+-- Elf should move left
+edgeCase2 :: Text
+edgeCase2 =
+  Text.strip
+    [r|
+########
+#..E..G#
+#G######
+########
+        |]
+
+testData2 :: Text
+testData2 =
+  Text.strip
+    [r|
+#######
+#G..#E#
+#E#E.E#
+#G.##.#
+#...#E#
+#...E.#
+#######
+    |]
+
+edgeCase3 :: Text
+edgeCase3 =
+  Text.strip
+    [r|
+#####
+#.E.#
+#.G.#
+#.G.#
+#...#
+#####
+        |]
+
+testDataFuckYou :: Text
+testDataFuckYou =
+  Text.strip
+    [r|
+#########
+#G..G..G#
+#.......#
+#.......#
+#G..E..G#
+#.......#
+#.......#
+#G..G..G#
+#########
+        |]

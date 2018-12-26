@@ -1,38 +1,36 @@
-	Wed Dec 26 14:09 2018 Time and Allocation Profiling Report  (Final)
+	Wed Dec 26 14:22 2018 Time and Allocation Profiling Report  (Final)
 
 	   aoc2018-exe +RTS -N -p -RTS -d 15 -f ../data/day15.txt
 
-	total time  =        0.98 secs   (3939 ticks @ 1000 us, 4 processors)
-	total alloc = 2,228,372,720 bytes  (excludes profiling overheads)
+	total time  =        0.98 secs   (3919 ticks @ 1000 us, 4 processors)
+	total alloc = 2,122,959,696 bytes  (excludes profiling overheads)
 
 COST CENTRE                     MODULE    SRC                             %time %alloc
 
-pathToTarget.go.targetsInReach  Day15     src/Day15.hs:206:11-66           18.4    1.0
-surroundingTiles                Day15     src/Day15.hs:(154,1)-(156,71)    12.1   45.4
-pathToTarget.go                 Day15     src/Day15.hs:(202,5)-(223,75)    10.6   16.0
-compare                         Day15     src/Day15.hs:(99,3)-(102,25)     10.3    0.0
-pathToTarget.go.newFrontiers    Day15     src/Day15.hs:(211,21)-(219,26)    9.7    9.5
-pathToTarget.go.isUnknown       Day15     src/Day15.hs:204:11-47            7.7    0.0
-tileIsFree.lookup'              Day15     src/Day15.hs:165:7-41             4.4    0.1
-pathToTarget.go.newFrontiers.\  Day15     src/Day15.hs:218:28-67            3.5   15.9
-inGrid                          Day15     src/Day15.hs:(159,1)-(161,53)     2.9    0.0
-pathToTarget.go.newFrontiers.\  Day15     src/Day15.hs:215:28-80            2.9    0.0
-pathToTarget.isInGridAndNotWall Day15     src/Day15.hs:(196,5)-(200,31)     2.4    0.0
-tileIsFree.isInGrid             Day15     src/Day15.hs:167:7-35             2.3    2.6
-tileIsFree.isNotAWall           Day15     src/Day15.hs:166:7-67             1.6    0.0
-pathToTarget.isFree             Day15     src/Day15.hs:201:5-41             1.4    2.1
-==                              Day15     src/Day15.hs:96:13-14             1.2    0.0
-run'.go                         Day15     src/Day15.hs:(276,5)-(283,62)     1.1    0.1
-tileIsFree                      Day15     src/Day15.hs:(164,1)-(168,77)     1.1    0.0
-isGameOver                      Day15     src/Day15.hs:143:1-68             0.7    2.6
-getTargets                      Day15     src/Day15.hs:(146,1)-(151,62)     0.5    1.1
-pathToTarget.targetCells        Day15     src/Day15.hs:(188,14)-(189,73)    0.4    1.1
+pathToTarget.go.targetsInReach  Day15     src/Day15.hs:132:11-66           19.3    1.1
+surroundingTiles                Day15     src/Day15.hs:(81,1)-(83,71)      12.7   47.6
+pathToTarget.go                 Day15     src/Day15.hs:(128,5)-(149,75)    12.6   16.8
+compare                         Day15     src/Day15.hs:(30,3)-(33,25)      10.8    0.0
+pathToTarget.go.newFrontiers    Day15     src/Day15.hs:(137,21)-(145,26)    8.7    9.9
+pathToTarget.go.isUnknown       Day15     src/Day15.hs:130:11-47            7.6    0.0
+tileIsFree.lookup'              Day15     src/Day15.hs:92:7-41              5.2    0.1
+pathToTarget.go.newFrontiers.\  Day15     src/Day15.hs:144:28-67            3.0   16.7
+pathToTarget.go.newFrontiers.\  Day15     src/Day15.hs:141:28-80            2.6    0.0
+pathToTarget.isInGridAndNotWall Day15     src/Day15.hs:(122,5)-(126,31)     2.1    0.0
+tileIsFree.isNotAWall           Day15     src/Day15.hs:93:7-67              1.7    0.0
+run'.go                         Day15     src/Day15.hs:(202,5)-(209,62)     1.5    0.1
+inGrid                          Day15     src/Day15.hs:(86,1)-(88,53)       1.5    0.0
+pathToTarget.isFree             Day15     src/Day15.hs:127:5-41             1.2    0.0
+==                              Day15     src/Day15.hs:27:13-14             1.1    0.0
+isGameOver                      Day15     src/Day15.hs:70:1-68              0.9    2.7
+pathToTarget.targetCells        Day15     src/Day15.hs:112:7-78             0.5    1.2
+getTargets                      Day15     src/Day15.hs:(73,1)-(78,62)       0.5    1.2
 
 
                                                                                                                                                                                   individual      inherited
 COST CENTRE                                                     MODULE                               SRC                                                      no.      entries  %time %alloc   %time %alloc
 
-MAIN                                                            MAIN                                 <built-in>                                               4009          0    0.0    0.0   100.0  100.0
+MAIN                                                            MAIN                                 <built-in>                                               4009          0    0.1    0.0   100.0  100.0
  CAF                                                            Data.Text.Array                      <entire-module>                                          5106          0    0.0    0.0     0.0    0.0
  CAF                                                            Data.Text.Internal                   <entire-module>                                          5102          0    0.0    0.0     0.0    0.0
  CAF                                                            Debug.Trace                          <entire-module>                                          4123          0    0.0    0.0     0.0    0.0
@@ -247,12 +245,12 @@ MAIN                                                            MAIN            
    short                                                        Options.Applicative.Builder          Options/Applicative/Builder.hs:155:1-34                  8599          0    0.0    0.0     0.0    0.0
  CAF:fullDesc1                                                  Options.Applicative.Builder          <no location info>                                       4962          0    0.0    0.0     0.0    0.0
   fullDesc                                                      Options.Applicative.Builder          Options/Applicative/Builder.hs:385:1-52                  8065          1    0.0    0.0     0.0    0.0
- CAF:getElves_rpyk                                              Day15                                src/Day15.hs:300:13-20                                   7655          0    0.0    0.0     0.0    0.0
-  run                                                           Day15                                src/Day15.hs:(289,1)-(327,51)                            9044          0    0.0    0.0     0.0    0.0
-   run.p2                                                       Day15                                src/Day15.hs:(299,7)-(326,33)                            9045          0    0.0    0.0     0.0    0.0
-    run.p2.getElves                                             Day15                                src/Day15.hs:(300,13)-(302,70)                           9046          1    0.0    0.0     0.0    0.0
- CAF:getHPLeft                                                  Day15                                src/Day15.hs:286:1-9                                     7654          0    0.0    0.0     0.0    0.0
-  getHPLeft                                                     Day15                                src/Day15.hs:286:1-70                                    9033          1    0.0    0.0     0.0    0.0
+ CAF:getElves_rppc                                              Day15                                src/Day15.hs:226:13-20                                   7645          0    0.0    0.0     0.0    0.0
+  run                                                           Day15                                src/Day15.hs:(215,1)-(253,51)                            9029          0    0.0    0.0     0.0    0.0
+   run.p2                                                       Day15                                src/Day15.hs:(225,7)-(252,33)                            9030          0    0.0    0.0     0.0    0.0
+    run.p2.getElves                                             Day15                                src/Day15.hs:(226,13)-(228,70)                           9031          1    0.0    0.0     0.0    0.0
+ CAF:getHPLeft                                                  Day15                                src/Day15.hs:212:1-9                                     7644          0    0.0    0.0     0.0    0.0
+  getHPLeft                                                     Day15                                src/Day15.hs:212:1-70                                    9018          1    0.0    0.0     0.0    0.0
  CAF:helper                                                     Options.Applicative.Extra            Options/Applicative/Extra.hs:49:1-6                      4890          0    0.0    0.0     0.0    0.0
   helper                                                        Options.Applicative.Extra            Options/Applicative/Extra.hs:(49,1)-(53,12)              8511          1    0.0    0.0     0.0    0.0
    abortOption                                                  Options.Applicative.Builder          Options/Applicative/Builder.hs:(339,1)-(342,16)          8512          1    0.0    0.0     0.0    0.0
@@ -307,8 +305,8 @@ MAIN                                                            MAIN            
  CAF:internal                                                   Options.Applicative.Builder.Internal Options/Applicative/Builder/Internal.hs:183:1-8          4921          0    0.0    0.0     0.0    0.0
   internal                                                      Options.Applicative.Builder.Internal Options/Applicative/Builder/Internal.hs:183:1-60         8144          1    0.0    0.0     0.0    0.0
    optionMod                                                    Options.Applicative.Builder.Internal Options/Applicative/Builder/Internal.hs:129:1-25         8146          0    0.0    0.0     0.0    0.0
- CAF:isGameOver                                                 Day15                                src/Day15.hs:143:1-10                                    7630          0    0.0    0.0     0.0    0.0
-  isGameOver                                                    Day15                                src/Day15.hs:143:1-68                                    8899          1    0.0    0.0     0.0    0.0
+ CAF:isGameOver                                                 Day15                                src/Day15.hs:70:1-10                                     7630          0    0.0    0.0     0.0    0.0
+  isGameOver                                                    Day15                                src/Day15.hs:70:1-68                                     8899          1    0.0    0.0     0.0    0.0
  CAF:liftOpt                                                    Options.Applicative.Common           Options/Applicative/Common.hs:80:1-7                     4912          0    0.0    0.0     0.0    0.0
   liftOpt                                                       Options.Applicative.Common           Options/Applicative/Common.hs:80:1-14                    8152          1    0.0    0.0     0.0    0.0
  CAF:lvl136_rNc0                                                Options.Applicative.BashCompletion   <no location info>                                       5036          0    0.0    0.0     0.0    0.0
@@ -675,8 +673,8 @@ MAIN                                                            MAIN            
   prog                                                          Day11                                src/Day11.hs:100:1-26                                    8883          1    0.0    0.0     0.0    0.0
  CAF:prog                                                       Day13                                src/Day13.hs:179:1-4                                     7686          0    0.0    0.0     0.0    0.0
   prog                                                          Day13                                src/Day13.hs:179:1-26                                    8885          1    0.0    0.0     0.0    0.0
- CAF:prog                                                       Day15                                src/Day15.hs:381:1-4                                     7658          0    0.0    0.0     0.0    0.0
-  prog                                                          Day15                                src/Day15.hs:381:1-26                                    8887          1    0.0    0.0     0.0    0.0
+ CAF:prog                                                       Day15                                src/Day15.hs:307:1-4                                     7658          0    0.0    0.0     0.0    0.0
+  prog                                                          Day15                                src/Day15.hs:307:1-26                                    8887          1    0.0    0.0     0.0    0.0
  CAF:prog                                                       Day2                                 src/Day2.hs:83:1-4                                       7616          0    0.0    0.0     0.0    0.0
   prog                                                          Day2                                 src/Day2.hs:83:1-25                                      8876          1    0.0    0.0     0.0    0.0
  CAF:prog                                                       Day3                                 src/Day3.hs:91:1-4                                       7611          0    0.0    0.0     0.0    0.0
@@ -687,298 +685,268 @@ MAIN                                                            MAIN            
   prog                                                          Day9                                 src/Day9.hs:93:1-25                                      8879          1    0.0    0.0     0.0    0.0
  CAF:readerAsk1                                                 Options.Applicative.Types            <no location info>                                       4828          0    0.0    0.0     0.0    0.0
   readerAsk                                                     Options.Applicative.Types            Options/Applicative/Types.hs:189:1-21                    8718          1    0.0    0.0     0.0    0.0
- main                                                           Main                                 app/Main.hs:(71,1)-(85,47)                               8019          0    0.0    0.0   100.0  100.0
-  _run                                                          Types                                src/Types.hs:8:5-8                                       8890          1    0.0    0.0   100.0  100.0
-   prog                                                         Day15                                src/Day15.hs:381:1-26                                    8892          0    0.0    0.0   100.0  100.0
-    run                                                         Day15                                src/Day15.hs:(289,1)-(327,51)                            8893          1    0.0    0.0   100.0  100.0
-     run.grid                                                   Day15                                src/Day15.hs:290:7-25                                    8902          1    0.0    0.0     0.0    0.0
-      parseInput                                                Day15                                src/Day15.hs:(120,1)-(128,51)                            8903          1    0.0    0.0     0.0    0.0
-       parseInput.indexedLines                                  Day15                                src/Day15.hs:126:5-49                                    8906          1    0.0    0.0     0.0    0.0
-       parseInput.maxX                                          Day15                                src/Day15.hs:127:5-64                                    8905          1    0.0    0.0     0.0    0.0
-       parseInput.maxY                                          Day15                                src/Day15.hs:128:5-51                                    8907          1    0.0    0.0     0.0    0.0
-       parseInput.str                                           Day15                                src/Day15.hs:125:5-27                                    8904          1    0.0    0.0     0.0    0.0
-     run.p1                                                     Day15                                src/Day15.hs:(292,7)-(298,79)                            8894          1    0.0    0.0    10.5   11.1
-      run.p1.(...)                                              Day15                                src/Day15.hs:293:13-55                                   8896          1    0.0    0.0    10.5   11.1
-       run'                                                     Day15                                src/Day15.hs:(274,1)-(283,62)                            8897          1    0.0    0.0    10.5   11.1
-        run'.go                                                 Day15                                src/Day15.hs:(276,5)-(283,62)                            8898         82    0.1    0.0    10.5   11.1
-         run'.go.(...)                                          Day15                                src/Day15.hs:280:13-60                                   8914         82    0.0    0.0    10.5   11.1
-          tick                                                  Day15                                src/Day15.hs:(257,1)-(271,19)                            8915         82    0.0    0.0    10.5   11.1
-           tick.\                                               Day15                                src/Day15.hs:(263,11)-(269,36)                           8919       1957    0.0    0.0    10.4   11.1
-            attack                                              Day15                                src/Day15.hs:(241,1)-(254,14)                            8991       1955    0.1    0.0     0.1    0.1
-             attack.\                                           Day15                                src/Day15.hs:250:35-40                                   9021      27692    0.0    0.0     0.0    0.0
-             compare                                            Day15                                src/Day15.hs:(99,3)-(102,25)                             9014       9438    0.0    0.0     0.0    0.0
-             targetsForUnit                                     Day15                                src/Day15.hs:(232,1)-(238,77)                            8992       1955    0.0    0.0     0.1    0.1
-              compare                                           Day15                                src/Day15.hs:(99,3)-(102,25)                             8993       8056    0.0    0.0     0.0    0.0
-              targetsForUnit.\                                  Day15                                src/Day15.hs:238:36-59                                   9015       2394    0.0    0.0     0.0    0.0
-               team                                             Day15                                src/Day15.hs:112:5-8                                     9017       3737    0.0    0.0     0.0    0.0
-               ==                                               Day15                                src/Day15.hs:107:13-14                                   9016       2394    0.0    0.0     0.0    0.0
-              targetsForUnit.potentialTargets                   Day15                                src/Day15.hs:(234,7)-(236,31)                            8994       1951    0.0    0.0     0.1    0.1
-               targetsForUnit.potentialTargets.\                Day15                                src/Day15.hs:235:37-77                                   8997       7804    0.0    0.0     0.0    0.0
-                compare                                         Day15                                src/Day15.hs:(99,3)-(102,25)                             8998      35293    0.0    0.0     0.0    0.0
-               surroundingTiles                                 Day15                                src/Day15.hs:(154,1)-(156,71)                            8995       1951    0.0    0.1     0.0    0.1
-                compare                                         Day15                                src/Day15.hs:(99,3)-(102,25)                             8996      11706    0.0    0.0     0.0    0.0
-             attack.(...)                                       Day15                                src/Day15.hs:(246,9)-(249,19)                            9018       1108    0.0    0.0     0.0    0.0
-              attack.(...).\                                    Day15                                src/Day15.hs:248:40-66                                   9030        905    0.0    0.0     0.0    0.0
-               hp                                               Day15                                src/Day15.hs:110:5-6                                     9031       1810    0.0    0.0     0.0    0.0
-             attack.\                                           Day15                                src/Day15.hs:252:32-61                                   9020       1108    0.0    0.0     0.0    0.0
-             attack.targetCoords                                Day15                                src/Day15.hs:(246,9)-(249,19)                            9019       1108    0.0    0.0     0.0    0.0
-            tick.\.(...)                                        Day15                                src/Day15.hs:(265,22)-(267,50)                           8923       1955    0.0    0.0    10.2   10.7
-             move                                               Day15                                src/Day15.hs:(226,1)-(229,73)                            8924       1955    0.1    0.0    10.2   10.7
-              compare                                           Day15                                src/Day15.hs:(99,3)-(102,25)                             8925      11944    0.0    0.0     0.0    0.0
-              pathToTarget                                      Day15                                src/Day15.hs:(184,1)-(223,75)                            8926       1951    0.0    0.0    10.2   10.7
-               pathToTarget.go                                  Day15                                src/Day15.hs:(202,5)-(223,75)                            8959      13644    1.6    2.0     9.8   10.1
-                compare                                         Day15                                src/Day15.hs:(99,3)-(102,25)                             9009     503624    0.2    0.0     0.2    0.0
-                pathToTarget.go.targetsInReach                  Day15                                src/Day15.hs:206:11-66                                   8960      13289    1.4    0.1     1.5    0.1
-                 ==                                             Day15                                src/Day15.hs:96:13-14                                    8969    1946010    0.1    0.0     0.1    0.0
-                pathToTarget.go.newFrontiers                    Day15                                src/Day15.hs:(211,21)-(219,26)                           8970      12767    1.0    1.1     6.6    8.0
-                 pathToTarget.go.newFrontiers.\                 Day15                                src/Day15.hs:212:43-56                                   9010     475873    0.1    0.0     0.1    0.0
-                  ==                                            Day15                                src/Day15.hs:96:13-14                                    9011     475873    0.0    0.0     0.0    0.0
-                 pathToTarget.go.newFrontiers.\                 Day15                                src/Day15.hs:215:28-80                                   8974     358400    0.2    0.0     4.0    0.6
-                  pathToTarget.go.isUnknown                     Day15                                src/Day15.hs:204:11-47                                   8975     358400    1.0    0.0     1.5    0.0
-                   compare                                      Day15                                src/Day15.hs:(99,3)-(102,25)                             8976    2212348    0.5    0.0     0.5    0.0
-                  pathToTarget.isInGridAndNotWall               Day15                                src/Day15.hs:(196,5)-(200,31)                            8999     142906    0.3    0.0     0.5    0.1
-                   pathToTarget.isInGridAndNotWall.char         Day15                                src/Day15.hs:197:11-37                                   9007     142906    0.0    0.1     0.0    0.1
-                   pathToTarget.isInGridAndNotWall.isInGrid     Day15                                src/Day15.hs:199:11-41                                   9000     142906    0.1    0.0     0.2    0.0
-                    inGrid                                      Day15                                src/Day15.hs:(159,1)-(161,53)                            9001     142906    0.1    0.0     0.1    0.0
-                     inGrid.(...)                               Day15                                src/Day15.hs:160:7-55                                    9003     142906    0.0    0.0     0.0    0.0
-                     inGrid.maxX                                Day15                                src/Day15.hs:160:7-55                                    9004     142906    0.0    0.0     0.0    0.0
-                     inGrid.maxY                                Day15                                src/Day15.hs:160:7-55                                    9006     142906    0.0    0.0     0.0    0.0
-                     inGrid.minX                                Day15                                src/Day15.hs:160:7-55                                    9002     142906    0.0    0.0     0.0    0.0
-                     inGrid.minY                                Day15                                src/Day15.hs:160:7-55                                    9005     142906    0.0    0.0     0.0    0.0
-                   pathToTarget.isInGridAndNotWall.isNotAWall   Day15                                src/Day15.hs:198:11-34                                   9008     142906    0.0    0.0     0.0    0.0
-                  pathToTarget.isFree                           Day15                                src/Day15.hs:201:5-41                                    8977          0    0.2    0.2     1.8    0.5
-                   tileIsFree                                   Day15                                src/Day15.hs:(164,1)-(168,77)                            8978     222019    0.2    0.0     1.6    0.3
-                    tileIsFree.lookup'                          Day15                                src/Day15.hs:165:7-41                                    8979     222019    0.7    0.0     0.9    0.0
-                     compare                                    Day15                                src/Day15.hs:(99,3)-(102,25)                             8980     989174    0.2    0.0     0.2    0.0
-                    tileIsFree.isInGrid                         Day15                                src/Day15.hs:167:7-35                                    8981     207096    0.2    0.3     0.4    0.3
-                     inGrid                                     Day15                                src/Day15.hs:(159,1)-(161,53)                            8982     207096    0.2    0.0     0.2    0.0
-                      inGrid.(...)                              Day15                                src/Day15.hs:160:7-55                                    8984     207096    0.0    0.0     0.0    0.0
-                      inGrid.maxX                               Day15                                src/Day15.hs:160:7-55                                    8985     207096    0.0    0.0     0.0    0.0
-                      inGrid.maxY                               Day15                                src/Day15.hs:160:7-55                                    8987     207096    0.0    0.0     0.0    0.0
-                      inGrid.minX                               Day15                                src/Day15.hs:160:7-55                                    8983     207096    0.0    0.0     0.0    0.0
-                      inGrid.minY                               Day15                                src/Day15.hs:160:7-55                                    8986     207096    0.0    0.0     0.0    0.0
-                    tileIsFree.isNotAWall                       Day15                                src/Day15.hs:166:7-67                                    8988     207096    0.2    0.0     0.2    0.0
-                 pathToTarget.go.newFrontiers.\                 Day15                                src/Day15.hs:218:28-67                                   8971      89600    0.3    1.9     1.5    6.2
-                  surroundingTiles                              Day15                                src/Day15.hs:(154,1)-(156,71)                            8972      89600    1.2    4.4     1.2    4.4
-                   compare                                      Day15                                src/Day15.hs:(99,3)-(102,25)                             8973     537600    0.1    0.0     0.1    0.0
-                pathToTarget.go.\                               Day15                                src/Day15.hs:209:41-61                                   9012        205    0.0    0.0     0.0    0.0
-                 compare                                        Day15                                src/Day15.hs:(99,3)-(102,25)                             9013        205    0.0    0.0     0.0    0.0
-               compare                                          Day15                                src/Day15.hs:(99,3)-(102,25)                             8927       7496    0.0    0.0     0.0    0.0
-               hasTargetInReach                                 Day15                                src/Day15.hs:(177,1)-(181,39)                            8928       1951    0.0    0.0     0.0    0.1
-                compare                                         Day15                                src/Day15.hs:(99,3)-(102,25)                             8931      26003    0.0    0.0     0.0    0.0
-                surroundingTiles                                Day15                                src/Day15.hs:(154,1)-(156,71)                            8929       1951    0.0    0.1     0.0    0.1
-                 compare                                        Day15                                src/Day15.hs:(99,3)-(102,25)                             8930      10501    0.0    0.0     0.0    0.0
-                ==                                              Day15                                src/Day15.hs:107:13-14                                   9022       1415    0.0    0.0     0.0    0.0
-                team                                            Day15                                src/Day15.hs:112:5-8                                     9028       1415    0.0    0.0     0.0    0.0
-                hasTargetInReach.targetTeam                     Day15                                src/Day15.hs:181:5-39                                    9023       1305    0.0    0.0     0.0    0.0
-                 otherTeam                                      Day15                                src/Day15.hs:(171,1)-(174,15)                            9024       1305    0.0    0.0     0.0    0.0
-                  compare                                       Day15                                src/Day15.hs:(99,3)-(102,25)                             9027       4960    0.0    0.0     0.0    0.0
-                  ==                                            Day15                                src/Day15.hs:107:13-14                                   9025       1305    0.0    0.0     0.0    0.0
-                  team                                          Day15                                src/Day15.hs:112:5-8                                     9026       1305    0.0    0.0     0.0    0.0
-               pathToTarget.initial                             Day15                                src/Day15.hs:(190,14)-(193,64)                           8932        877    0.0    0.0     0.1    0.1
-                pathToTarget.initial.\                          Day15                                src/Day15.hs:192:25-66                                   8935       3508    0.0    0.0     0.1    0.0
-                 pathToTarget.isInGridAndNotWall                Day15                                src/Day15.hs:(196,5)-(200,31)                            8949       2801    0.0    0.0     0.0    0.0
-                  pathToTarget.isInGridAndNotWall.char          Day15                                src/Day15.hs:197:11-37                                   8957       2801    0.0    0.0     0.0    0.0
-                  pathToTarget.isInGridAndNotWall.isInGrid      Day15                                src/Day15.hs:199:11-41                                   8950       2801    0.0    0.0     0.0    0.0
-                   inGrid                                       Day15                                src/Day15.hs:(159,1)-(161,53)                            8951       2801    0.0    0.0     0.0    0.0
-                    inGrid.(...)                                Day15                                src/Day15.hs:160:7-55                                    8953       2801    0.0    0.0     0.0    0.0
-                    inGrid.maxX                                 Day15                                src/Day15.hs:160:7-55                                    8954       2801    0.0    0.0     0.0    0.0
-                    inGrid.maxY                                 Day15                                src/Day15.hs:160:7-55                                    8956       2801    0.0    0.0     0.0    0.0
-                    inGrid.minX                                 Day15                                src/Day15.hs:160:7-55                                    8952       2801    0.0    0.0     0.0    0.0
-                    inGrid.minY                                 Day15                                src/Day15.hs:160:7-55                                    8955       2801    0.0    0.0     0.0    0.0
-                  pathToTarget.isInGridAndNotWall.isNotAWall    Day15                                src/Day15.hs:198:11-34                                   8958       2801    0.0    0.0     0.0    0.0
-                 pathToTarget.isFree                            Day15                                src/Day15.hs:201:5-41                                    8937          0    0.0    0.0     0.1    0.0
-                  tileIsFree                                    Day15                                src/Day15.hs:(164,1)-(168,77)                            8938       3508    0.0    0.0     0.1    0.0
-                   tileIsFree.lookup'                           Day15                                src/Day15.hs:165:7-41                                    8939       3508    0.1    0.0     0.1    0.0
-                    compare                                     Day15                                src/Day15.hs:(99,3)-(102,25)                             8940      16199    0.0    0.0     0.0    0.0
-                   tileIsFree.isInGrid                          Day15                                src/Day15.hs:167:7-35                                    8941       3229    0.0    0.0     0.0    0.0
-                    inGrid                                      Day15                                src/Day15.hs:(159,1)-(161,53)                            8942       3229    0.0    0.0     0.0    0.0
-                     inGrid.(...)                               Day15                                src/Day15.hs:160:7-55                                    8944       3229    0.0    0.0     0.0    0.0
-                     inGrid.maxX                                Day15                                src/Day15.hs:160:7-55                                    8945       3229    0.0    0.0     0.0    0.0
-                     inGrid.maxY                                Day15                                src/Day15.hs:160:7-55                                    8947       3229    0.0    0.0     0.0    0.0
-                     inGrid.minX                                Day15                                src/Day15.hs:160:7-55                                    8943       3229    0.0    0.0     0.0    0.0
-                     inGrid.minY                                Day15                                src/Day15.hs:160:7-55                                    8946       3229    0.0    0.0     0.0    0.0
-                   tileIsFree.isNotAWall                        Day15                                src/Day15.hs:166:7-67                                    8948       3229    0.0    0.0     0.0    0.0
-                surroundingTiles                                Day15                                src/Day15.hs:(154,1)-(156,71)                            8933        877    0.0    0.0     0.0    0.0
-                 compare                                        Day15                                src/Day15.hs:(99,3)-(102,25)                             8934       5262    0.0    0.0     0.0    0.0
-               pathToTarget.isFree                              Day15                                src/Day15.hs:201:5-41                                    8936        877    0.0    0.0     0.0    0.0
-               pathToTarget.targetCells                         Day15                                src/Day15.hs:(188,14)-(189,73)                           8961        877    0.1    0.1     0.2    0.5
-                surroundingTiles                                Day15                                src/Day15.hs:(154,1)-(156,71)                            8967       6255    0.1    0.3     0.1    0.3
-                 compare                                        Day15                                src/Day15.hs:(99,3)-(102,25)                             8968      37530    0.0    0.0     0.0    0.0
-                getTargets                                      Day15                                src/Day15.hs:(146,1)-(151,62)                            8962        877    0.0    0.1     0.1    0.1
-                 ==                                             Day15                                src/Day15.hs:107:13-14                                   8963      21261    0.0    0.0     0.0    0.0
-                 team                                           Day15                                src/Day15.hs:112:5-8                                     8966      21261    0.0    0.0     0.0    0.0
-                 getTargets.targetTeam                          Day15                                src/Day15.hs:(147,7)-(150,21)                            8964        877    0.0    0.0     0.0    0.0
-                  ==                                            Day15                                src/Day15.hs:107:13-14                                   8965        877    0.0    0.0     0.0    0.0
-            tick.\.newCoords                                    Day15                                src/Day15.hs:(265,22)-(267,50)                           8990       1955    0.0    0.0     0.0    0.0
-            tick.\.newState                                     Day15                                src/Day15.hs:(265,22)-(267,50)                           8989       1955    0.0    0.0     0.0    0.0
-            isGameOver                                          Day15                                src/Day15.hs:143:1-68                                    8920          0    0.1    0.2     0.1    0.2
-             ==                                                 Day15                                src/Day15.hs:107:13-14                                   8921      66381    0.0    0.0     0.0    0.0
-             team                                               Day15                                src/Day15.hs:112:5-8                                     8922      48147    0.0    0.0     0.0    0.0
-           tick.readingOrder                                    Day15                                src/Day15.hs:(258,7)-(260,25)                            8916         82    0.0    0.0     0.0    0.0
-            tick.readingOrder.\                                 Day15                                src/Day15.hs:259:51-74                                   8917       1875    0.0    0.0     0.0    0.0
-             compare                                            Day15                                src/Day15.hs:(99,3)-(102,25)                             8918       1875    0.0    0.0     0.0    0.0
-         run'.go.lastState                                      Day15                                src/Day15.hs:280:13-60                                   9029         82    0.0    0.0     0.0    0.0
-         run'.go.unitsLeft                                      Day15                                src/Day15.hs:280:13-60                                   8913         82    0.0    0.0     0.0    0.0
-         isGameOver                                             Day15                                src/Day15.hs:143:1-68                                    8900          0    0.0    0.0     0.0    0.0
-          ==                                                    Day15                                src/Day15.hs:107:13-14                                   8911       2671    0.0    0.0     0.0    0.0
-          team                                                  Day15                                src/Day15.hs:112:5-8                                     8912       1957    0.0    0.0     0.0    0.0
-      run.p1.hpLeft                                             Day15                                src/Day15.hs:294:13-40                                   9032          1    0.0    0.0     0.0    0.0
-       getHPLeft                                                Day15                                src/Day15.hs:286:1-70                                    9034          0    0.0    0.0     0.0    0.0
-        getHPLeft.\                                             Day15                                src/Day15.hs:286:47-54                                   9036         16    0.0    0.0     0.0    0.0
-      run.p1.lastState                                          Day15                                src/Day15.hs:293:13-55                                   9035          1    0.0    0.0     0.0    0.0
-      run.p1.rounds                                             Day15                                src/Day15.hs:293:13-55                                   8895          1    0.0    0.0     0.0    0.0
-     run.p2                                                     Day15                                src/Day15.hs:(299,7)-(326,33)                            9037          1    0.0    0.0    89.5   88.9
-      run.p2.best                                               Day15                                src/Day15.hs:325:13-75                                   9040          1    0.0    0.0     0.0    0.0
-       run.p2.best.\                                            Day15                                src/Day15.hs:325:53-66                                   9042         22    0.0    0.0     0.0    0.0
-      run.p2.results                                            Day15                                src/Day15.hs:(316,13)-(324,22)                           9039          1    0.0    0.0    89.4   88.9
-       run.p2.results.\                                         Day15                                src/Day15.hs:(319,20)-(323,62)                           9041         22    0.0    0.0    89.4   88.9
-        run.p2.results.\.(...)                                  Day15                                src/Day15.hs:320:24-64                                   9058         22    0.0    0.0    89.4   88.9
-         run'                                                   Day15                                src/Day15.hs:(274,1)-(283,62)                            9059         22    0.0    0.0    89.4   88.9
-          run'.go                                               Day15                                src/Day15.hs:(276,5)-(283,62)                            9060       1316    1.0    0.1    89.4   88.9
-           run'.go.(...)                                        Day15                                src/Day15.hs:280:13-60                                   9065       1312    0.0    0.0    88.3   88.6
-            tick                                                Day15                                src/Day15.hs:(257,1)-(271,19)                            9066       1312    0.1    0.1    88.3   88.6
-             tick.\                                             Day15                                src/Day15.hs:(263,11)-(269,36)                           9070      25254    0.1    0.0    88.1   88.4
-              attack                                            Day15                                src/Day15.hs:(241,1)-(254,14)                            9142      25161    0.4    0.2     1.6    1.8
-               attack.\                                         Day15                                src/Day15.hs:250:35-40                                   9172     339603    0.0    0.0     0.0    0.0
-               compare                                          Day15                                src/Day15.hs:(99,3)-(102,25)                             9165     118993    0.0    0.0     0.0    0.0
-               targetsForUnit                                   Day15                                src/Day15.hs:(232,1)-(238,77)                            9143      25161    0.1    0.1     1.2    1.5
-                compare                                         Day15                                src/Day15.hs:(99,3)-(102,25)                             9144     101744    0.0    0.0     0.0    0.0
-                targetsForUnit.\                                Day15                                src/Day15.hs:238:36-59                                   9166      29278    0.0    0.0     0.0    0.0
-                 team                                           Day15                                src/Day15.hs:112:5-8                                     9168      46733    0.0    0.0     0.0    0.0
-                 ==                                             Day15                                src/Day15.hs:107:13-14                                   9167      29278    0.0    0.0     0.0    0.0
-                targetsForUnit.potentialTargets                 Day15                                src/Day15.hs:(234,7)-(236,31)                            9145      24998    0.2    0.1     1.0    1.4
-                 targetsForUnit.potentialTargets.\              Day15                                src/Day15.hs:235:37-77                                   9148      99992    0.3    0.1     0.4    0.1
-                  compare                                       Day15                                src/Day15.hs:(99,3)-(102,25)                             9149     436722    0.2    0.0     0.2    0.0
-                 surroundingTiles                               Day15                                src/Day15.hs:(154,1)-(156,71)                            9146      24998    0.5    1.2     0.5    1.2
-                  compare                                       Day15                                src/Day15.hs:(99,3)-(102,25)                             9147     149988    0.0    0.0     0.0    0.0
-               attack.(...)                                     Day15                                src/Day15.hs:(246,9)-(249,19)                            9169      15495    0.0    0.0     0.0    0.0
-                attack.(...).\                                  Day15                                src/Day15.hs:248:40-66                                   9181       8635    0.0    0.0     0.0    0.0
-                 hp                                             Day15                                src/Day15.hs:110:5-6                                     9182      17270    0.0    0.0     0.0    0.0
-               attack.\                                         Day15                                src/Day15.hs:252:32-61                                   9171      15495    0.0    0.0     0.0    0.0
-               attack.targetCoords                              Day15                                src/Day15.hs:(246,9)-(249,19)                            9170      15495    0.0    0.0     0.0    0.0
-              tick.\.(...)                                      Day15                                src/Day15.hs:(265,22)-(267,50)                           9074      25161    0.0    0.0    85.7   84.3
-               move                                             Day15                                src/Day15.hs:(226,1)-(229,73)                            9075      25161    0.5    0.3    85.7   84.3
-                compare                                         Day15                                src/Day15.hs:(99,3)-(102,25)                             9076     164397    0.1    0.0     0.1    0.0
-                pathToTarget                                    Day15                                src/Day15.hs:(184,1)-(223,75)                            9077      24998    0.3    0.1    85.1   84.1
-                 pathToTarget.go                                Day15                                src/Day15.hs:(202,5)-(223,75)                            9110     105163    9.1   14.1    80.5   75.1
-                  compare                                       Day15                                src/Day15.hs:(99,3)-(102,25)                             9160    3494042    1.5    0.0     1.5    0.0
-                  pathToTarget.go.targetsInReach                Day15                                src/Day15.hs:206:11-66                                   9111     103846   16.9    0.9    17.7    0.9
-                   ==                                           Day15                                src/Day15.hs:96:13-14                                    9120   21427047    0.8    0.0     0.8    0.0
-                  pathToTarget.go.newFrontiers                  Day15                                src/Day15.hs:(211,21)-(219,26)                           9121      94752    8.7    8.4    52.2   60.2
-                   pathToTarget.go.newFrontiers.\               Day15                                src/Day15.hs:212:43-56                                   9161    3665000    0.3    0.0     0.6    0.0
-                    ==                                          Day15                                src/Day15.hs:96:13-14                                    9162    3665000    0.4    0.0     0.4    0.0
-                   pathToTarget.go.newFrontiers.\               Day15                                src/Day15.hs:215:28-80                                   9125    2690280    2.7    0.0    30.5    5.0
-                    pathToTarget.go.isUnknown                   Day15                                src/Day15.hs:204:11-47                                   9126    2690280    6.7    0.0    12.1    0.0
-                     compare                                    Day15                                src/Day15.hs:(99,3)-(102,25)                             9127   15341895    5.4    0.0     5.4    0.0
-                    pathToTarget.isInGridAndNotWall             Day15                                src/Day15.hs:(196,5)-(200,31)                            9150    1105686    1.9    0.0     4.2    0.8
-                     pathToTarget.isInGridAndNotWall.char       Day15                                src/Day15.hs:197:11-37                                   9158    1105686    0.4    0.8     0.4    0.8
-                     pathToTarget.isInGridAndNotWall.isInGrid   Day15                                src/Day15.hs:199:11-41                                   9151    1105686    0.2    0.0     1.7    0.0
-                      inGrid                                    Day15                                src/Day15.hs:(159,1)-(161,53)                            9152    1105686    1.5    0.0     1.5    0.0
-                       inGrid.(...)                             Day15                                src/Day15.hs:160:7-55                                    9154    1105686    0.0    0.0     0.0    0.0
-                       inGrid.maxX                              Day15                                src/Day15.hs:160:7-55                                    9155    1105686    0.0    0.0     0.0    0.0
-                       inGrid.maxY                              Day15                                src/Day15.hs:160:7-55                                    9157    1105686    0.0    0.0     0.0    0.0
-                       inGrid.minX                              Day15                                src/Day15.hs:160:7-55                                    9153    1105686    0.0    0.0     0.0    0.0
-                       inGrid.minY                              Day15                                src/Day15.hs:160:7-55                                    9156    1105686    0.0    0.0     0.0    0.0
-                     pathToTarget.isInGridAndNotWall.isNotAWall Day15                                src/Day15.hs:198:11-34                                   9159    1105686    0.2    0.0     0.2    0.0
-                    pathToTarget.isFree                         Day15                                src/Day15.hs:201:5-41                                    9128          0    1.2    1.8    11.6    4.2
-                     tileIsFree                                 Day15                                src/Day15.hs:(164,1)-(168,77)                            9129    1689505    0.9    0.0    10.4    2.3
-                      tileIsFree.lookup'                        Day15                                src/Day15.hs:165:7-41                                    9130    1689505    3.5    0.1     5.1    0.1
-                       compare                                  Day15                                src/Day15.hs:(99,3)-(102,25)                             9131    7304464    1.5    0.0     1.5    0.0
-                      tileIsFree.isInGrid                       Day15                                src/Day15.hs:167:7-35                                    9132    1581740    2.0    2.3     3.1    2.3
-                       inGrid                                   Day15                                src/Day15.hs:(159,1)-(161,53)                            9133    1581740    1.1    0.0     1.1    0.0
-                        inGrid.(...)                            Day15                                src/Day15.hs:160:7-55                                    9135    1581740    0.0    0.0     0.0    0.0
-                        inGrid.maxX                             Day15                                src/Day15.hs:160:7-55                                    9136    1581740    0.0    0.0     0.0    0.0
-                        inGrid.maxY                             Day15                                src/Day15.hs:160:7-55                                    9138    1581740    0.0    0.0     0.0    0.0
-                        inGrid.minX                             Day15                                src/Day15.hs:160:7-55                                    9134    1581740    0.0    0.0     0.0    0.0
-                        inGrid.minY                             Day15                                src/Day15.hs:160:7-55                                    9137    1581740    0.0    0.0     0.0    0.0
-                      tileIsFree.isNotAWall                     Day15                                src/Day15.hs:166:7-67                                    9139    1581740    1.3    0.0     1.3    0.0
-                   pathToTarget.go.newFrontiers.\               Day15                                src/Day15.hs:218:28-67                                   9122     672570    3.2   14.0    12.3   46.8
-                    surroundingTiles                            Day15                                src/Day15.hs:(154,1)-(156,71)                            9123     672570    8.7   32.8     9.1   32.8
-                     compare                                    Day15                                src/Day15.hs:(99,3)-(102,25)                             9124    4035420    0.5    0.0     0.5    0.0
-                  pathToTarget.go.\                             Day15                                src/Day15.hs:209:41-61                                   9163       4179    0.0    0.0     0.0    0.0
-                   compare                                      Day15                                src/Day15.hs:(99,3)-(102,25)                             9164       4179    0.0    0.0     0.0    0.0
-                 compare                                        Day15                                src/Day15.hs:(99,3)-(102,25)                             9078      91036    0.0    0.0     0.0    0.0
-                 hasTargetInReach                               Day15                                src/Day15.hs:(177,1)-(181,39)                            9079      24998    0.4    0.1     1.0    1.2
-                  compare                                       Day15                                src/Day15.hs:(99,3)-(102,25)                             9082     318844    0.1    0.0     0.1    0.0
-                  surroundingTiles                              Day15                                src/Day15.hs:(154,1)-(156,71)                            9080      24998    0.3    1.2     0.4    1.2
-                   compare                                      Day15                                src/Day15.hs:(99,3)-(102,25)                             9081     135419    0.1    0.0     0.1    0.0
-                  ==                                            Day15                                src/Day15.hs:107:13-14                                   9173      18304    0.0    0.0     0.0    0.0
-                  team                                          Day15                                src/Day15.hs:112:5-8                                     9179      18304    0.0    0.0     0.0    0.0
-                  hasTargetInReach.targetTeam                   Day15                                src/Day15.hs:181:5-39                                    9174      16581    0.0    0.0     0.3    0.0
-                   otherTeam                                    Day15                                src/Day15.hs:(171,1)-(174,15)                            9175      16581    0.2    0.0     0.3    0.0
-                    compare                                     Day15                                src/Day15.hs:(99,3)-(102,25)                             9178      59350    0.1    0.0     0.1    0.0
-                    ==                                          Day15                                src/Day15.hs:107:13-14                                   9176      16581    0.0    0.0     0.0    0.0
-                    team                                        Day15                                src/Day15.hs:112:5-8                                     9177      16581    0.0    0.0     0.0    0.0
-                 pathToTarget.initial                           Day15                                src/Day15.hs:(190,14)-(193,64)                           9083      10411    0.1    0.1     1.2    0.8
-                  pathToTarget.initial.\                        Day15                                src/Day15.hs:192:25-66                                   9086      41644    0.2    0.0     0.9    0.1
-                   pathToTarget.isInGridAndNotWall              Day15                                src/Day15.hs:(196,5)-(200,31)                            9100      33105    0.2    0.0     0.2    0.0
-                    pathToTarget.isInGridAndNotWall.char        Day15                                src/Day15.hs:197:11-37                                   9108      33105    0.0    0.0     0.0    0.0
-                    pathToTarget.isInGridAndNotWall.isInGrid    Day15                                src/Day15.hs:199:11-41                                   9101      33105    0.0    0.0     0.0    0.0
-                     inGrid                                     Day15                                src/Day15.hs:(159,1)-(161,53)                            9102      33105    0.0    0.0     0.0    0.0
-                      inGrid.(...)                              Day15                                src/Day15.hs:160:7-55                                    9104      33105    0.0    0.0     0.0    0.0
-                      inGrid.maxX                               Day15                                src/Day15.hs:160:7-55                                    9105      33105    0.0    0.0     0.0    0.0
-                      inGrid.maxY                               Day15                                src/Day15.hs:160:7-55                                    9107      33105    0.0    0.0     0.0    0.0
-                      inGrid.minX                               Day15                                src/Day15.hs:160:7-55                                    9103      33105    0.0    0.0     0.0    0.0
-                      inGrid.minY                               Day15                                src/Day15.hs:160:7-55                                    9106      33105    0.0    0.0     0.0    0.0
-                    pathToTarget.isInGridAndNotWall.isNotAWall  Day15                                src/Day15.hs:198:11-34                                   9109      33105    0.1    0.0     0.1    0.0
-                   pathToTarget.isFree                          Day15                                src/Day15.hs:201:5-41                                    9088          0    0.1    0.0     0.5    0.1
-                    tileIsFree                                  Day15                                src/Day15.hs:(164,1)-(168,77)                            9089      41644    0.0    0.0     0.5    0.1
-                     tileIsFree.lookup'                         Day15                                src/Day15.hs:165:7-41                                    9090      41644    0.2    0.0     0.2    0.0
-                      compare                                   Day15                                src/Day15.hs:(99,3)-(102,25)                             9091     189515    0.1    0.0     0.1    0.0
-                     tileIsFree.isInGrid                        Day15                                src/Day15.hs:167:7-35                                    9092      39221    0.1    0.1     0.2    0.1
-                      inGrid                                    Day15                                src/Day15.hs:(159,1)-(161,53)                            9093      39221    0.1    0.0     0.1    0.0
-                       inGrid.(...)                             Day15                                src/Day15.hs:160:7-55                                    9095      39221    0.0    0.0     0.0    0.0
-                       inGrid.maxX                              Day15                                src/Day15.hs:160:7-55                                    9096      39221    0.0    0.0     0.0    0.0
-                       inGrid.maxY                              Day15                                src/Day15.hs:160:7-55                                    9098      39221    0.0    0.0     0.0    0.0
-                       inGrid.minX                              Day15                                src/Day15.hs:160:7-55                                    9094      39221    0.0    0.0     0.0    0.0
-                       inGrid.minY                              Day15                                src/Day15.hs:160:7-55                                    9097      39221    0.0    0.0     0.0    0.0
-                     tileIsFree.isNotAWall                      Day15                                src/Day15.hs:166:7-67                                    9099      39221    0.1    0.0     0.1    0.0
-                  surroundingTiles                              Day15                                src/Day15.hs:(154,1)-(156,71)                            9084      10411    0.2    0.5     0.2    0.5
-                   compare                                      Day15                                src/Day15.hs:(99,3)-(102,25)                             9085      62466    0.0    0.0     0.0    0.0
-                 pathToTarget.isFree                            Day15                                src/Day15.hs:201:5-41                                    9087      10411    0.0    0.0     0.0    0.0
-                 pathToTarget.targetCells                       Day15                                src/Day15.hs:(188,14)-(189,73)                           9112      10374    0.3    1.1     2.1    6.8
-                  surroundingTiles                              Day15                                src/Day15.hs:(154,1)-(156,71)                            9118      96897    1.2    4.7     1.3    4.7
-                   compare                                      Day15                                src/Day15.hs:(99,3)-(102,25)                             9119     581378    0.1    0.0     0.1    0.0
-                  getTargets                                    Day15                                src/Day15.hs:(146,1)-(151,62)                            9113      10374    0.4    1.0     0.5    1.0
-                   ==                                           Day15                                src/Day15.hs:107:13-14                                   9114     241902    0.0    0.0     0.0    0.0
-                   team                                         Day15                                src/Day15.hs:112:5-8                                     9117     241902    0.0    0.0     0.0    0.0
-                   getTargets.targetTeam                        Day15                                src/Day15.hs:(147,7)-(150,21)                            9115      10374    0.1    0.0     0.1    0.0
-                    ==                                          Day15                                src/Day15.hs:107:13-14                                   9116      10374    0.0    0.0     0.0    0.0
-              tick.\.newCoords                                  Day15                                src/Day15.hs:(265,22)-(267,50)                           9141      25161    0.0    0.0     0.0    0.0
-              tick.\.newState                                   Day15                                src/Day15.hs:(265,22)-(267,50)                           9140      25161    0.0    0.0     0.0    0.0
-              isGameOver                                        Day15                                src/Day15.hs:143:1-68                                    9071          0    0.5    2.3     0.7    2.3
-               ==                                               Day15                                src/Day15.hs:107:13-14                                   9072     778411    0.1    0.0     0.1    0.0
-               team                                             Day15                                src/Day15.hs:112:5-8                                     9073     564935    0.1    0.0     0.1    0.0
-             tick.readingOrder                                  Day15                                src/Day15.hs:(258,7)-(260,25)                            9067       1312    0.1    0.2     0.1    0.2
-              tick.readingOrder.\                               Day15                                src/Day15.hs:259:51-74                                   9068      23942    0.0    0.0     0.0    0.0
-               compare                                          Day15                                src/Day15.hs:(99,3)-(102,25)                             9069      23942    0.0    0.0     0.0    0.0
-           run'.go.lastState                                    Day15                                src/Day15.hs:280:13-60                                   9180       1312    0.0    0.0     0.0    0.0
-           run'.go.unitsLeft                                    Day15                                src/Day15.hs:280:13-60                                   9064       1312    0.0    0.0     0.0    0.0
-           isGameOver                                           Day15                                src/Day15.hs:143:1-68                                    9061          0    0.1    0.1     0.1    0.1
-            ==                                                  Day15                                src/Day15.hs:107:13-14                                   9062      34435    0.0    0.0     0.0    0.0
-            team                                                Day15                                src/Day15.hs:112:5-8                                     9063      25279    0.0    0.0     0.0    0.0
-        run.p2.results.\.elves                                  Day15                                src/Day15.hs:319:24-45                                   9043         22    0.0    0.0     0.0    0.0
-        run.p2.results.\.elvesFinal                             Day15                                src/Day15.hs:321:24-54                                   9056         22    0.0    0.0     0.0    0.0
-        run.p2.results.\.lastState                              Day15                                src/Day15.hs:320:24-64                                   9057         22    0.0    0.0     0.0    0.0
-        run.p2.results.\.hpLeft                                 Day15                                src/Day15.hs:322:24-51                                   9184          1    0.0    0.0     0.0    0.0
-         getHPLeft                                              Day15                                src/Day15.hs:286:1-70                                    9185          0    0.0    0.0     0.0    0.0
-          getHPLeft.\                                           Day15                                src/Day15.hs:286:47-54                                   9186         10    0.0    0.0     0.0    0.0
-        run.p2.results.\.rounds                                 Day15                                src/Day15.hs:320:24-64                                   9183          1    0.0    0.0     0.0    0.0
-      run.p2.states                                             Day15                                src/Day15.hs:(303,13)-(315,15)                           9038          1    0.0    0.0     0.0    0.0
-       getUnits                                                 Day15                                src/Day15.hs:(131,1)-(136,23)                            9048         22    0.0    0.0     0.0    0.0
-        getUnits.f                                              Day15                                src/Day15.hs:(133,5)-(136,23)                            9049      22528    0.0    0.0     0.0    0.0
-         compare                                                Day15                                src/Day15.hs:(99,3)-(102,25)                             9052       2464    0.0    0.0     0.0    0.0
-         run.p2.states.\                                        Day15                                src/Day15.hs:(306,24)-(311,29)                           9050         44    0.0    0.0     0.0    0.0
-          ==                                                    Day15                                src/Day15.hs:107:13-14                                   9051         44    0.0    0.0     0.0    0.0
-      run.p2.getElves                                           Day15                                src/Day15.hs:(300,13)-(302,70)                           9047          0    0.0    0.0     0.0    0.0
-       ==                                                       Day15                                src/Day15.hs:107:13-14                                   9054        832    0.0    0.0     0.0    0.0
-       team                                                     Day15                                src/Day15.hs:112:5-8                                     9053        832    0.0    0.0     0.0    0.0
-       hp                                                       Day15                                src/Day15.hs:110:5-6                                     9055        349    0.0    0.0     0.0    0.0
-     run.stateP1                                                Day15                                src/Day15.hs:291:7-42                                    8901          1    0.0    0.0     0.0    0.0
-      getUnits                                                  Day15                                src/Day15.hs:(131,1)-(136,23)                            8908          1    0.0    0.0     0.0    0.0
-       getUnits.f                                               Day15                                src/Day15.hs:(133,5)-(136,23)                            8909       1024    0.0    0.0     0.0    0.0
-        compare                                                 Day15                                src/Day15.hs:(99,3)-(102,25)                             8910        112    0.0    0.0     0.0    0.0
+ main                                                           Main                                 app/Main.hs:(71,1)-(85,47)                               8019          0    0.0    0.0    99.9  100.0
+  _run                                                          Types                                src/Types.hs:8:5-8                                       8890          1    0.0    0.0    99.9  100.0
+   prog                                                         Day15                                src/Day15.hs:307:1-26                                    8892          0    0.0    0.0    99.9  100.0
+    run                                                         Day15                                src/Day15.hs:(215,1)-(253,51)                            8893          1    0.0    0.0    99.9  100.0
+     run.grid                                                   Day15                                src/Day15.hs:216:7-25                                    8902          1    0.0    0.0     0.0    0.0
+      parseInput                                                Day15                                src/Day15.hs:(51,1)-(59,51)                              8903          1    0.0    0.0     0.0    0.0
+       parseInput.indexedLines                                  Day15                                src/Day15.hs:57:5-49                                     8906          1    0.0    0.0     0.0    0.0
+       parseInput.maxX                                          Day15                                src/Day15.hs:58:5-64                                     8905          1    0.0    0.0     0.0    0.0
+       parseInput.maxY                                          Day15                                src/Day15.hs:59:5-51                                     8907          1    0.0    0.0     0.0    0.0
+       parseInput.str                                           Day15                                src/Day15.hs:56:5-27                                     8904          1    0.0    0.0     0.0    0.0
+     run.p1                                                     Day15                                src/Day15.hs:(218,7)-(224,79)                            8894          1    0.0    0.0    10.6   11.1
+      run.p1.(...)                                              Day15                                src/Day15.hs:219:13-55                                   8896          1    0.0    0.0    10.6   11.1
+       run'                                                     Day15                                src/Day15.hs:(200,1)-(209,62)                            8897          1    0.0    0.0    10.6   11.1
+        run'.go                                                 Day15                                src/Day15.hs:(202,5)-(209,62)                            8898         82    0.1    0.0    10.6   11.1
+         run'.go.(...)                                          Day15                                src/Day15.hs:206:13-60                                   8914         82    0.0    0.0    10.5   11.1
+          tick                                                  Day15                                src/Day15.hs:(183,1)-(197,19)                            8915         82    0.0    0.0    10.5   11.1
+           tick.\                                               Day15                                src/Day15.hs:(189,11)-(195,36)                           8919       1957    0.0    0.0    10.5   11.0
+            attack                                              Day15                                src/Day15.hs:(167,1)-(180,14)                            8976       1955    0.1    0.0     0.2    0.1
+             attack.\                                           Day15                                src/Day15.hs:176:35-40                                   9006      27692    0.0    0.0     0.0    0.0
+             compare                                            Day15                                src/Day15.hs:(30,3)-(33,25)                              8999       9438    0.0    0.0     0.0    0.0
+             targetsForUnit                                     Day15                                src/Day15.hs:(158,1)-(164,77)                            8977       1955    0.0    0.0     0.1    0.1
+              compare                                           Day15                                src/Day15.hs:(30,3)-(33,25)                              8978       8056    0.0    0.0     0.0    0.0
+              targetsForUnit.\                                  Day15                                src/Day15.hs:164:36-59                                   9000       2394    0.0    0.0     0.0    0.0
+               team                                             Day15                                src/Day15.hs:43:5-8                                      9002       3737    0.0    0.0     0.0    0.0
+               ==                                               Day15                                src/Day15.hs:38:13-14                                    9001       2394    0.0    0.0     0.0    0.0
+              targetsForUnit.potentialTargets                   Day15                                src/Day15.hs:(160,7)-(162,31)                            8979       1951    0.0    0.0     0.1    0.1
+               targetsForUnit.potentialTargets.\                Day15                                src/Day15.hs:161:37-77                                   8982       7804    0.1    0.0     0.1    0.0
+                compare                                         Day15                                src/Day15.hs:(30,3)-(33,25)                              8983      35293    0.0    0.0     0.0    0.0
+               surroundingTiles                                 Day15                                src/Day15.hs:(81,1)-(83,71)                              8980       1951    0.0    0.1     0.0    0.1
+                compare                                         Day15                                src/Day15.hs:(30,3)-(33,25)                              8981      11706    0.0    0.0     0.0    0.0
+             attack.(...)                                       Day15                                src/Day15.hs:(172,9)-(175,19)                            9003       1108    0.0    0.0     0.0    0.0
+              attack.(...).\                                    Day15                                src/Day15.hs:174:40-66                                   9015        905    0.0    0.0     0.0    0.0
+               hp                                               Day15                                src/Day15.hs:41:5-6                                      9016       1810    0.0    0.0     0.0    0.0
+             attack.\                                           Day15                                src/Day15.hs:178:32-61                                   9005       1108    0.0    0.0     0.0    0.0
+             attack.targetCoords                                Day15                                src/Day15.hs:(172,9)-(175,19)                            9004       1108    0.0    0.0     0.0    0.0
+            tick.\.(...)                                        Day15                                src/Day15.hs:(191,22)-(193,50)                           8923       1955    0.0    0.0    10.3   10.7
+             move                                               Day15                                src/Day15.hs:(152,1)-(155,73)                            8924       1955    0.1    0.0    10.3   10.7
+              compare                                           Day15                                src/Day15.hs:(30,3)-(33,25)                              8925      11944    0.0    0.0     0.0    0.0
+              pathToTarget                                      Day15                                src/Day15.hs:(110,1)-(149,75)                            8926       1951    0.0    0.0    10.2   10.7
+               pathToTarget.go                                  Day15                                src/Day15.hs:(128,5)-(149,75)                            8951      13644    1.6    2.1    10.0   10.0
+                compare                                         Day15                                src/Day15.hs:(30,3)-(33,25)                              8994     503624    0.2    0.0     0.2    0.0
+                pathToTarget.go.targetsInReach                  Day15                                src/Day15.hs:132:11-66                                   8952      13289    2.1    0.1     2.2    0.1
+                 ==                                             Day15                                src/Day15.hs:27:13-14                                    8961    1946010    0.1    0.0     0.1    0.0
+                pathToTarget.go.newFrontiers                    Day15                                src/Day15.hs:(137,21)-(145,26)                           8962      12767    0.8    1.1     6.0    7.8
+                 pathToTarget.go.newFrontiers.\                 Day15                                src/Day15.hs:138:43-56                                   8995     475873    0.1    0.0     0.1    0.0
+                  ==                                            Day15                                src/Day15.hs:27:13-14                                    8996     475873    0.0    0.0     0.0    0.0
+                 pathToTarget.go.newFrontiers.\                 Day15                                src/Day15.hs:141:28-80                                   8966     358400    0.4    0.0     3.8    0.1
+                  pathToTarget.go.isUnknown                     Day15                                src/Day15.hs:130:11-47                                   8967     358400    0.9    0.0     1.6    0.0
+                   compare                                      Day15                                src/Day15.hs:(30,3)-(33,25)                              8968    2212348    0.7    0.0     0.7    0.0
+                  pathToTarget.isInGridAndNotWall               Day15                                src/Day15.hs:(122,5)-(126,31)                            8984     142906    0.3    0.0     0.6    0.1
+                   pathToTarget.isInGridAndNotWall.char         Day15                                src/Day15.hs:123:11-37                                   8992     142906    0.1    0.1     0.1    0.1
+                   pathToTarget.isInGridAndNotWall.isInGrid     Day15                                src/Day15.hs:125:11-41                                   8985     142906    0.1    0.0     0.3    0.0
+                    inGrid                                      Day15                                src/Day15.hs:(86,1)-(88,53)                              8986     142906    0.2    0.0     0.2    0.0
+                     inGrid.(...)                               Day15                                src/Day15.hs:87:7-55                                     8988     142906    0.0    0.0     0.0    0.0
+                     inGrid.maxX                                Day15                                src/Day15.hs:87:7-55                                     8989     142906    0.0    0.0     0.0    0.0
+                     inGrid.maxY                                Day15                                src/Day15.hs:87:7-55                                     8991     142906    0.0    0.0     0.0    0.0
+                     inGrid.minX                                Day15                                src/Day15.hs:87:7-55                                     8987     142906    0.0    0.0     0.0    0.0
+                     inGrid.minY                                Day15                                src/Day15.hs:87:7-55                                     8990     142906    0.0    0.0     0.0    0.0
+                   pathToTarget.isInGridAndNotWall.isNotAWall   Day15                                src/Day15.hs:124:11-34                                   8993     142906    0.0    0.0     0.0    0.0
+                  pathToTarget.isFree                           Day15                                src/Day15.hs:127:5-41                                    8969          0    0.1    0.0     1.2    0.0
+                   tileIsFree                                   Day15                                src/Day15.hs:(91,1)-(94,58)                              8970     222019    0.1    0.0     1.1    0.0
+                    tileIsFree.lookup'                          Day15                                src/Day15.hs:92:7-41                                     8971     222019    0.4    0.0     0.8    0.0
+                     compare                                    Day15                                src/Day15.hs:(30,3)-(33,25)                              8972     989174    0.4    0.0     0.4    0.0
+                    tileIsFree.isNotAWall                       Day15                                src/Day15.hs:93:7-67                                     8973     207096    0.2    0.0     0.2    0.0
+                 pathToTarget.go.newFrontiers.\                 Day15                                src/Day15.hs:144:28-67                                   8963      89600    0.3    2.0     1.4    6.6
+                  surroundingTiles                              Day15                                src/Day15.hs:(81,1)-(83,71)                              8964      89600    1.1    4.6     1.1    4.6
+                   compare                                      Day15                                src/Day15.hs:(30,3)-(33,25)                              8965     537600    0.0    0.0     0.0    0.0
+                pathToTarget.go.\                               Day15                                src/Day15.hs:135:41-61                                   8997        205    0.0    0.0     0.0    0.0
+                 compare                                        Day15                                src/Day15.hs:(30,3)-(33,25)                              8998        205    0.0    0.0     0.0    0.0
+               compare                                          Day15                                src/Day15.hs:(30,3)-(33,25)                              8927       7496    0.0    0.0     0.0    0.0
+               hasTargetInReach                                 Day15                                src/Day15.hs:(103,1)-(107,39)                            8928       1951    0.0    0.0     0.0    0.1
+                compare                                         Day15                                src/Day15.hs:(30,3)-(33,25)                              8931      26003    0.0    0.0     0.0    0.0
+                surroundingTiles                                Day15                                src/Day15.hs:(81,1)-(83,71)                              8929       1951    0.0    0.1     0.0    0.1
+                 compare                                        Day15                                src/Day15.hs:(30,3)-(33,25)                              8930      10501    0.0    0.0     0.0    0.0
+                ==                                              Day15                                src/Day15.hs:38:13-14                                    9007       1415    0.0    0.0     0.0    0.0
+                team                                            Day15                                src/Day15.hs:43:5-8                                      9013       1415    0.0    0.0     0.0    0.0
+                hasTargetInReach.targetTeam                     Day15                                src/Day15.hs:107:5-39                                    9008       1305    0.0    0.0     0.0    0.0
+                 otherTeam                                      Day15                                src/Day15.hs:(97,1)-(100,15)                             9009       1305    0.0    0.0     0.0    0.0
+                  compare                                       Day15                                src/Day15.hs:(30,3)-(33,25)                              9012       4960    0.0    0.0     0.0    0.0
+                  ==                                            Day15                                src/Day15.hs:38:13-14                                    9010       1305    0.0    0.0     0.0    0.0
+                  team                                          Day15                                src/Day15.hs:43:5-8                                      9011       1305    0.0    0.0     0.0    0.0
+               pathToTarget.initial                             Day15                                src/Day15.hs:(115,14)-(119,16)                           8932        877    0.1    0.0     0.1    0.1
+                pathToTarget.isInGridAndNotWall                 Day15                                src/Day15.hs:(122,5)-(126,31)                            8935       3508    0.0    0.0     0.0    0.0
+                 pathToTarget.isInGridAndNotWall.char           Day15                                src/Day15.hs:123:11-37                                   8943       3508    0.0    0.0     0.0    0.0
+                 pathToTarget.isInGridAndNotWall.isInGrid       Day15                                src/Day15.hs:125:11-41                                   8936       3508    0.0    0.0     0.0    0.0
+                  inGrid                                        Day15                                src/Day15.hs:(86,1)-(88,53)                              8937       3508    0.0    0.0     0.0    0.0
+                   inGrid.(...)                                 Day15                                src/Day15.hs:87:7-55                                     8939       3508    0.0    0.0     0.0    0.0
+                   inGrid.maxX                                  Day15                                src/Day15.hs:87:7-55                                     8940       3508    0.0    0.0     0.0    0.0
+                   inGrid.maxY                                  Day15                                src/Day15.hs:87:7-55                                     8942       3508    0.0    0.0     0.0    0.0
+                   inGrid.minX                                  Day15                                src/Day15.hs:87:7-55                                     8938       3508    0.0    0.0     0.0    0.0
+                   inGrid.minY                                  Day15                                src/Day15.hs:87:7-55                                     8941       3508    0.0    0.0     0.0    0.0
+                 pathToTarget.isInGridAndNotWall.isNotAWall     Day15                                src/Day15.hs:124:11-34                                   8944       3508    0.0    0.0     0.0    0.0
+                surroundingTiles                                Day15                                src/Day15.hs:(81,1)-(83,71)                              8933        877    0.0    0.0     0.0    0.0
+                 compare                                        Day15                                src/Day15.hs:(30,3)-(33,25)                              8934       5262    0.0    0.0     0.0    0.0
+                pathToTarget.isFree                             Day15                                src/Day15.hs:127:5-41                                    8946          0    0.0    0.0     0.0    0.0
+                 tileIsFree                                     Day15                                src/Day15.hs:(91,1)-(94,58)                              8947       3080    0.0    0.0     0.0    0.0
+                  tileIsFree.lookup'                            Day15                                src/Day15.hs:92:7-41                                     8948       3080    0.0    0.0     0.0    0.0
+                   compare                                      Day15                                src/Day15.hs:(30,3)-(33,25)                              8949      14131    0.0    0.0     0.0    0.0
+                  tileIsFree.isNotAWall                         Day15                                src/Day15.hs:93:7-67                                     8950       2801    0.0    0.0     0.0    0.0
+               pathToTarget.isFree                              Day15                                src/Day15.hs:127:5-41                                    8945        877    0.0    0.0     0.0    0.0
+               pathToTarget.targetCells                         Day15                                src/Day15.hs:112:7-78                                    8953        877    0.0    0.1     0.1    0.5
+                surroundingTiles                                Day15                                src/Day15.hs:(81,1)-(83,71)                              8959       6255    0.0    0.3     0.0    0.3
+                 compare                                        Day15                                src/Day15.hs:(30,3)-(33,25)                              8960      37530    0.0    0.0     0.0    0.0
+                getTargets                                      Day15                                src/Day15.hs:(73,1)-(78,62)                              8954        877    0.0    0.1     0.0    0.1
+                 ==                                             Day15                                src/Day15.hs:38:13-14                                    8955      21261    0.0    0.0     0.0    0.0
+                 team                                           Day15                                src/Day15.hs:43:5-8                                      8958      21261    0.0    0.0     0.0    0.0
+                 getTargets.targetTeam                          Day15                                src/Day15.hs:(74,7)-(77,21)                              8956        877    0.0    0.0     0.0    0.0
+                  ==                                            Day15                                src/Day15.hs:38:13-14                                    8957        877    0.0    0.0     0.0    0.0
+            tick.\.newCoords                                    Day15                                src/Day15.hs:(191,22)-(193,50)                           8975       1955    0.0    0.0     0.0    0.0
+            tick.\.newState                                     Day15                                src/Day15.hs:(191,22)-(193,50)                           8974       1955    0.0    0.0     0.0    0.0
+            isGameOver                                          Day15                                src/Day15.hs:70:1-68                                     8920          0    0.1    0.2     0.1    0.2
+             ==                                                 Day15                                src/Day15.hs:38:13-14                                    8921      66381    0.0    0.0     0.0    0.0
+             team                                               Day15                                src/Day15.hs:43:5-8                                      8922      48147    0.0    0.0     0.0    0.0
+           tick.readingOrder                                    Day15                                src/Day15.hs:(184,7)-(186,25)                            8916         82    0.0    0.0     0.0    0.0
+            tick.readingOrder.\                                 Day15                                src/Day15.hs:185:51-74                                   8917       1875    0.0    0.0     0.0    0.0
+             compare                                            Day15                                src/Day15.hs:(30,3)-(33,25)                              8918       1875    0.0    0.0     0.0    0.0
+         run'.go.lastState                                      Day15                                src/Day15.hs:206:13-60                                   9014         82    0.0    0.0     0.0    0.0
+         run'.go.unitsLeft                                      Day15                                src/Day15.hs:206:13-60                                   8913         82    0.0    0.0     0.0    0.0
+         isGameOver                                             Day15                                src/Day15.hs:70:1-68                                     8900          0    0.0    0.0     0.0    0.0
+          ==                                                    Day15                                src/Day15.hs:38:13-14                                    8911       2671    0.0    0.0     0.0    0.0
+          team                                                  Day15                                src/Day15.hs:43:5-8                                      8912       1957    0.0    0.0     0.0    0.0
+      run.p1.hpLeft                                             Day15                                src/Day15.hs:220:13-40                                   9017          1    0.0    0.0     0.0    0.0
+       getHPLeft                                                Day15                                src/Day15.hs:212:1-70                                    9019          0    0.0    0.0     0.0    0.0
+        getHPLeft.\                                             Day15                                src/Day15.hs:212:47-54                                   9021         16    0.0    0.0     0.0    0.0
+      run.p1.lastState                                          Day15                                src/Day15.hs:219:13-55                                   9020          1    0.0    0.0     0.0    0.0
+      run.p1.rounds                                             Day15                                src/Day15.hs:219:13-55                                   8895          1    0.0    0.0     0.0    0.0
+     run.p2                                                     Day15                                src/Day15.hs:(225,7)-(252,33)                            9022          1    0.0    0.0    89.2   88.9
+      run.p2.best                                               Day15                                src/Day15.hs:251:13-75                                   9025          1    0.0    0.0     0.0    0.0
+       run.p2.best.\                                            Day15                                src/Day15.hs:251:53-66                                   9027         22    0.0    0.0     0.0    0.0
+      run.p2.results                                            Day15                                src/Day15.hs:(242,13)-(250,22)                           9024          1    0.0    0.0    89.2   88.9
+       run.p2.results.\                                         Day15                                src/Day15.hs:(245,20)-(249,62)                           9026         22    0.0    0.0    89.2   88.9
+        run.p2.results.\.(...)                                  Day15                                src/Day15.hs:246:24-64                                   9043         22    0.0    0.0    89.2   88.9
+         run'                                                   Day15                                src/Day15.hs:(200,1)-(209,62)                            9044         22    0.0    0.0    89.2   88.9
+          run'.go                                               Day15                                src/Day15.hs:(202,5)-(209,62)                            9045       1316    1.4    0.1    89.2   88.9
+           run'.go.(...)                                        Day15                                src/Day15.hs:206:13-60                                   9050       1312    0.0    0.0    87.8   88.6
+            tick                                                Day15                                src/Day15.hs:(183,1)-(197,19)                            9051       1312    0.1    0.1    87.7   88.6
+             tick.\                                             Day15                                src/Day15.hs:(189,11)-(195,36)                           9055      25254    0.3    0.0    87.5   88.4
+              attack                                            Day15                                src/Day15.hs:(167,1)-(180,14)                            9112      25161    0.7    0.2     2.0    1.8
+               attack.\                                         Day15                                src/Day15.hs:176:35-40                                   9142     339603    0.0    0.0     0.0    0.0
+               compare                                          Day15                                src/Day15.hs:(30,3)-(33,25)                              9135     118993    0.0    0.0     0.0    0.0
+               targetsForUnit                                   Day15                                src/Day15.hs:(158,1)-(164,77)                            9113      25161    0.4    0.2     1.3    1.6
+                compare                                         Day15                                src/Day15.hs:(30,3)-(33,25)                              9114     101744    0.0    0.0     0.0    0.0
+                targetsForUnit.\                                Day15                                src/Day15.hs:164:36-59                                   9136      29278    0.0    0.0     0.1    0.0
+                 team                                           Day15                                src/Day15.hs:43:5-8                                      9138      46733    0.1    0.0     0.1    0.0
+                 ==                                             Day15                                src/Day15.hs:38:13-14                                    9137      29278    0.0    0.0     0.0    0.0
+                targetsForUnit.potentialTargets                 Day15                                src/Day15.hs:(160,7)-(162,31)                            9115      24998    0.1    0.1     0.8    1.5
+                 targetsForUnit.potentialTargets.\              Day15                                src/Day15.hs:161:37-77                                   9118      99992    0.2    0.1     0.3    0.1
+                  compare                                       Day15                                src/Day15.hs:(30,3)-(33,25)                              9119     436722    0.1    0.0     0.1    0.0
+                 surroundingTiles                               Day15                                src/Day15.hs:(81,1)-(83,71)                              9116      24998    0.4    1.3     0.4    1.3
+                  compare                                       Day15                                src/Day15.hs:(30,3)-(33,25)                              9117     149988    0.0    0.0     0.0    0.0
+               attack.(...)                                     Day15                                src/Day15.hs:(172,9)-(175,19)                            9139      15495    0.0    0.0     0.0    0.0
+                attack.(...).\                                  Day15                                src/Day15.hs:174:40-66                                   9151       8635    0.0    0.0     0.0    0.0
+                 hp                                             Day15                                src/Day15.hs:41:5-6                                      9152      17270    0.0    0.0     0.0    0.0
+               attack.\                                         Day15                                src/Day15.hs:178:32-61                                   9141      15495    0.0    0.0     0.0    0.0
+               attack.targetCoords                              Day15                                src/Day15.hs:(172,9)-(175,19)                            9140      15495    0.0    0.0     0.0    0.0
+              tick.\.(...)                                      Day15                                src/Day15.hs:(191,22)-(193,50)                           9059      25161    0.0    0.0    84.2   84.1
+               move                                             Day15                                src/Day15.hs:(152,1)-(155,73)                            9060      25161    0.7    0.3    84.2   84.1
+                compare                                         Day15                                src/Day15.hs:(30,3)-(33,25)                              9061     164397    0.1    0.0     0.1    0.0
+                pathToTarget                                    Day15                                src/Day15.hs:(110,1)-(149,75)                            9062      24998    0.3    0.1    83.4   83.8
+                 pathToTarget.go                                Day15                                src/Day15.hs:(128,5)-(149,75)                            9087     105163   10.9   14.7    79.3   74.6
+                  compare                                       Day15                                src/Day15.hs:(30,3)-(33,25)                              9130    3494042    1.3    0.0     1.3    0.0
+                  pathToTarget.go.targetsInReach                Day15                                src/Day15.hs:132:11-66                                   9088     103846   17.2    0.9    18.0    0.9
+                   ==                                           Day15                                src/Day15.hs:27:13-14                                    9097   21427047    0.8    0.0     0.8    0.0
+                  pathToTarget.go.newFrontiers                  Day15                                src/Day15.hs:(137,21)-(145,26)                           9098      94752    7.9    8.8    49.0   58.9
+                   pathToTarget.go.newFrontiers.\               Day15                                src/Day15.hs:138:43-56                                   9131    3665000    0.4    0.0     0.7    0.0
+                    ==                                          Day15                                src/Day15.hs:27:13-14                                    9132    3665000    0.3    0.0     0.3    0.0
+                   pathToTarget.go.newFrontiers.\               Day15                                src/Day15.hs:141:28-80                                   9102    2690280    2.2    0.0    27.4    0.9
+                    pathToTarget.go.isUnknown                   Day15                                src/Day15.hs:130:11-47                                   9103    2690280    6.8    0.0    11.8    0.0
+                     compare                                    Day15                                src/Day15.hs:(30,3)-(33,25)                              9104   15341895    5.1    0.0     5.1    0.0
+                    pathToTarget.isInGridAndNotWall             Day15                                src/Day15.hs:(122,5)-(126,31)                            9120    1105686    1.8    0.0     3.6    0.8
+                     pathToTarget.isInGridAndNotWall.char       Day15                                src/Day15.hs:123:11-37                                   9128    1105686    0.3    0.8     0.3    0.8
+                     pathToTarget.isInGridAndNotWall.isInGrid   Day15                                src/Day15.hs:125:11-41                                   9121    1105686    0.2    0.0     1.5    0.0
+                      inGrid                                    Day15                                src/Day15.hs:(86,1)-(88,53)                              9122    1105686    1.2    0.0     1.2    0.0
+                       inGrid.(...)                             Day15                                src/Day15.hs:87:7-55                                     9124    1105686    0.0    0.0     0.0    0.0
+                       inGrid.maxX                              Day15                                src/Day15.hs:87:7-55                                     9125    1105686    0.0    0.0     0.0    0.0
+                       inGrid.maxY                              Day15                                src/Day15.hs:87:7-55                                     9127    1105686    0.0    0.0     0.0    0.0
+                       inGrid.minX                              Day15                                src/Day15.hs:87:7-55                                     9123    1105686    0.0    0.0     0.0    0.0
+                       inGrid.minY                              Day15                                src/Day15.hs:87:7-55                                     9126    1105686    0.0    0.0     0.0    0.0
+                     pathToTarget.isInGridAndNotWall.isNotAWall Day15                                src/Day15.hs:124:11-34                                   9129    1105686    0.1    0.0     0.1    0.0
+                    pathToTarget.isFree                         Day15                                src/Day15.hs:127:5-41                                    9105          0    1.0    0.0     9.7    0.1
+                     tileIsFree                                 Day15                                src/Day15.hs:(91,1)-(94,58)                              9106    1689505    0.7    0.0     8.6    0.1
+                      tileIsFree.lookup'                        Day15                                src/Day15.hs:92:7-41                                     9107    1689505    4.6    0.1     6.5    0.1
+                       compare                                  Day15                                src/Day15.hs:(30,3)-(33,25)                              9108    7304464    1.9    0.0     1.9    0.0
+                      tileIsFree.isNotAWall                     Day15                                src/Day15.hs:93:7-67                                     9109    1581740    1.4    0.0     1.4    0.0
+                   pathToTarget.go.newFrontiers.\               Day15                                src/Day15.hs:144:28-67                                   9099     672570    2.7   14.7    13.0   49.2
+                    surroundingTiles                            Day15                                src/Day15.hs:(81,1)-(83,71)                              9100     672570    9.6   34.5    10.3   34.5
+                     compare                                    Day15                                src/Day15.hs:(30,3)-(33,25)                              9101    4035420    0.8    0.0     0.8    0.0
+                  pathToTarget.go.\                             Day15                                src/Day15.hs:135:41-61                                   9133       4179    0.0    0.0     0.0    0.0
+                   compare                                      Day15                                src/Day15.hs:(30,3)-(33,25)                              9134       4179    0.0    0.0     0.0    0.0
+                 compare                                        Day15                                src/Day15.hs:(30,3)-(33,25)                              9063      91036    0.0    0.0     0.0    0.0
+                 hasTargetInReach                               Day15                                src/Day15.hs:(103,1)-(107,39)                            9064      24998    0.2    0.1     0.8    1.3
+                  compare                                       Day15                                src/Day15.hs:(30,3)-(33,25)                              9067     318844    0.1    0.0     0.1    0.0
+                  surroundingTiles                              Day15                                src/Day15.hs:(81,1)-(83,71)                              9065      24998    0.3    1.2     0.4    1.2
+                   compare                                      Day15                                src/Day15.hs:(30,3)-(33,25)                              9066     135419    0.0    0.0     0.0    0.0
+                  ==                                            Day15                                src/Day15.hs:38:13-14                                    9143      18304    0.0    0.0     0.0    0.0
+                  team                                          Day15                                src/Day15.hs:43:5-8                                      9149      18304    0.0    0.0     0.0    0.0
+                  hasTargetInReach.targetTeam                   Day15                                src/Day15.hs:107:5-39                                    9144      16581    0.1    0.0     0.1    0.0
+                   otherTeam                                    Day15                                src/Day15.hs:(97,1)-(100,15)                             9145      16581    0.0    0.0     0.1    0.0
+                    compare                                     Day15                                src/Day15.hs:(30,3)-(33,25)                              9148      59350    0.0    0.0     0.0    0.0
+                    ==                                          Day15                                src/Day15.hs:38:13-14                                    9146      16581    0.0    0.0     0.0    0.0
+                    team                                        Day15                                src/Day15.hs:43:5-8                                      9147      16581    0.0    0.0     0.0    0.0
+                 pathToTarget.initial                           Day15                                src/Day15.hs:(115,14)-(119,16)                           9068      10411    0.2    0.1     1.0    0.7
+                  pathToTarget.isInGridAndNotWall               Day15                                src/Day15.hs:(122,5)-(126,31)                            9071      41644    0.1    0.0     0.2    0.0
+                   pathToTarget.isInGridAndNotWall.char         Day15                                src/Day15.hs:123:11-37                                   9079      41644    0.1    0.0     0.1    0.0
+                   pathToTarget.isInGridAndNotWall.isInGrid     Day15                                src/Day15.hs:125:11-41                                   9072      41644    0.0    0.0     0.1    0.0
+                    inGrid                                      Day15                                src/Day15.hs:(86,1)-(88,53)                              9073      41644    0.1    0.0     0.1    0.0
+                     inGrid.(...)                               Day15                                src/Day15.hs:87:7-55                                     9075      41644    0.0    0.0     0.0    0.0
+                     inGrid.maxX                                Day15                                src/Day15.hs:87:7-55                                     9076      41644    0.0    0.0     0.0    0.0
+                     inGrid.maxY                                Day15                                src/Day15.hs:87:7-55                                     9078      41644    0.0    0.0     0.0    0.0
+                     inGrid.minX                                Day15                                src/Day15.hs:87:7-55                                     9074      41644    0.0    0.0     0.0    0.0
+                     inGrid.minY                                Day15                                src/Day15.hs:87:7-55                                     9077      41644    0.0    0.0     0.0    0.0
+                   pathToTarget.isInGridAndNotWall.isNotAWall   Day15                                src/Day15.hs:124:11-34                                   9080      41644    0.0    0.0     0.0    0.0
+                  surroundingTiles                              Day15                                src/Day15.hs:(81,1)-(83,71)                              9069      10411    0.2    0.5     0.2    0.5
+                   compare                                      Day15                                src/Day15.hs:(30,3)-(33,25)                              9070      62466    0.0    0.0     0.0    0.0
+                  pathToTarget.isFree                           Day15                                src/Day15.hs:127:5-41                                    9082          0    0.0    0.0     0.4    0.0
+                   tileIsFree                                   Day15                                src/Day15.hs:(91,1)-(94,58)                              9083      35528    0.0    0.0     0.4    0.0
+                    tileIsFree.lookup'                          Day15                                src/Day15.hs:92:7-41                                     9084      35528    0.2    0.0     0.3    0.0
+                     compare                                    Day15                                src/Day15.hs:(30,3)-(33,25)                              9085     160853    0.0    0.0     0.0    0.0
+                    tileIsFree.isNotAWall                       Day15                                src/Day15.hs:93:7-67                                     9086      33105    0.1    0.0     0.1    0.0
+                 pathToTarget.isFree                            Day15                                src/Day15.hs:127:5-41                                    9081      10411    0.0    0.0     0.0    0.0
+                 pathToTarget.targetCells                       Day15                                src/Day15.hs:112:7-78                                    9089      10374    0.5    1.1     2.0    7.2
+                  surroundingTiles                              Day15                                src/Day15.hs:(81,1)-(83,71)                              9095      96897    1.1    5.0     1.1    5.0
+                   compare                                      Day15                                src/Day15.hs:(30,3)-(33,25)                              9096     581378    0.0    0.0     0.0    0.0
+                  getTargets                                    Day15                                src/Day15.hs:(73,1)-(78,62)                              9090      10374    0.5    1.1     0.5    1.1
+                   ==                                           Day15                                src/Day15.hs:38:13-14                                    9091     241902    0.0    0.0     0.0    0.0
+                   team                                         Day15                                src/Day15.hs:43:5-8                                      9094     241902    0.0    0.0     0.0    0.0
+                   getTargets.targetTeam                        Day15                                src/Day15.hs:(74,7)-(77,21)                              9092      10374    0.0    0.0     0.0    0.0
+                    ==                                          Day15                                src/Day15.hs:38:13-14                                    9093      10374    0.0    0.0     0.0    0.0
+              tick.\.newCoords                                  Day15                                src/Day15.hs:(191,22)-(193,50)                           9111      25161    0.0    0.0     0.0    0.0
+              tick.\.newState                                   Day15                                src/Day15.hs:(191,22)-(193,50)                           9110      25161    0.0    0.0     0.0    0.0
+              isGameOver                                        Day15                                src/Day15.hs:70:1-68                                     9056          0    0.8    2.4     1.0    2.4
+               ==                                               Day15                                src/Day15.hs:38:13-14                                    9057     778411    0.1    0.0     0.1    0.0
+               team                                             Day15                                src/Day15.hs:43:5-8                                      9058     564935    0.2    0.0     0.2    0.0
+             tick.readingOrder                                  Day15                                src/Day15.hs:(184,7)-(186,25)                            9052       1312    0.1    0.2     0.1    0.2
+              tick.readingOrder.\                               Day15                                src/Day15.hs:185:51-74                                   9053      23942    0.1    0.0     0.1    0.0
+               compare                                          Day15                                src/Day15.hs:(30,3)-(33,25)                              9054      23942    0.0    0.0     0.0    0.0
+           run'.go.lastState                                    Day15                                src/Day15.hs:206:13-60                                   9150       1312    0.0    0.0     0.0    0.0
+           run'.go.unitsLeft                                    Day15                                src/Day15.hs:206:13-60                                   9049       1312    0.0    0.0     0.0    0.0
+           isGameOver                                           Day15                                src/Day15.hs:70:1-68                                     9046          0    0.0    0.1     0.0    0.1
+            ==                                                  Day15                                src/Day15.hs:38:13-14                                    9047      34435    0.0    0.0     0.0    0.0
+            team                                                Day15                                src/Day15.hs:43:5-8                                      9048      25279    0.0    0.0     0.0    0.0
+        run.p2.results.\.elves                                  Day15                                src/Day15.hs:245:24-45                                   9028         22    0.0    0.0     0.0    0.0
+        run.p2.results.\.elvesFinal                             Day15                                src/Day15.hs:247:24-54                                   9041         22    0.0    0.0     0.0    0.0
+        run.p2.results.\.lastState                              Day15                                src/Day15.hs:246:24-64                                   9042         22    0.0    0.0     0.0    0.0
+        run.p2.results.\.hpLeft                                 Day15                                src/Day15.hs:248:24-51                                   9154          1    0.0    0.0     0.0    0.0
+         getHPLeft                                              Day15                                src/Day15.hs:212:1-70                                    9155          0    0.0    0.0     0.0    0.0
+          getHPLeft.\                                           Day15                                src/Day15.hs:212:47-54                                   9156         10    0.0    0.0     0.0    0.0
+        run.p2.results.\.rounds                                 Day15                                src/Day15.hs:246:24-64                                   9153          1    0.0    0.0     0.0    0.0
+      run.p2.states                                             Day15                                src/Day15.hs:(229,13)-(241,15)                           9023          1    0.0    0.0     0.0    0.0
+       getUnits                                                 Day15                                src/Day15.hs:(62,1)-(67,23)                              9033         22    0.0    0.0     0.0    0.0
+        getUnits.f                                              Day15                                src/Day15.hs:(64,5)-(67,23)                              9034      22528    0.0    0.0     0.0    0.0
+         compare                                                Day15                                src/Day15.hs:(30,3)-(33,25)                              9037       2464    0.0    0.0     0.0    0.0
+         run.p2.states.\                                        Day15                                src/Day15.hs:(232,24)-(237,29)                           9035         44    0.0    0.0     0.0    0.0
+          ==                                                    Day15                                src/Day15.hs:38:13-14                                    9036         44    0.0    0.0     0.0    0.0
+      run.p2.getElves                                           Day15                                src/Day15.hs:(226,13)-(228,70)                           9032          0    0.0    0.0     0.0    0.0
+       ==                                                       Day15                                src/Day15.hs:38:13-14                                    9039        832    0.0    0.0     0.0    0.0
+       team                                                     Day15                                src/Day15.hs:43:5-8                                      9038        832    0.0    0.0     0.0    0.0
+       hp                                                       Day15                                src/Day15.hs:41:5-6                                      9040        349    0.0    0.0     0.0    0.0
+     run.stateP1                                                Day15                                src/Day15.hs:217:7-42                                    8901          1    0.0    0.0     0.0    0.0
+      getUnits                                                  Day15                                src/Day15.hs:(62,1)-(67,23)                              8908          1    0.0    0.0     0.0    0.0
+       getUnits.f                                               Day15                                src/Day15.hs:(64,5)-(67,23)                              8909       1024    0.0    0.0     0.0    0.0
+        compare                                                 Day15                                src/Day15.hs:(30,3)-(33,25)                              8910        112    0.0    0.0     0.0    0.0
   getDayProg                                                    Main                                 app/Main.hs:68:1-40                                      8841          1    0.0    0.0     0.0    0.0
   main.program                                                  Main                                 app/Main.hs:(81,5)-(85,47)                               8058          1    0.0    0.0     0.0    0.0
   readData                                                      Main                                 app/Main.hs:(64,1)-(65,68)                               8888          1    0.0    0.0     0.0    0.0
