@@ -1,6 +1,7 @@
 {-# LANGUAGE QuasiQuotes #-}
 {-# LANGUAGE RecordWildCards #-}
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE TupleSections #-}
 
 module Day15 where
 
@@ -48,6 +49,19 @@ edgeCase2 =
 #G######
 ########
         |]
+
+testData2 :: Text
+testData2 =
+  Text.strip
+    [r|
+#######
+#G..#E#
+#E#E.E#
+#G.##.#
+#...#E#
+#...E.#
+#######
+    |]
 
 edgeCase3 :: Text
 edgeCase3 =
@@ -167,30 +181,46 @@ hasTargetInReach state coords =
     targetTeam = otherTeam state coords
 
 pathToTarget :: Battlefield -> GameState -> Coords -> Maybe Coords
-pathToTarget battlefield state start
-  | hasTargetInReach state start = Nothing
-  | otherwise =
-    let initialQueue =
-          Seq.fromList
-            [(coords, coords) | coords <- surroundingTiles start, isFree coords]
-    in go initialQueue $ Set.singleton start
+pathToTarget battlefield state start = do
+  unit <- Map'.lookup start state
+  if hasTargetInReach state start
+    then Nothing
+    else let targetCells =
+               concatMap (surroundingTiles . fst) $ getTargets unit state
+             initial =
+               filter
+                 (\x -> all ($ fst x) [isFree, isInGridAndNotWall])
+                 [(tile, tile) | tile <- surroundingTiles start]
+         in go targetCells initial $ Set.singleton start
   where
-    targetTeam = otherTeam state start
+    isInGridAndNotWall c@(Coords x y) =
+      let char = battlefield ! (x, y)
+          isNotAWall = char /= '#'
+          isInGrid = inGrid battlefield c
+      in isInGrid && isNotAWall
     isFree = tileIsFree state battlefield
-    go Empty _ = Nothing
-    go ((step, firstStep) :<| xs) seen =
-      if any (maybe False ((==) targetTeam . team)) $
-         (`Map'.lookup` state) <$> surroundingTiles step
-        then Just firstStep
-        else let newSteps =
-                   [ (tile, firstStep)
-                   | tile <- surroundingTiles step
-                   , not $ Set.member tile seen
-                   , isFree tile
-                   ]
-             in go
-                  (xs >< Seq.fromList newSteps)
-                  (Set.union seen (Set.fromList (map fst newSteps)))
+    go _ [] _ = Nothing
+    go targetCells xs seen =
+      let isUnknown c = not $ Set.member c seen
+          targetsInReach :: [(Coords, Coords)]
+          targetsInReach = filter (flip elem targetCells . fst) xs
+      in if not $ null targetsInReach
+           then Just . snd $
+                List.minimumBy (\a b -> fst a `compare` fst b) targetsInReach
+           else let newFrontiers :: [(Coords, Coords)]
+                    newFrontiers =
+                      List.nubBy (\a b -> fst a == fst b) .
+                      filter
+                        (\x ->
+                           all ($ fst x) [isUnknown, isFree, isInGridAndNotWall]) $
+                      concatMap
+                        (\(current, first) ->
+                           map (, first) $ surroundingTiles current)
+                        xs
+                in go
+                     targetCells
+                     newFrontiers
+                     (Set.union seen (Set.fromList (map fst newFrontiers)))
 
 move :: Battlefield -> GameState -> Coords -> Maybe (Coords, GameState)
 move battlefield state coords = do
@@ -265,8 +295,7 @@ run t =
         in "Part1: " ++
            "Rounds: " ++
            show rounds ++
-           " Hp left: " ++
-           show hpLeft ++ " Result: " ++ show (rounds * hpLeft)
+           " Hp left: " ++ show hpLeft ++ " Result: " ++ show (rounds * hpLeft)
       p2 =
         let getElves =
               Map'.size .
