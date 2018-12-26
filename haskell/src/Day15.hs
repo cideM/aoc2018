@@ -6,7 +6,6 @@ module Day15 where
 
 -- FIXME: This program is excruciatingly slow. No idea why. Profiling revealed
 -- that `go` is slow, big surprise. -_-
-
 import qualified Control.Monad as Monad
 import qualified Data.Array.Unboxed as UArray
 import Data.Array.Unboxed (UArray, (!))
@@ -114,21 +113,12 @@ parseInput input =
     maxX = flip (-) 1 $ Prelude.length . snd $ head indexedLines
     maxY = flip (-) 1 $ Prelude.length indexedLines
 
-makeUnit :: Int -> Team -> Unit
-makeUnit power team =
-  Unit
-    200
-    (if team == Elf
-       then power
-       else 3)
-    team
-
-getUnits :: Int -> Battlefield -> GameState
-getUnits power battlefield = foldl f Map'.empty $ UArray.assocs battlefield
+getUnits :: (Team -> Unit) -> Battlefield -> GameState
+getUnits makeUnit battlefield = foldl f Map'.empty $ UArray.assocs battlefield
   where
     f acc ((x, y), tile)
-      | tile == 'G' = Map'.insert (Coords x y) (makeUnit power Goblin) acc
-      | tile == 'E' = Map'.insert (Coords x y) (makeUnit power Elf) acc
+      | tile == 'G' = Map'.insert (Coords x y) (makeUnit Goblin) acc
+      | tile == 'E' = Map'.insert (Coords x y) (makeUnit Elf) acc
       | otherwise = acc
 
 inRange :: Coords -> Coords -> Bool
@@ -148,6 +138,7 @@ getTargets Unit {team = currentTeam} state =
 
 surroundingTiles :: Coords -> [Coords]
 surroundingTiles (Coords x y) =
+  Extra.sort $
   map (uncurry Coords) [(x, y + 1), (x, y - 1), (x + 1, y), (x - 1, y)]
 
 inGrid :: Battlefield -> Coords -> Bool
@@ -175,46 +166,37 @@ hasTargetInReach state coords =
   where
     targetTeam = otherTeam state coords
 
-pathToTarget :: Battlefield -> GameState -> Coords -> Maybe [Coords]
+pathToTarget :: Battlefield -> GameState -> Coords -> Maybe Coords
 pathToTarget battlefield state start
   | hasTargetInReach state start = Nothing
-  | otherwise = go (Seq.singleton [start]) Set.empty
+  | otherwise =
+    let initialQueue =
+          Seq.fromList
+            [(coords, coords) | coords <- surroundingTiles start, isFree coords]
+    in go initialQueue $ Set.singleton start
   where
     targetTeam = otherTeam state start
     isFree = tileIsFree state battlefield
     go Empty _ = Nothing
-    go paths seen =
-      let notYetSeen value = not $ Set.member value seen
-          newPaths =
-            concatMap
-              (\path ->
-                 let nextSteps =
-                       filter notYetSeen . filter isFree . surroundingTiles $
-                       last path
-                 in map (\step -> path ++ [step]) nextSteps)
-              paths
-          pathsWithTargets =
-            filter
-              (\p ->
-                 let lookups =
-                       map (`Map'.lookup` state) (surroundingTiles $ last p)
-                 in any (maybe False ((==) targetTeam . team)) lookups)
-              newPaths
-      in if not (null pathsWithTargets)
-           then Just . List.minimumBy (\a b -> last a `compare` last b) $
-                pathsWithTargets
-           else go
-                  (Seq.fromList newPaths)
-                  (Set.union seen (Set.fromList (concat newPaths)))
+    go ((step, firstStep) :<| xs) seen =
+      if any (maybe False ((==) targetTeam . team)) $
+         (`Map'.lookup` state) <$> surroundingTiles step
+        then Just firstStep
+        else let newSteps =
+                   [ (tile, firstStep)
+                   | tile <- surroundingTiles step
+                   , not $ Set.member tile seen
+                   , isFree tile
+                   ]
+             in go
+                  (xs >< Seq.fromList newSteps)
+                  (Set.union seen (Set.fromList (map fst newSteps)))
 
 move :: Battlefield -> GameState -> Coords -> Maybe (Coords, GameState)
 move battlefield state coords = do
   unit <- Map'.lookup coords state
-  (_:steps) <- pathToTarget battlefield state coords
-  Monad.guard $ not (null steps)
-  return
-    ( Prelude.head steps
-    , Map'.insert (Prelude.head steps) unit (Map'.delete coords state))
+  nextStep <- pathToTarget battlefield state coords
+  return (nextStep, Map'.insert nextStep unit (Map'.delete coords state))
 
 targetsForUnit :: GameState -> Coords -> Maybe [(Coords, Unit)]
 targetsForUnit state coords = do
@@ -228,6 +210,7 @@ targetsForUnit state coords = do
 attack :: GameState -> Coords -> Maybe GameState
 attack state coords = do
   targets <- targetsForUnit state coords
+  Unit {dmg = attackerDmg} <- Map'.lookup coords state
   Monad.guard $ not (null targets)
   return $
     let (targetCoords, _) =
@@ -236,14 +219,14 @@ attack state coords = do
             targets
     in Map'.filter (\Unit {..} -> hp > 0) $
        Map'.adjust
-         (\target@Unit {..} -> target {hp = hp - dmg})
+         (\target@Unit {..} -> target {hp = hp - attackerDmg})
          targetCoords
          state
 
 tick :: Battlefield -> GameState -> (GameState, Int)
 tick battlefield state =
   let readingOrder =
-        List.sortBy (\(Coords _ y, _) (Coords _ y', _) -> y `compare` y') $
+        List.sortBy (\(coords, _) (coords', _) -> coords `compare` coords') $
         Map'.assocs state
   in foldl
        (\(acc, unitsLeft) (coords, Unit {..}) ->
@@ -269,25 +252,50 @@ run' maxRounds battlefield state = go state 0
              then (rounds, lastState)
              else traceShow rounds (go lastState (rounds + 1))
 
+getHPLeft :: GameState -> Int
+getHPLeft = Foldable.foldl (\acc Unit {..} -> hp + acc) 0 . Map'.elems
+
 run :: Text -> Either ErrMsg Text
 run t =
   let grid = parseInput t
-      stateP1 = getUnits 3 grid
-      stateP2 = getUnits 25 grid
+      stateP1 = getUnits (Unit 200 3) grid
       p1 =
-        let (rounds, lastState) = run' 85 grid stateP1
-            hpLeft =
-              Foldable.foldl (\acc Unit {..} -> hp + acc) 0 $
-              Map'.elems lastState
-        in "rounds: " ++
+        let (rounds, lastState) = run' 100 grid stateP1
+            hpLeft = getHPLeft lastState
+        in "Part1: " ++
+           "Rounds: " ++
            show rounds ++
-           "hp left: " ++ show hpLeft ++ " result: " ++ show (rounds * hpLeft)
+           " Hp left: " ++
+           show hpLeft ++ " Result: " ++ show (rounds * hpLeft)
       p2 =
-        let elves = Map'.size $ Map'.filter ((==) Elf . team) stateP2
-            final = run' 30 grid stateP2
-            elvesFinal = Map'.size $ Map'.filter ((==) Elf . team) $ snd final
-        in "Elves died: " ++ show (elves - elvesFinal)
-  in Right . Text.pack $ show p1 ++ show p2
+        let getElves =
+              Map'.size .
+              Map'.filter ((> 0) . hp) . Map'.filter ((== Elf) . team)
+            states =
+              [ ( getUnits
+                    (\team ->
+                       Unit
+                         200
+                         (if team == Goblin
+                            then 3
+                            else p)
+                         team)
+                    grid
+                , p)
+              | p <- [4 .. 50]
+              ]
+            results =
+              map
+                (\(state, p) ->
+                   let elves = getElves state
+                       (rounds, lastState) = run' 100 grid state
+                       elvesFinal = getElves lastState
+                       hpLeft = getHPLeft lastState
+                   in (p, elves - elvesFinal, rounds * hpLeft))
+                states
+            best = List.find (\(_, deadElves, _) -> deadElves == 0) results
+        in "Part2: " ++ show best
+  in Right . Text.pack $ show p1 ++ "\n" ++ show p2
 
 alignGrid :: Battlefield -> [((Int, Int), Char)]
 alignGrid field =
