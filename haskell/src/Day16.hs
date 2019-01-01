@@ -1,32 +1,34 @@
-{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE DeriveDataTypeable #-}
+{-# LANGUAGE OverloadedStrings  #-}
 
 module Day16 where
 
-import           Control.Applicative      ((<|>))
-import           Control.Monad.State.Lazy (State)
-import qualified Control.Monad.State.Lazy as State
-import           Data.Bits                ((.&.), (.|.))
-import           Data.IntMap.Strict       (IntMap, (!))
-import qualified Data.IntMap.Strict       as IntMap
-import qualified Data.List                as List
-import qualified Data.List.Split          as Split
-import           Data.Text                (Text)
-import qualified Data.Text                as Text
-import           Text.Parser.LookAhead    (lookAhead)
-import qualified Text.Parser.Token        as Token
-import           Text.Trifecta            (Parser, Result (Failure, Success))
-import qualified Text.Trifecta            as Tri
-import           Types                    hiding (Input)
+import           Control.Applicative   ((<|>))
+import           Data.Bits             ((.&.), (.|.))
+import           Data.Data             (Data)
+import qualified Data.Data             as Data
+import           Data.IntMap.Strict    (IntMap, (!))
+import qualified Data.IntMap.Strict    as IntMap
+import qualified Data.List             as List
+import           Data.Set              (Set)
+import qualified Data.Set              as Set
+import           Data.Text             (Text)
+import qualified Data.Text             as Text
+import           Data.Typeable         (Typeable)
+import           Text.Parser.LookAhead (lookAhead)
+import           Text.Trifecta         (Parser, Result (Failure, Success))
+import qualified Text.Trifecta         as Tri
+import           Types                 hiding (Input)
 
 type Registers = IntMap Int
 
 newtype Register =
   Register Int
-  deriving (Show)
+  deriving (Show, Eq, Ord, Data, Typeable)
 
 newtype Immediate =
   Immediate Int
-  deriving (Show)
+  deriving (Show, Eq, Ord, Data)
 
 type OpCode = Int
 
@@ -35,7 +37,7 @@ data Instruction =
               Int
               Int
               Register
-  deriving (Show)
+  deriving (Show, Eq, Ord)
 
 data Action
   = ADDR Register
@@ -84,6 +86,7 @@ data Action
   | EQRR Register
          Register
          Register
+  deriving (Ord, Eq, Show, Data, Typeable)
 
 type Sample = (Registers, Instruction, Registers)
 
@@ -114,47 +117,33 @@ inputTripletP = do
 
 inputP :: Parser ([Sample], [Instruction])
 inputP = do
-  p1 <-
+  p1input <-
     Tri.manyTill inputTripletP (Tri.try . lookAhead $ Tri.count 2 instructionP)
-  p2 <- Tri.many $ instructionP <* Tri.spaces
-  return (p1, p2)
+  p2input <- Tri.many $ instructionP <* Tri.spaces
+  return (p1input, p2input)
 
-actionCreatorFromAction :: Action -> (Instruction -> Action)
-actionCreatorFromAction action =
-  case action of
-    ADDR {} ->
-      \(Instruction opCode a b reg) -> ADDR (Register a) (Register b) reg
-    ADDI {} ->
-      \(Instruction opCode a b reg) -> ADDI (Register a) (Immediate b) reg
-    MULR {} ->
-      \(Instruction opCode a b reg) -> MULR (Register a) (Register b) reg
-    MULI {} ->
-      \(Instruction opCode a b reg) -> MULI (Register a) (Immediate b) reg
-    BANR {} ->
-      \(Instruction opCode a b reg) -> BANR (Register a) (Register b) reg
-    BANI {} ->
-      \(Instruction opCode a b reg) -> BANI (Register a) (Immediate b) reg
-    BORR {} ->
-      \(Instruction opCode a b reg) -> BORR (Register a) (Register b) reg
-    BORI {} ->
-      \(Instruction opCode a b reg) -> BORI (Register a) (Immediate b) reg
-    SETR {} -> \(Instruction opCode a _ reg) -> SETR (Register a) reg
-    SETI {} -> \(Instruction opCode a _ reg) -> SETI (Immediate a) reg
-    GTIR {} ->
-      \(Instruction opCode a b reg) -> GTIR (Immediate a) (Register b) reg
-    GTRI {} ->
-      \(Instruction opCode a b reg) -> GTRI (Register a) (Immediate b) reg
-    GTRR {} ->
-      \(Instruction opCode a b reg) -> GTRR (Register a) (Register b) reg
-    EQRI {} ->
-      \(Instruction opCode a b reg) -> EQRI (Immediate a) (Register b) reg
-    EQIR {} ->
-      \(Instruction opCode a b reg) -> EQIR (Register a) (Immediate b) reg
-    EQRR {} ->
-      \(Instruction opCode a b reg) -> EQRR (Register a) (Register b) reg
+actionCreatorFromConstrString :: String -> (Instruction -> Action)
+actionCreatorFromConstrString consStr =
+  case consStr of
+    "ADDR" -> \(Instruction _ a b reg) -> ADDR (Register a) (Register b) reg
+    "ADDI" -> \(Instruction _ a b reg) -> ADDI (Register a) (Immediate b) reg
+    "MULR" -> \(Instruction _ a b reg) -> MULR (Register a) (Register b) reg
+    "MULI" -> \(Instruction _ a b reg) -> MULI (Register a) (Immediate b) reg
+    "BANR" -> \(Instruction _ a b reg) -> BANR (Register a) (Register b) reg
+    "BANI" -> \(Instruction _ a b reg) -> BANI (Register a) (Immediate b) reg
+    "BORR" -> \(Instruction _ a b reg) -> BORR (Register a) (Register b) reg
+    "BORI" -> \(Instruction _ a b reg) -> BORI (Register a) (Immediate b) reg
+    "SETR" -> \(Instruction _ a _ reg) -> SETR (Register a) reg
+    "SETI" -> \(Instruction _ a _ reg) -> SETI (Immediate a) reg
+    "GTIR" -> \(Instruction _ a b reg) -> GTIR (Immediate a) (Register b) reg
+    "GTRI" -> \(Instruction _ a b reg) -> GTRI (Register a) (Immediate b) reg
+    "GTRR" -> \(Instruction _ a b reg) -> GTRR (Register a) (Register b) reg
+    "EQRI" -> \(Instruction _ a b reg) -> EQRI (Immediate a) (Register b) reg
+    "EQIR" -> \(Instruction _ a b reg) -> EQIR (Register a) (Immediate b) reg
+    "EQRR" -> \(Instruction _ a b reg) -> EQRR (Register a) (Register b) reg
 
 makeActionsFromInstruction :: Instruction -> [Action]
-makeActionsFromInstruction (Instruction opCode a b reg) =
+makeActionsFromInstruction (Instruction _ a b reg) =
   [ ADDR (Register a) (Register b) reg
   , ADDI (Register a) (Immediate b) reg
   , MULR (Register a) (Register b) reg
@@ -173,18 +162,45 @@ makeActionsFromInstruction (Instruction opCode a b reg) =
   , EQRR (Register a) (Register b) reg
   ]
 
--- Iterate over samples. Map sample to actions. Evalute actions, keep the ones
--- that match after. Turn resulting lists into sets. Store op code with sets in
--- map that we're folding over (append to existing sets).
--- Iterate over map. Find common action in set for each op code.
--- Match action data constructor, and turn the one set entry into a function
--- returning that specfic action. Then use that map to fold over the
--- program
-p2 :: [Sample] -> [Instruction] -> Registers
-p2 samples instructions = undefined
+opCodeToConstrStr :: [Sample] -> Maybe (IntMap String)
+opCodeToConstrStr samples =
+  let opCodeMap = foldl buildMap IntMap.empty samples
+   in narrowMap opCodeMap IntMap.empty
+  where
+    buildMap acc sample@(_, Instruction opCode _ _ _, _) =
+      let actions =
+            Set.fromList . map (Data.showConstr . Data.toConstr) $
+            runSample sample
+       in IntMap.insertWith Set.intersection opCode actions acc
+    narrowMap :: IntMap (Set String) -> IntMap String -> Maybe (IntMap String)
+    narrowMap mapIn mapOut
+      | IntMap.size mapIn == 0 = Just mapOut
+      | otherwise =
+        let solved = List.find ((==) 1 . length . snd) $ IntMap.assocs mapIn
+         in case solved of
+              Nothing -> Nothing
+              Just (k, v) ->
+                let constrStr = head $ Set.toList v
+                    mapOut' = IntMap.insert k constrStr mapOut
+                    mapIn' =
+                      IntMap.delete k (IntMap.map (Set.delete constrStr) mapIn)
+                 in narrowMap mapIn' mapOut'
 
-runSample :: (Registers, Instruction, Registers) -> [Action]
-runSample (before, instruction@(Instruction opCode a b reg), after) =
+p2 :: [Sample] -> [Instruction] -> Maybe Registers
+p2 samples instructions = do
+  opCodeMap <- opCodeToConstrStr samples
+  return $
+    foldl
+      (runProgram opCodeMap)
+      (IntMap.fromList [(0, 0), (1, 0), (2, 0), (3, 0)])
+      instructions
+  where
+    runProgram opCodeMap acc ins@(Instruction opCode _ _ _) =
+      let actionCreator = actionCreatorFromConstrString $ opCodeMap ! opCode
+       in runAction acc (actionCreator ins)
+
+runSample :: Sample -> [Action]
+runSample (before, instruction, after) =
   let actions = makeActionsFromInstruction instruction
       results = map (runAction before) actions
    in map snd . filter ((==) after . fst) $ zip results actions
@@ -282,10 +298,10 @@ runAction regs action =
 
 run :: Text -> Either ErrMsg Text
 run t = do
-  (p1input, _) <- parseInput t
-  return . Text.pack . show $ p1 p1input
-  where
-    parsed = parseInput t
+  (samples, instructions) <- parseInput t
+  let p1result = p1 samples
+  let p2result = p2 samples instructions
+  return $ Text.pack ("p1: " ++ show p1result ++ " p2:" ++ show p2result)
 
 prog :: DayProg
 prog = DayProg "day16" run

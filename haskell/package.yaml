@@ -48,6 +48,7 @@ executables:
       - -O2
       - -rtsopts
       - -with-rtsopts=-N
+      - -Wall
     dependencies:
       - aoc2018
 
