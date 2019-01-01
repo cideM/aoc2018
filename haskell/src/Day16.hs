@@ -12,6 +12,7 @@ import qualified Data.List                as List
 import qualified Data.List.Split          as Split
 import           Data.Text                (Text)
 import qualified Data.Text                as Text
+import           Text.Parser.LookAhead    (lookAhead)
 import qualified Text.Parser.Token        as Token
 import           Text.Trifecta            (Parser, Result (Failure, Success))
 import qualified Text.Trifecta            as Tri
@@ -84,15 +85,15 @@ data Action
          Register
          Register
 
-type InputTriplet = (Registers, Instruction, Registers)
+type Sample = (Registers, Instruction, Registers)
 
 registersP :: Parser Registers
 registersP = do
   _ <- Tri.string "Before:" <|> Tri.string "After:"
   _ <- Tri.spaces
-  _ <- Tri.symbol "["
+  _ <- Tri.char '['
   contents <- Tri.decimal `Tri.sepBy` Tri.symbol ","
-  _ <- Tri.symbol "]"
+  _ <- Tri.char ']'
   return . IntMap.fromList . zip [0 ..] $ map fromIntegral contents
 
 instructionP :: Parser Instruction
@@ -100,29 +101,98 @@ instructionP = do
   opCode <- dec
   x <- dec
   y <- dec
-  (Instruction opCode x y . Register) . fromIntegral <$> Tri.decimal
+  Instruction opCode x y . Register <$> dec
   where
-    dec = fromIntegral <$> Tri.decimal <* Tri.spaces
+    dec = fromIntegral <$> (Tri.spaces *> Tri.decimal)
 
-inputTripletP :: Parser InputTriplet
+inputTripletP :: Parser Sample
 inputTripletP = do
-  before <- registersP
-  -- _ <- Tri.newline
-  instruction <- instructionP
-  _ <- Tri.newline
-  after <- registersP
+  before <- registersP <* Tri.spaces
+  instruction <- instructionP <* Tri.spaces
+  after <- registersP <* Tri.spaces
   return (before, instruction, after)
 
-inputP :: Parser ([InputTriplet], [Instruction])
+inputP :: Parser ([Sample], [Instruction])
 inputP = do
-  p1 <- inputTripletP `Tri.sepBy` Tri.newline
-  _ <- Tri.count 2 Tri.newline
-  p2 <- instructionP `Tri.sepBy` Tri.newline
+  p1 <-
+    Tri.manyTill inputTripletP (Tri.try . lookAhead $ Tri.count 2 instructionP)
+  p2 <- Tri.many $ instructionP <* Tri.spaces
   return (p1, p2)
 
--- Split on double new line, discard 2nd part for now
--- Parse lines, convert to vector, chunksOf 3
-parseInput :: Text -> Either ErrMsg ([InputTriplet], [Instruction])
+actionCreatorFromAction :: Action -> (Instruction -> Action)
+actionCreatorFromAction action =
+  case action of
+    ADDR {} ->
+      \(Instruction opCode a b reg) -> ADDR (Register a) (Register b) reg
+    ADDI {} ->
+      \(Instruction opCode a b reg) -> ADDI (Register a) (Immediate b) reg
+    MULR {} ->
+      \(Instruction opCode a b reg) -> MULR (Register a) (Register b) reg
+    MULI {} ->
+      \(Instruction opCode a b reg) -> MULI (Register a) (Immediate b) reg
+    BANR {} ->
+      \(Instruction opCode a b reg) -> BANR (Register a) (Register b) reg
+    BANI {} ->
+      \(Instruction opCode a b reg) -> BANI (Register a) (Immediate b) reg
+    BORR {} ->
+      \(Instruction opCode a b reg) -> BORR (Register a) (Register b) reg
+    BORI {} ->
+      \(Instruction opCode a b reg) -> BORI (Register a) (Immediate b) reg
+    SETR {} -> \(Instruction opCode a _ reg) -> SETR (Register a) reg
+    SETI {} -> \(Instruction opCode a _ reg) -> SETI (Immediate a) reg
+    GTIR {} ->
+      \(Instruction opCode a b reg) -> GTIR (Immediate a) (Register b) reg
+    GTRI {} ->
+      \(Instruction opCode a b reg) -> GTRI (Register a) (Immediate b) reg
+    GTRR {} ->
+      \(Instruction opCode a b reg) -> GTRR (Register a) (Register b) reg
+    EQRI {} ->
+      \(Instruction opCode a b reg) -> EQRI (Immediate a) (Register b) reg
+    EQIR {} ->
+      \(Instruction opCode a b reg) -> EQIR (Register a) (Immediate b) reg
+    EQRR {} ->
+      \(Instruction opCode a b reg) -> EQRR (Register a) (Register b) reg
+
+makeActionsFromInstruction :: Instruction -> [Action]
+makeActionsFromInstruction (Instruction opCode a b reg) =
+  [ ADDR (Register a) (Register b) reg
+  , ADDI (Register a) (Immediate b) reg
+  , MULR (Register a) (Register b) reg
+  , MULI (Register a) (Immediate b) reg
+  , BANR (Register a) (Register b) reg
+  , BANI (Register a) (Immediate b) reg
+  , BORR (Register a) (Register b) reg
+  , BORI (Register a) (Immediate b) reg
+  , SETR (Register a) reg
+  , SETI (Immediate a) reg
+  , GTIR (Immediate a) (Register b) reg
+  , GTRI (Register a) (Immediate b) reg
+  , GTRR (Register a) (Register b) reg
+  , EQRI (Immediate a) (Register b) reg
+  , EQIR (Register a) (Immediate b) reg
+  , EQRR (Register a) (Register b) reg
+  ]
+
+-- Iterate over samples. Map sample to actions. Evalute actions, keep the ones
+-- that match after. Turn resulting lists into sets. Store op code with sets in
+-- map that we're folding over (append to existing sets).
+-- Iterate over map. Find common action in set for each op code.
+-- Match action data constructor, and turn the one set entry into a function
+-- returning that specfic action. Then use that map to fold over the
+-- program
+p2 :: [Sample] -> [Instruction] -> Registers
+p2 samples instructions = undefined
+
+runSample :: (Registers, Instruction, Registers) -> [Action]
+runSample (before, instruction@(Instruction opCode a b reg), after) =
+  let actions = makeActionsFromInstruction instruction
+      results = map (runAction before) actions
+   in map snd . filter ((==) after . fst) $ zip results actions
+
+p1 :: [Sample] -> Int
+p1 = length . filter (\x -> length x >= 3) . map runSample
+
+parseInput :: Text -> Either ErrMsg ([Sample], [Instruction])
 parseInput input =
   case Tri.parseString inputP mempty str of
     Failure err -> Left . Text.pack $ show err
@@ -211,7 +281,11 @@ runAction regs action =
     insert k v = IntMap.insert k v regs
 
 run :: Text -> Either ErrMsg Text
-run t = Right "foo"
+run t = do
+  (p1input, _) <- parseInput t
+  return . Text.pack . show $ p1 p1input
+  where
+    parsed = parseInput t
 
 prog :: DayProg
 prog = DayProg "day16" run
