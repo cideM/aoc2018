@@ -95,64 +95,104 @@ const makeGrid2 = (width, height, defaultValue = FREE_TILE) => {
   return grid;
 };
 
-const goDown = ({ x, y }) => ({ x, y: y + 1 });
-const goLeft = ({ x, y }) => ({ x: x - 1, y });
-const goRight = ({ x, y }) => ({ x: x + 1, y });
-
-const flowLeft = (grid, pos) => {
+const fillLeft = (grid, pos) => {
   let x = pos.x;
   let y = pos.y;
 
   // As long as we're on top of solid ground or settled water, add more settled
   // water
-  while ("#~".includes(grid[y + 1][x]) && grid[y][x] !== "#") {
+  while (grid[y][x] !== "#") {
     grid[y][x] = "~";
     x--;
   }
 };
 
-const flowRight = (grid, pos) => {
+const fillRight = (grid, pos) => {
   let x = pos.x;
   let y = pos.y;
 
   // As long as we're on top of solid ground or settled water, add more settled
   // water
-  while ("#~".includes(grid[y + 1][x]) && grid[y][x] !== "#") {
+  while (grid[y][x] !== "#") {
     grid[y][x] = "~";
     x++;
   }
 };
 
-const LEFT = Symbol("left");
-const RIGHT = Symbol("right");
+const isBasin = (grid, pos) => {
+  let xl = pos.x - 1;
+  let xr = pos.x + 1;
 
-const fill = (grid, position, direction = null) => {
-  const { x, y } = position;
-  const currentCell = grid[y][x];
+  let hasWallLeft;
+  let hasWallRight;
 
-  if (currentCell === FREE_TILE) {
-    grid[y][x] = "|";
+  while (true) {
+    if (grid[pos.y][xl] === FREE_TILE) {
+      hasWallLeft = false;
+      break;
+    }
+
+    if (grid[pos.y][xl] === "#") {
+      hasWallLeft = true;
+      break;
+    }
+
+    xl--;
   }
 
-  if (currentCell === "#") return x;
+  while (true) {
+    if (grid[pos.y][xr] === FREE_TILE) {
+      hasWallRight = false;
+      break;
+    }
 
-  if (y === grid.length - 1) return;
-  // if (x < 0 || x > grid[0].length - 1) return;
+    if (grid[pos.y][xr] === "#") {
+      hasWallRight = true;
+      break;
+    }
 
-  const down = grid[y + 1][x];
+    xr++;
+  }
 
-  if (down === FREE_TILE) {
+  return hasWallLeft && hasWallRight;
+};
+
+const fill = (grid, position) => {
+  const { x, y } = position;
+
+  if (y >= grid.length - 1) {
+    grid[y][x] = "|";
+    return;
+  }
+
+  // Down
+  if (grid[y + 1][x] === FREE_TILE) {
+    grid[y + 1][x] = "|";
+    // Recurse so that all downstream tiles are in their final state before
+    // moving on. If the tile below this one is a dead end, that row will be
+    // filled by the time we move on and we can then flow left and right.
     fill(grid, { x, y: y + 1 });
   }
 
-  if ("#~".includes(down)) {
-    flowLeft(grid, position);
-    flowRight(
-      grid,
-      position
-    );
-  } else {
-    return x;
+  // Left
+  if ("#~".includes(grid[y + 1][x]) && grid[y][x - 1] === FREE_TILE) {
+    grid[y][x - 1] = "|";
+    fill(grid, { x: x - 1, y });
+  }
+
+  // Right
+  if ("#~".includes(grid[y + 1][x]) && grid[y][x + 1] === FREE_TILE) {
+    grid[y][x + 1] = "|";
+    fill(grid, { x: x + 1, y });
+  }
+
+  // If we're in a basin (can't flow down, wallsleft and right), fill the
+  // current row in the basin. This function returns, and the parent function
+  // continues.
+  if ("#~".includes(grid[y + 1][x]) && isBasin(grid, position)) {
+    fillLeft(grid, position);
+    fillRight(grid, position);
+    grid[y][x] = "~";
   }
 };
 
@@ -166,7 +206,7 @@ module.exports = {
     const withOrigin = parsed.concat(origin);
 
     const minY = Math.min(...parsed.map(({ y }) => y));
-    const minX = Math.min(...parsed.map(({ x }) => x));
+    // const minX = Math.min(...parsed.map(({ x }) => x));
     const width = Math.max(...withOrigin.map(({ x }) => x)) + 5;
     const height = Math.max(...withOrigin.map(({ y }) => y));
 
@@ -179,9 +219,9 @@ module.exports = {
 
     fill(grid, origin);
 
-    const gridCorrected = grid.map(row => row.slice(minX - 10));
+    // const gridCorrected = grid.map(row => row.slice(minX));
 
-    printGrid(gridCorrected);
+    // printGrid(gridCorrected);
 
     const waterTiles = _.sum(
       _.flatMap(grid, (row, y) =>
