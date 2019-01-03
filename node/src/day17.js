@@ -1,7 +1,9 @@
+const _ = require("lodash");
+
 const combineNumberAndRange = (number, range) => {
   const out = [];
 
-  for (let a = range[0]; a <= range[1]; a++) {
+  for (let a = Number(range[0]); a <= Number(range[1]); a++) {
     out.push([number, a]);
   }
 
@@ -84,57 +86,89 @@ const coordsFromKey = key => {
   };
 };
 
-const flow = ({ grid, origin, flowing, settled }) => {
-  // Check if origin can produce water
-  const belowOrigin = makeKey(origin.x, origin.y);
+const flow = (flowing, settled, options = {}) => {
+  const { grid, origin } = options;
 
-  if (!flowing[belowOrigin] && !settled[belowOrigin]) {
-    return {
-      flowing: {
-        ...flowing,
-        [belowOrigin]: true
-      }
-    };
+  // Check if origin can produce water
+  const belowOrigin = makeKey(origin.x, origin.y + 1);
+
+  if (!flowing.has(belowOrigin) && !settled.has(belowOrigin)) {
+    flowing.add(belowOrigin);
+
+    return;
   }
 
-  Object.keys(flowing).forEach(currentKey => {
+  console.log("##################");
+  for (const currentKey of flowing) {
     const { x, y } = coordsFromKey(currentKey);
 
     const down = { x, y: y + 1 };
     const left = { x: x - 1, y };
     const right = { x: x + 1, y };
 
-    [down, left, right].forEach(coords => {
-      const newKey = makeKey(coords);
+    const hasReachedEnd = down.y === grid.length;
 
-      if (!flowing[newKey] && !settled[newKey] && grid[y][x] === ".") {
-        const newFlowing = {
-          ...flowing,
-          [newKey]: true
-        };
+    console.log("currentKey", currentKey);
+    if (hasReachedEnd) return;
 
-        delete newFlowing[currentKey];
+    const hasFlowingNeighbor = [down].find(coords =>
+      flowing.has(makeKey(coords.x, coords.y))
+    );
+    // console.log("flowing neighbor", hasFlowingNeighbor);
 
-        return {
-          flowing: newFlowing
-        };
-      }
-      // settled
-      // default
+    // Has some neighbor that's still flowing, so expect this tile of water to
+    // eventually move once that neighbor has moved as well
+    if (hasFlowingNeighbor) return;
+
+    const freeTileCoords = [down, left, right].find(coords => {
+      const { x: _x, y: _y } = coords;
+      const newKey = makeKey(_x, _y);
+
+      return (
+        !flowing.has(newKey) &&
+        !settled.has(newKey) &&
+        grid[_y] &&
+        grid[_y][_x] === "."
+      );
     });
-  });
+
+    if (freeTileCoords) {
+      // Move water tile to free tile
+      flowing.add(makeKey(freeTileCoords.x, freeTileCoords.y));
+      flowing.delete(currentKey);
+
+      return;
+    }
+
+    // No neighbor in flow, no free tile, so this water is now settled
+    flowing.delete(currentKey);
+    settled.add(currentKey);
+    return;
+  }
+};
+
+const printGrid = (flowing, settled, options = {}) => {
+  const { grid, origin } = options;
+  const withSymbols = grid.map((row, y) =>
+    row.map((tile, x) => {
+      const key = makeKey(x, y);
+
+      if (x === origin.x && y === origin.y) return "+";
+      if (flowing.has(key)) return "|";
+      if (settled.has(key)) return "~";
+      return tile;
+    })
+  );
+
+  withSymbols.forEach(row => console.log(row.join("")));
 };
 
 const makeGrid = (points, origin) => {
-  const asObj = {};
   const pointsWithOrigin = points.concat(origin);
-
-  for (const value of pointsWithOrigin) {
-    asObj[makeKey(value.x, value.y)] = true;
-  }
-
   const maxX = Math.max(...pointsWithOrigin.map(({ x }) => x));
   const maxY = Math.max(...pointsWithOrigin.map(({ y }) => y));
+
+  const asSet = new Set(pointsWithOrigin.map(({ x, y }) => makeKey(x, y)));
 
   const grid = [];
 
@@ -142,7 +176,7 @@ const makeGrid = (points, origin) => {
     if (!grid[y]) grid[y] = [];
 
     for (let x = 0; x <= maxX; x++) {
-      grid[y][x] = asObj[makeKey(x, y)] ? "#" : ".";
+      grid[y][x] = asSet.has(makeKey(x, y)) ? "#" : ".";
     }
   }
 
@@ -156,7 +190,30 @@ module.exports = {
   parse,
   run: input => {
     const parsed = parse(input);
-    const grid = makeGrid(parsed, { x: 500, y: 0 });
-    return "foo";
+    const origin = { x: 6, y: 0 };
+    const grid = makeGrid(parsed, origin);
+    const options = { grid, origin };
+
+    let flowing = new Set();
+    let settled = new Set();
+    let lastFlowing = flowing;
+
+    let isDone = false;
+
+    do {
+      lastFlowing = new Set([...flowing]);
+
+      flow(
+        flowing,
+        settled,
+        options
+      );
+    } while (!_.isEqual(flowing, lastFlowing));
+
+    const waterTiles = flowing.size + settled.size;
+
+    printGrid(flowing, settled, options);
+
+    return `Water tiles: ${waterTiles}`;
   }
 };
