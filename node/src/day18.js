@@ -145,8 +145,6 @@ const findPattern = initialGrid => {
     grid = evolve(grid);
     step++;
     const printedNext = printGrid(grid);
-    // console.log("============");
-    // console.log(printedNext);
 
     // This is now the updated  grid
     const found = past.find(x => x[0] === printedNext);
