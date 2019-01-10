@@ -1,7 +1,74 @@
 use failure::{format_err, Error};
 use std::str::FromStr;
 
-#[derive(Debug, Eq, PartialEq, Default)]
+#[derive(Debug, Eq, PartialEq, Default, Clone)]
+struct Sample {
+    before: Registers,
+    instruction: Instruction,
+    after: Registers,
+}
+
+#[derive(Fail, Debug)]
+#[fail(display = "Could not parse samples. ({})", cause)]
+pub struct ParseSampleError {
+    cause: String,
+}
+
+#[derive(Eq, PartialEq)]
+enum SampleParseState {
+    Before,
+    Instruction,
+    After,
+}
+
+#[derive(Eq, PartialEq, Debug)]
+struct Samples(Vec<Sample>);
+
+// impl Default for Sample {
+// }
+
+impl FromStr for Samples {
+    type Err = ParseSampleError;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let mut state = SampleParseState::Before;
+        let mut samples: Vec<Sample> = Vec::new();
+
+        let mut current_sample: Sample = Default::default();
+
+        for line in s.lines() {
+            if state == SampleParseState::Before && line.starts_with("Before") {
+                state = SampleParseState::Instruction;
+                let before = line.parse::<Registers>().map_err(|err| ParseSampleError {
+                    cause: format!("Could not parse before. {}", err),
+                })?;
+                current_sample.before = before;
+                continue;
+            }
+
+            if state == SampleParseState::Instruction {
+                state = SampleParseState::After;
+                let instruction = line.parse::<Instruction>().unwrap();
+                current_sample.instruction = instruction;
+                continue;
+            }
+
+            if state == SampleParseState::After && line.starts_with("After") {
+                state = SampleParseState::Before;
+                let after = line.parse::<Registers>().map_err(|err| ParseSampleError {
+                    cause: format!("Could not parse after. {}", err),
+                })?;
+                current_sample.after = after;
+                samples.push(current_sample.clone());
+                continue;
+            }
+        }
+
+        Ok(Samples(samples))
+    }
+}
+
+#[derive(Debug, Eq, PartialEq, Default, Clone)]
 struct Registers([usize; 4]);
 
 #[derive(Fail, Debug)]
@@ -9,13 +76,6 @@ struct Registers([usize; 4]);
 pub struct ParseRegistersError {
     cause: String,
 }
-
-#[derive(Debug, Eq, PartialEq)]
-struct Sample {
-    before: Registers,
-    instruction: Instruction,
-    after: Registers
-};
 
 impl FromStr for Registers {
     type Err = ParseRegistersError;
@@ -65,7 +125,7 @@ impl Registers {
     }
 }
 
-#[derive(Debug, PartialEq, Eq)]
+#[derive(Debug, PartialEq, Eq, Default, Clone)]
 struct Register(usize);
 
 #[derive(Debug, PartialEq, Eq)]
@@ -97,7 +157,7 @@ enum OperationKind {
     Eqrr(Register, Register),
 }
 
-#[derive(Debug, PartialEq, Eq)]
+#[derive(Debug, PartialEq, Eq, Default, Clone)]
 struct Instruction {
     op_code: usize,
     input_a: usize,
@@ -299,5 +359,50 @@ mod tests {
                 output: Register(4)
             }
         );
+    }
+
+    #[test]
+    fn it_parses_samples() {
+        let str = String::from(
+            "
+Before: [1, 1, 0, 0]
+2 1 0 2
+After:  [1, 1, 1, 0]
+
+Before: [3, 3, 2, 1]
+8 3 2 2
+After:  [3, 3, 1, 1]
+
+
+6 0 0 3
+9 3 2 3    
+        ",
+        );
+
+        assert_eq!(
+            str.parse::<Samples>().unwrap(),
+            Samples(vec![
+                Sample {
+                    before: Registers([1, 1, 0, 0]),
+                    instruction: Instruction {
+                        op_code: 2,
+                        input_a: 1,
+                        input_b: 0,
+                        output: Register(2)
+                    },
+                    after: Registers([1, 1, 1, 0]),
+                },
+                Sample {
+                    before: Registers([3, 3, 2, 1]),
+                    instruction: Instruction {
+                        op_code: 8,
+                        input_a: 3,
+                        input_b: 2,
+                        output: Register(2)
+                    },
+                    after: Registers([3, 3, 1, 1]),
+                }
+            ])
+        )
     }
 }

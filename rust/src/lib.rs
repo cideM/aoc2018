@@ -1,6 +1,10 @@
 #[macro_use]
 extern crate failure;
 
+#[cfg(test)]
+#[macro_use]
+extern crate pretty_assertions;
+
 pub mod day14;
 pub mod day16;
 pub mod day19;
