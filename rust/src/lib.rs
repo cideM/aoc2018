@@ -1,3 +1,6 @@
+#[macro_use]
+extern crate failure;
+
 pub mod day14;
 pub mod day16;
 pub mod day19;
