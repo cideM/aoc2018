@@ -160,21 +160,17 @@ makeOpCodeMap samples =
         then Nothing
         else Just opCodeMap'
   where
-    f (before, ins@(Instruction opCode _ _ _), after) acc@(opCodeMap, known)
+    f sample@(_, Instruction opCode _ _ _, _) acc@(opCodeMap, known)
       | IntMap.member opCode opCodeMap = acc
-      | otherwise = maybe acc checkOps $ traverse (opFromIns ins) opNames
+      | otherwise = maybe acc checkOps $ runSample sample
       where
-        checkOps ops =
-          let results = map (runOp before) ops
-              matchingBeforeAfter =
-                map snd . filter ((==) after . fst) $ zip results ops
-              unknown =
-                filter (not . flip Set.member known . name) matchingBeforeAfter
-           in if length unknown == 1
-                then let newOpName = name $ head unknown
-                      in ( IntMap.insert opCode newOpName opCodeMap
-                         , Set.insert newOpName known)
-                else acc
+        checkOps = makeNewAcc . filter (not . flip Set.member known . name)
+        makeNewAcc unknownOpNames
+          | length unknownOpNames /= 1 = acc
+          | otherwise =
+            let newOpName = name $ head unknownOpNames
+             in ( IntMap.insert opCode newOpName opCodeMap
+                , Set.insert newOpName known)
 
 p2 :: [Sample] -> [Instruction] -> Maybe Registers
 p2 samples instructions = do
