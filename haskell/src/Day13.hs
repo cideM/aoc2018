@@ -12,7 +12,6 @@ import qualified Data.Maybe      as Maybe
 import           Data.Text       (Text)
 import qualified Data.Text       as Text
 import qualified Data.Text.IO    as TextIO
-import           Debug.Trace
 import           Types
 
 data Coords =
@@ -97,6 +96,7 @@ parseTracks input = foldl' f (Map.empty, Map.empty) lines'
         (zip [0 ..] line)
 
 -- Debugging
+testData :: IO Text
 testData = TextIO.readFile "../data/day13_test.txt"
 
 -- Debugging

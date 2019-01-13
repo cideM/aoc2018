@@ -1,58 +1,63 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards   #-}
 
 module Day16 where
 
-import           Control.Applicative ((<|>))
-import           Data.Foldable       (foldl')
-import           Data.IntMap.Strict  (IntMap, (!))
-import qualified Data.IntMap.Strict  as IntMap
-import qualified Data.Set            as Set
-import           Data.Text           (Text)
-import qualified Data.Text           as Text
-import           Day16.Operation     as Op
+import           Data.Foldable      (foldl')
+import           Data.IntMap.Strict (IntMap)
+import qualified Data.IntMap.Strict as IntMap
+import qualified Data.Map.Strict    as Map
+import qualified Data.Set           as Set
+import           Data.Text          (Text)
+import qualified Data.Text          as Text
+import           Day16.Operation    as Op
 import           Day16.Parser
 import           Day16.Types
-import           Types               hiding (Input)
+import           Types              hiding (Input)
 
 makeOpCodeMap :: [Sample] -> Maybe (IntMap OpName)
 makeOpCodeMap samples =
   let (opCodeMap', _) = foldr f (IntMap.empty, Set.empty) samples
-   in if IntMap.size opCodeMap' /= length Op.allNames
+   in if IntMap.size opCodeMap' /= Map.size ops
         then Nothing
         else Just opCodeMap'
   where
     f sample@(_, Instruction opCode _ _ _, _) acc@(opCodeMap, known)
       | IntMap.member opCode opCodeMap = acc
-      | otherwise = maybe acc checkOps $ runSample sample
+      | otherwise =
+        fn . filter (not . flip Set.member known . fst) $ runSample sample
       where
-        checkOps = makeNewAcc . filter (not . flip Set.member known . Op.name)
-        makeNewAcc unknownOpNames
+        fn unknownOpNames
           | length unknownOpNames /= 1 = acc
           | otherwise =
-            let newOpName = Op.name $ head unknownOpNames
-             in ( IntMap.insert opCode newOpName opCodeMap
-                , Set.insert newOpName known)
+            let newName = fst $ head unknownOpNames
+             in ( IntMap.insert opCode newName opCodeMap
+                , Set.insert newName known)
 
 p2 :: [Sample] -> [Instruction] -> Maybe Registers
-p2 samples instructions = do
+p2 samples instrs = do
   opCodeMap <- makeOpCodeMap samples
-  ops <-
-    traverse
-      (\ins@(Instruction opCode _ _ _) ->
-         Op.fromInstruction ins $ opCodeMap ! opCode)
-      instructions
-  return $ foldl' Op.run (IntMap.fromList [(0, 0), (1, 0), (2, 0), (3, 0)]) ops
+  -- | for each instruction get the associated operation and partially apply to
+  -- instruction
+  ops' <- traverse (getOp opCodeMap) instrs
+  return $
+    foldl'
+      (\regs op -> op regs)
+      (IntMap.fromList [(0, 0), (1, 0), (2, 0), (3, 0)])
+      ops'
+  where
+    getOp opCodeMap ins@Instruction {..} = do
+      opName <- IntMap.lookup opCode opCodeMap
+      op <- Map.lookup opName ops
+      return $ op ins
 
-runSample :: Sample -> Maybe [Operation]
-runSample (before, instruction, after) = do
-  ops <- traverse (Op.fromInstruction instruction) Op.allNames
-  let results = map (Op.run before) ops
-  return . map snd . filter ((==) after . fst) $ zip results ops
+runSample :: Sample -> [(OpName, Registers)]
+runSample (before, instruction, after) =
+  filter ((==) after . snd) . map (\(name, op) -> (name, op instruction before)) $
+  Map.assocs ops
 
-p1 :: [Sample] -> Maybe Int
-p1 samples = do
-  ops <- traverse runSample samples
-  return . length $ filter (flip (>=) 3 . length) ops
+p1 :: [Sample] -> Int
+p1 = length . filter (flip (>=) 3 . length) . map runSample
 
 run :: Text -> Either ErrMsg Text
 run t = do
