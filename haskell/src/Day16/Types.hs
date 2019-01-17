@@ -1,7 +1,7 @@
 module Day16.Types where
 
-import           Data.IntMap.Strict (IntMap)
-import           Data.Text          (Text)
+import           Data.IntMap.Strict             ( IntMap )
+import           Data.Text                      ( Text )
 
 type Registers = IntMap Int
 

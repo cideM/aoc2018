@@ -1,11 +1,12 @@
 module Types where
 
-import Data.Text
-import Prelude hiding (FilePath)
+import           Control.Exception.Safe
+import           Data.Text
+import           Prelude                hiding (FilePath)
 
 data DayProg = DayProg
   { _name :: Text
-  , _run :: Text -> Either ErrMsg Text
+  , _run  :: Text -> Either ErrMsg Text
   }
 
 type ErrMsg = Text
@@ -19,6 +20,6 @@ data Input
 type DayNum = Text
 
 data Options = Options
-  { _input :: Input
+  { _input  :: Input
   , _dayNum :: DayNum
   }

@@ -4,13 +4,13 @@ module Day19.ParserSpec where
 
 import           Test.Hspec
 
-import           Data.Vector   (Vector)
-import qualified Data.Vector   as Vector
-import           Day16.Types   (Instruction (..), Register (..))
-import           Day19.Parser  (instructionP, parseInput)
-import           Day19.Types
-import           Text.Trifecta (Parser, Result (Failure, Success))
-import qualified Text.Trifecta as Tri
+import           Data.Vector              (Vector)
+import qualified Data.Vector              as Vector
+import           Day16.Types              (Instruction (..), Register (..))
+import           Day19.InstructionPointer
+import           Day19.Parser             (instructionP, parseInput)
+import           Text.Trifecta            (Parser, Result (Failure, Success))
+import qualified Text.Trifecta            as Tri
 
 prs :: Parser a -> String -> Either String a
 prs p s =
