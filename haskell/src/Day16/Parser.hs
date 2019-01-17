@@ -25,10 +25,10 @@ registersP = do
 
 instructionP :: Parser Instruction
 instructionP = do
-  opCode <- dec
+  opCode' <- dec
   x <- dec
   y <- dec
-  Instruction opCode x y . Register <$> dec
+  Instruction opCode' Nothing x y . Register <$> dec
   where
     dec = fromIntegral <$> (Tri.spaces *> Tri.decimal)
 

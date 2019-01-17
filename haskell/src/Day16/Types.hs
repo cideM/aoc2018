@@ -1,6 +1,7 @@
 module Day16.Types where
 
 import           Data.IntMap.Strict (IntMap)
+import           Data.Text          (Text)
 
 type Registers = IntMap Int
 
@@ -10,8 +11,11 @@ newtype Register =
 
 type OpCode = Int
 
+type OpName = Text
+
 data Instruction = Instruction
   { opCode :: OpCode
+  , opName :: Maybe OpName
   , a      :: Int
   , b      :: Int
   , out    :: Register

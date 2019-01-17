@@ -13,12 +13,9 @@ import           Data.IntMap.Strict ((!))
 import qualified Data.IntMap.Strict as IntMap
 import           Data.Map.Strict    (Map)
 import qualified Data.Map.Strict    as Map
-import           Data.Text          (Text)
 import           Day16.Types
 
 type Operation = Instruction -> Registers -> Registers
-
-type OpName = Text
 
 ops :: Map OpName Operation
 ops

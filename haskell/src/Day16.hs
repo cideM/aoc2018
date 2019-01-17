@@ -22,7 +22,7 @@ makeOpCodeMap samples =
         then Nothing
         else Just opCodeMap'
   where
-    f sample@(_, Instruction opCode _ _ _, _) acc@(opCodeMap, known)
+    f sample@(_, Instruction opCode _ _ _ _, _) acc@(opCodeMap, known)
       | IntMap.member opCode opCodeMap = acc
       | otherwise =
         fn . filter (not . flip Set.member known . fst) $ runSample sample
@@ -47,8 +47,8 @@ p2 samples instrs = do
       ops'
   where
     getOp opCodeMap ins@Instruction {..} = do
-      opName <- IntMap.lookup opCode opCodeMap
-      op <- Map.lookup opName ops
+      opName' <- IntMap.lookup opCode opCodeMap
+      op <- Map.lookup opName' ops
       return $ op ins
 
 runSample :: Sample -> [(OpName, Registers)]
