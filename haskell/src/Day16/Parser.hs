@@ -23,30 +23,31 @@ registersP = do
   _ <- Tri.char ']'
   return . IntMap.fromList . zip [0 ..] $ map fromIntegral contents
 
-instructionP :: Parser Instruction
+instructionP :: Parser InstructionWithCode
 instructionP = do
-  opCode' <- dec
+  opCode <- dec
   x <- dec
   y <- dec
-  Instruction opCode' Nothing x y . Register <$> dec
+  reg <- dec
+  return (opCode, Instruction x y (Register reg))
   where
     dec = fromIntegral <$> (Tri.spaces *> Tri.decimal)
 
 inputTripletP :: Parser Sample
 inputTripletP = do
   before <- registersP <* Tri.spaces
-  instruction <- instructionP <* Tri.spaces
+  instructionWithCode <- instructionP <* Tri.spaces
   after <- registersP <* Tri.spaces
-  return (before, instruction, after)
+  return (before, instructionWithCode, after)
 
-inputP :: Parser ([Sample], [Instruction])
+inputP :: Parser ([Sample], [InstructionWithCode])
 inputP = do
   p1input <-
     Tri.manyTill inputTripletP (Tri.try . lookAhead $ Tri.count 2 instructionP)
   p2input <- Tri.many $ instructionP <* Tri.spaces
   return (p1input, p2input)
 
-parseInput :: Text -> Either ErrMsg ([Sample], [Instruction])
+parseInput :: Text -> Either ErrMsg ([Sample], [InstructionWithCode])
 parseInput input =
   case Tri.parseString inputP mempty str of
     Failure err -> Left . Text.pack $ show err

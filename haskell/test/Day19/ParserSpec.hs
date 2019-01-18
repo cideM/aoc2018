@@ -4,19 +4,18 @@ module Day19.ParserSpec where
 
 import           Test.Hspec
 
-import           Data.Vector              (Vector)
-import qualified Data.Vector              as Vector
-import           Day16.Types              (Instruction (..), Register (..))
-import           Day19.InstructionPointer
-import           Day19.Parser             (instructionP, parseInput)
-import           Text.Trifecta            (Parser, Result (Failure, Success))
-import qualified Text.Trifecta            as Tri
+import qualified Data.Vector   as Vector
+import           Day16.Types   (Instruction (..), Register (..))
+import           Day19.Parser  (instructionP, parseInput)
+import           Day19.Types   (InstructionPointer (..))
+import           Text.Trifecta (Parser, Result (Failure, Success))
+import qualified Text.Trifecta as Tri
 
 prs :: Parser a -> String -> Either String a
 prs p s =
   let r = Tri.parseString p mempty s
    in case r of
-        (Success a)   -> Right a
+        (Success v)   -> Right v
         (Failure err) -> Left $ show err
 
 spec :: Spec
@@ -27,10 +26,10 @@ spec = do
     Right
       ( InstructionPointer (Register 4) 0
       , Vector.fromList
-          [ Instruction 0 (Just "addi") 4 16 (Register 4)
-          , Instruction 0 (Just "seti") 1 5 (Register 3)
+          [ ("addi", Instruction 4 16 (Register 4))
+          , ("seti", Instruction 1 5 (Register 3))
           ])
   describe "instructionP" $
     it "parses instruction" $
     prs instructionP "seti 1 5 3" `shouldBe`
-    Right (Instruction 0 (Just "seti") 1 5 (Register 3))
+    Right ("seti", Instruction 1 5 (Register 3))

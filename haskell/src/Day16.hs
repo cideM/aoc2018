@@ -10,7 +10,7 @@ import qualified Data.Map.Strict    as Map
 import qualified Data.Set           as Set
 import           Data.Text          (Text)
 import qualified Data.Text          as Text
-import           Day16.Operation    as Op
+import qualified Day16.Operation    as Op
 import           Day16.Parser
 import           Day16.Types
 import           Types              hiding (Input)
@@ -18,11 +18,11 @@ import           Types              hiding (Input)
 makeOpCodeMap :: [Sample] -> Maybe (IntMap OpName)
 makeOpCodeMap samples =
   let (opCodeMap', _) = foldr f (IntMap.empty, Set.empty) samples
-   in if IntMap.size opCodeMap' /= Map.size ops
+   in if IntMap.size opCodeMap' /= Map.size Op.ops
         then Nothing
         else Just opCodeMap'
   where
-    f sample@(_, Instruction opCode _ _ _ _, _) acc@(opCodeMap, known)
+    f sample@(_, (opCode, _), _) acc@(opCodeMap, known)
       | IntMap.member opCode opCodeMap = acc
       | otherwise =
         fn . filter (not . flip Set.member known . fst) $ runSample sample
@@ -34,7 +34,7 @@ makeOpCodeMap samples =
              in ( IntMap.insert opCode newName opCodeMap
                 , Set.insert newName known)
 
-p2 :: [Sample] -> [Instruction] -> Maybe Registers
+p2 :: [Sample] -> [InstructionWithCode] -> Maybe Registers
 p2 samples instrs = do
   opCodeMap <- makeOpCodeMap samples
   -- | for each instruction get the associated operation and partially apply to
@@ -46,15 +46,15 @@ p2 samples instrs = do
       (IntMap.fromList [(0, 0), (1, 0), (2, 0), (3, 0)])
       ops'
   where
-    getOp opCodeMap ins@Instruction {..} = do
+    getOp opCodeMap (opCode, ins) = do
       opName' <- IntMap.lookup opCode opCodeMap
-      op <- Map.lookup opName' ops
+      op <- Map.lookup opName' Op.ops
       return $ op ins
 
 runSample :: Sample -> [(OpName, Registers)]
-runSample (before, instruction, after) =
+runSample (before, (_, instruction), after) =
   filter ((==) after . snd) . map (\(name, op) -> (name, op instruction before)) $
-  Map.assocs ops
+  Map.assocs Op.ops
 
 p1 :: [Sample] -> Int
 p1 = length . filter (flip (>=) 3 . length) . map runSample

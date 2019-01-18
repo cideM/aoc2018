@@ -1,8 +1,7 @@
 module Types where
 
-import           Control.Exception.Safe
 import           Data.Text
-import           Prelude                hiding (FilePath)
+import           Prelude   hiding (FilePath)
 
 data DayProg = DayProg
   { _name :: Text

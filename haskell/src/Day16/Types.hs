@@ -1,7 +1,7 @@
 module Day16.Types where
 
-import           Data.IntMap.Strict             ( IntMap )
-import           Data.Text                      ( Text )
+import           Data.IntMap.Strict (IntMap)
+import           Data.Text          (Text)
 
 type Registers = IntMap Int
 
@@ -14,11 +14,11 @@ type OpCode = Int
 type OpName = Text
 
 data Instruction = Instruction
-  { opCode :: OpCode
-  , opName :: Maybe OpName
-  , a      :: Int
-  , b      :: Int
-  , out    :: Register
+  { a   :: Int
+  , b   :: Int
+  , out :: Register
   } deriving (Show, Eq, Ord)
 
-type Sample = (Registers, Instruction, Registers)
+type Sample = (Registers, InstructionWithCode, Registers)
+
+type InstructionWithCode = (OpCode, Instruction)

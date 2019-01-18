@@ -1,56 +1,40 @@
-{-# LANGUAGE RecordWildCards #-}
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards   #-}
 
 module Day19.InstructionPointer where
 
-import           Day16.Types                    ( Register(..)
-                                                , Registers
-                                                , Instruction(..)
-                                                )
-import qualified Day16.Operation               as Op
-import qualified Control.Monad                 as Monad
+import qualified Day16.Operation    as Op
+import           Day16.Types        (Register (..), Registers)
+
+import           Data.IntMap.Strict ((!))
+import qualified Data.IntMap.Strict as IntMap
+import qualified Data.Map.Strict    as Map
+import           Data.String        (IsString)
+import           Data.Vector        (Vector)
+import qualified Data.Vector        as Vector
+import           Day19.Types        (InstructionPointer (..),
+                                     InstructionWithName)
 import           Types
-import qualified Data.Map.Strict               as Map
-import           Data.IntMap.Strict             ( (!) )
-import qualified Data.IntMap.Strict            as IntMap
-import qualified Data.Text                     as Text
-import           Data.Vector                    ( Vector )
-import           Debug.Trace
-import qualified Data.Vector                   as Vector
-import           Data.String                    ( IsString )
 
-
-data InstructionPointer = InstructionPointer
-  { register :: Register
-  , value    :: Int
-  } deriving (Show, Eq)
-
--- | Maybe to Either. It's SO FUCKING ANNOYING
+-- | Maybe to Either.
 mb2E :: (IsString a) => a -> Maybe b -> Either a b
 mb2E = flip maybe Right . Left
 
-run
-  :: InstructionPointer
+run ::
+     InstructionPointer
   -> Registers
-  -> Vector Instruction
+  -> Vector InstructionWithName
   -> Either ErrMsg (InstructionPointer, Registers)
 run ip@InstructionPointer {..} registers instructions = do
-  let instruction = (Vector.!) instructions value -- ^ Get instruction at index (instruction pointer value)
-
-  name <- mb2E
-    ("No opName for instruction " <> Text.pack (show instruction))
-    (opName (trace (show instruction <> " " <> show ip) instruction))
-
-  let Register r  = register
+  let (opName, instruction) = (Vector.!) instructions value -- ^ Get instruction at index (instruction pointer value)
+  let Register r = register
       withIpValue = IntMap.insert r value registers -- ^ Insert ip value into register
-
-  operation <- mb2E ("Unkown op " <> name) (Map.lookup name Op.ops)
-
-  let regs'  = operation instruction withIpValue
-      value' = (regs' ! r) + 1
-
-  if value' < 0 || value' > Vector.length instructions - 1
-    then Right (ip, regs')
-    else run (InstructionPointer (Register r) value')
-             (traceShowId regs')
-             instructions
+  operation <- mb2E ("Unkown op " <> opName) (Map.lookup opName Op.ops)
+  let newRegisters = operation instruction withIpValue
+      newValue = (newRegisters ! r) + 1
+  if newValue < 0 || newValue > Vector.length instructions - 1
+    then Right (ip, newRegisters)
+    else run
+           (InstructionPointer (Register r) newValue)
+           newRegisters
+           instructions
