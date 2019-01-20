@@ -1,6 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-module Day19.Run where
+module Day19.Run (run) where
 
 import           Data.Text                      ( Text )
 import qualified Data.Text                     as Text
@@ -32,5 +32,3 @@ run text = parseInput text >>= \(ip, instructions) -> do
                 <> Text.pack (show registers2)
     return $ p1 <> " " <> p2
 
-prog :: DayProg
-prog = DayProg "day16" run

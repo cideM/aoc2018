@@ -3,11 +3,6 @@ module Types where
 import           Data.Text
 import           Prelude   hiding (FilePath)
 
-data DayProg = DayProg
-  { _name :: Text
-  , _run  :: Text -> Either ErrMsg Text
-  }
-
 type ErrMsg = Text
 
 type FilePath = Text

@@ -45,17 +45,17 @@ opts = Options <$> inputP <*> dayP
 
 days :: Map DayNum DayProg
 days = Map'.fromList
-  [ ("1" , Day1.prog)
-  , ("2" , Day2.prog)
-  , ("3" , Day3.prog)
-  , ("8" , Day8.prog)
-  , ("9" , Day9.prog)
-  , ("10", Day10.prog)
-  , ("11", Day11.prog)
-  , ("13", Day13.prog)
-  , ("15", Day15.prog)
-  , ("16", Day16.prog)
-  , ("19", Day19.Run.prog)
+  [ ("1" , Day1.run)
+  , ("2" , Day2.run)
+  , ("3" , Day3.run)
+  , ("8" , Day8.run)
+  , ("9" , Day9.run)
+  , ("10", Day10.run)
+  , ("11", Day11.run)
+  , ("13", Day13.run)
+  , ("15", Day15.run)
+  , ("16", Day16.run)
+  , ("19", Day19.Run.run)
   ]
 
 readData :: Options -> IO Text

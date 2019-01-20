@@ -1,7 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards   #-}
 
-module Day16 where
+module Day16 (run) where
 
 import           Data.Foldable      (foldl')
 import           Data.IntMap.Strict (IntMap)
@@ -66,5 +66,3 @@ run t = do
   let p2result = p2 samples instructions
   return $ Text.pack ("p1: " ++ show p1result ++ " p2:" ++ show p2result)
 
-prog :: DayProg
-prog = DayProg "day16" Day16.run

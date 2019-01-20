@@ -3,7 +3,7 @@
 {-# LANGUAGE RecordWildCards #-}
 {-# LANGUAGE FlexibleContexts #-}
 
-module Day11 where
+module Day11 (run) where
 
 import qualified Data.Array.Unboxed as UArray
 import Data.Array.Unboxed (UArray, (!))
@@ -64,8 +64,6 @@ part1 g = do
     maxX = fst . snd $ UArray.bounds g
     maxY = snd . snd $ UArray.bounds g
 
-trd :: (a, a, a) -> a
-trd (_, _, x) = x
 
 boxes :: Grid -> Int -> Int -> UVector.Vector (BoxSize, Power)
 boxes g x y =
@@ -96,5 +94,3 @@ part2 g =
     maxX = fst . snd $ UArray.bounds g
     maxY = snd . snd $ UArray.bounds g
 
-prog :: DayProg
-prog = DayProg "day11" run

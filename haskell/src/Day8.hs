@@ -8,7 +8,7 @@
 -- https://github.com/glguy/advent2018/blob/master/execs/Day08.hs
 -- So I went ahead and implemented it for myself, but referring to his code for
 -- directions.
-module Day8 where
+module Day8 (run) where
 
 import qualified Control.Monad as Monad
 import Control.Monad.State.Lazy
@@ -16,10 +16,6 @@ import qualified Control.Monad.State.Lazy as State
 import qualified Data.Text as Text
 import Data.Text (Text)
 import Types
-
-type ChildCount = Int
-
-type MetaCount = Int
 
 data Node a =
   Node [Node a] -- children
@@ -59,5 +55,3 @@ run t =
       tree = evalState nodeFromInts input
    in Right . Text.pack $ show (sum tree) ++ " " ++ show (nodeValue tree)
 
-prog :: DayProg
-prog = DayProg "day8" run

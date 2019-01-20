@@ -2,7 +2,7 @@
 {-# LANGUAGE RecordWildCards #-}
 {-# LANGUAGE OverloadedStrings #-}
 
-module Day15 where
+module Day15 (run) where
 
 import qualified Control.Monad as Monad
 import qualified Data.Array.Unboxed as UArray
@@ -15,9 +15,6 @@ import qualified Data.Maybe as Maybe
 import qualified Data.Set as Set
 import Data.Text (Text)
 import qualified Data.Text as Text
-import qualified Data.Text.IO as TextIO
-import Debug.Trace
-import Text.RawString.QQ
 import Types
 
 data Coords =
@@ -92,19 +89,6 @@ tileIsFree state battlefield target =
   let lookup' key = Map'.lookup key state
       isNotAWall (Coords x' y') = (/=) '#' $ battlefield ! (x', y')
   in Maybe.isNothing (lookup' target) && isNotAWall target
-
-otherTeam :: GameState -> Coords -> Team
-otherTeam state coords =
-  if team ((Map'.!) state coords) == Goblin
-    then Elf
-    else Goblin
-
-hasTargetInReach :: GameState -> Coords -> Bool
-hasTargetInReach state coords =
-  any (maybe False ((==) targetTeam . team) . (`Map'.lookup` state)) $
-  surroundingTiles coords
-  where
-    targetTeam = otherTeam state coords
 
 pathToTarget :: Battlefield -> GameState -> Coords -> Maybe Coords
 pathToTarget battlefield state start = do
@@ -205,7 +189,7 @@ run' maxRounds battlefield state = go state 0
         let (lastState, unitsLeft) = tick battlefield state'
         in if unitsLeft > 0
              then (rounds, lastState)
-             else traceShow rounds (go lastState (rounds + 1))
+             else go lastState (rounds + 1)
 
 getHPLeft :: GameState -> Int
 getHPLeft = Foldable.foldl (\acc Unit {..} -> hp + acc) 0 . Map'.elems
@@ -251,122 +235,3 @@ run t =
         in "Part2: " ++ show best
   in Right . Text.pack $ show p1 ++ "\n" ++ show p2
 
-prog :: DayProg
-prog = DayProg "day11" run
-
--- Debugging stuff
-alignGrid :: Battlefield -> [((Int, Int), Char)]
-alignGrid field =
-  concat .
-  List.groupBy (\a b -> snd (fst a) == snd (fst b)) .
-  List.sortBy (\a b -> snd (fst a) `compare` snd (fst b)) $
-  UArray.assocs field
-
-debugThisShitIHateHaskell :: Battlefield -> GameState -> IO ()
-debugThisShitIHateHaskell f s =
-  let gridSize = uncurry max . snd $ UArray.bounds f
-      printUnit defaultValue coords =
-        maybe
-          defaultValue
-          (\Unit {..} ->
-             if team == Goblin
-               then 'G'
-               else 'E') $
-        Map'.lookup coords s
-      withUnits =
-        map (\((x, y), char) -> printUnit char (Coords x y)) gridWithoutUnits
-      gridWithoutUnits =
-        map
-          (\(i, char) ->
-             if char `elem` ("EG" :: String)
-               then (i, '.')
-               else (i, char))
-          grouped
-      grouped = alignGrid f
-      state' =
-        Text.unlines .
-        map (Text.pack . \(k, v) -> show k ++ " " ++ show v) .
-        List.sortBy (\(Coords _ y, _) (Coords _ y', _) -> y `compare` y') $
-        Map'.assocs s
-  in TextIO.putStrLn state' >>
-     (TextIO.putStrLn . Text.unlines . map (Text.unwords . map Text.singleton) $
-      Extra.chunksOf (gridSize + 1) withUnits)
-
-runDebug :: Int -> Battlefield -> GameState -> IO ()
-runDebug maxRounds battlefield state = go state 0
-  where
-    go state' rounds
-      | isGameOver state' = TextIO.putStrLn . Text.pack $ show (rounds, state')
-      | rounds == maxRounds =
-        TextIO.putStrLn . Text.pack $ show (rounds, state')
-      | otherwise =
-        let (lastState, unitsLeft) = tick battlefield state'
-        in debugThisShitIHateHaskell battlefield lastState >>
-           if unitsLeft > 0
-             then TextIO.putStrLn . Text.pack $ show (rounds, lastState)
-             else go lastState (rounds + 1)
-
--- Elf should move right since *targets* are sorted in reading order
-edgeCase1 :: Text
-edgeCase1 =
-  Text.strip
-    [r|
-#######
-#######
-#.E..G#
-#.#####
-#G#####
-#######
-#######
-        |]
-
--- Elf should move left
-edgeCase2 :: Text
-edgeCase2 =
-  Text.strip
-    [r|
-########
-#..E..G#
-#G######
-########
-        |]
-
-testData2 :: Text
-testData2 =
-  Text.strip
-    [r|
-#######
-#G..#E#
-#E#E.E#
-#G.##.#
-#...#E#
-#...E.#
-#######
-    |]
-
-edgeCase3 :: Text
-edgeCase3 =
-  Text.strip
-    [r|
-#####
-#.E.#
-#.G.#
-#.G.#
-#...#
-#####
-        |]
-
-testDataFuckYou :: Text
-testDataFuckYou =
-  Text.strip
-    [r|
-#########
-#G..G..G#
-#.......#
-#.......#
-#G..E..G#
-#.......#
-#.......#
-#G..G..G#
-#########
-        |]

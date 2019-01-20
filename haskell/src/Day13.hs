@@ -3,7 +3,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards   #-}
 
-module Day13 where
+module Day13 (run) where
 
 import           Data.Foldable   (foldl')
 import           Data.Map.Strict (Map, (!))
@@ -11,7 +11,6 @@ import qualified Data.Map.Strict as Map
 import qualified Data.Maybe      as Maybe
 import           Data.Text       (Text)
 import qualified Data.Text       as Text
-import qualified Data.Text.IO    as TextIO
 import           Types
 
 data Coords =
@@ -95,20 +94,6 @@ parseTracks input = foldl' f (Map.empty, Map.empty) lines'
         acc
         (zip [0 ..] line)
 
--- Debugging
-testData :: IO Text
-testData = TextIO.readFile "../data/day13_test.txt"
-
--- Debugging
-advanceBy ::
-     Int -> Map Coords Cart -> Map Coords Track -> (Map Coords Cart, [Coords])
-advanceBy i carts tracks = go carts i
-  where
-    go cs 0 = advanceCarts cs tracks
-    go cs i' =
-      let (carts', _) = advanceCarts cs tracks
-       in go carts' (i' - 1)
-
 findCrash :: Map Coords Cart -> Map Coords Track -> Coords
 findCrash carts tracks = go carts []
   where
@@ -176,5 +161,3 @@ run t =
     (tracks, carts) = parseTracks t
     part2 = findLastCart carts tracks
 
-prog :: DayProg
-prog = DayProg "day13" run

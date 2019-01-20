@@ -1,7 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
 
-module Day10 where
+module Day10 (run) where
 
 import qualified Data.List as List
 import qualified Data.Text as Text
@@ -76,6 +76,3 @@ run t =
               Vector.map Vector.toList (makeGrid stars')
   where
     parse = parseString inputP mempty
-
-prog :: DayProg
-prog = DayProg "day9" run

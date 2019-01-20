@@ -1,6 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-module Day9 where
+module Day9 (run) where
 
 import qualified Data.Foldable as Foldable
 import qualified Data.List as List
@@ -70,8 +70,6 @@ insertMarble x xs
     let (l, r) = Seq.splitAt 2 xs
      in (x <| r) >< l
 
-type CurrentIndex = Int
-
 game :: [(Player, Marble)] -> (Seq Marble, Map Player Int)
 game = Foldable.foldl' f (Seq.singleton 0, Map.empty)
   where
@@ -88,6 +86,3 @@ game = Foldable.foldl' f (Seq.singleton 0, Map.empty)
       | otherwise =
         let newCircle = insertMarble marble circle
          in (newCircle, score)
-
-prog :: DayProg
-prog = DayProg "day9" run

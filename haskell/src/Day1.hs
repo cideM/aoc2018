@@ -1,7 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 
 module Day1
-  ( prog
+  ( run
   ) where
 
 import qualified Data.Set as Set
@@ -47,6 +47,3 @@ run :: Text -> Either ErrMsg Text
 run input =
   transformInput input >>= \xs ->
     Right . Text.pack . show $ Day1Result (sum xs) (firstDuplicate xs)
-
-prog :: DayProg
-prog = DayProg "day1" run

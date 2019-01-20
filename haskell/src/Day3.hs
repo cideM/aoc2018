@@ -1,6 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-module Day3 where
+module Day3 (run) where
 
 import qualified Data.List as List
 import Data.Map (Map)
@@ -86,9 +86,6 @@ run t =
             Just x -> Right . Text.pack . show $ Day2Result x overlappingInches'
   where
     claims = traverse (parseString claimP mempty . Text.unpack) $ Text.lines t
-
-prog :: DayProg
-prog = DayProg "day2" run
 
 claimOverlap :: Claim -> Claim -> Maybe Overlap
 claimOverlap c1 c2 = do

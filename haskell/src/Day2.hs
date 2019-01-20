@@ -3,7 +3,7 @@
 -- TODO: I learned a lot during AOC. I should try to refactor this so it uses way less lists, more vectors/sequences/sets and more predefined functions rather than rolling my own.
 
 module Day2
-  ( prog
+  ( run
   , compareElems
   ) where
 
@@ -78,6 +78,3 @@ run t = Right . Text.pack . show $ Day2Result (twos * threes) $ Text.pack common
   -- ^ Mapping similarSets over our list of texts gives us the groups of
   -- similar characters of length n. Since similarSets applies List.nub to its
   -- output, we only get a single entry for each n similar characters.
-
-prog :: DayProg
-prog = DayProg "day2" run
