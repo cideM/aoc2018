@@ -1,4 +1,5 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE TupleSections     #-}
 
 module Day20.Run
   ( run
@@ -10,6 +11,7 @@ import qualified Data.Foldable   as Foldable
 import           Data.Function   (on)
 import qualified Data.List       as List
 import qualified Data.List.Extra as Extra
+import           Data.Map.Strict (Map)
 import qualified Data.Map.Strict as Map
 import           Data.Semigroup  (Max (..), Min (..))
 import           Data.Sequence   (Seq)
@@ -89,14 +91,26 @@ getNeighbours grid (Point (x, y)) =
         isInGrid
         [Point (x, y + 1), Point (x, y - 1), Point (x + 1, y), Point (x - 1, y)]
 
--- TODO: Fix this :(
-allShortestPaths :: Grid -> Point -> [[Point]]
-allShortestPaths g origin@(Point (x, y)) = undefined
+distances :: Grid -> Point -> Map Point Int
+distances g origin = go Map.empty $ Seq.singleton (origin, 0)
+  where
+    getNs = getNeighbours g
+    notWall p = (g ! p) /= Wall
+    go seen Seq.Empty = seen
+    go seen (p@(point, dist) Seq.:<| rest)
+      | Map.member point seen = go (traceShowId seen) rest
+      | otherwise = go seen' queue'
+      where
+        seen' = Map.insert point (traceShowId dist) seen
+        queue' =
+          rest Seq.><
+          (traceShowId . Seq.fromList . map (, dist + 1) . filter notWall $ getNs point)
 
 run :: Text -> Either ErrMsg Text
 run input = do
   paths <- parseInput input
   let world = inputToWorld paths
       grid = worldToGrid world
-      shortestPaths = allShortestPaths grid (Point (0,0))
-  return $ Text.pack . show . getMin $ foldMap (Min . length) shortestPaths
+      dists = distances grid (Point (0,0))
+      maxDist = getMax . foldMap Max $ Map.elems dists
+  return . Text.pack $ "p1: " ++ show (maxDist `div` 2)
