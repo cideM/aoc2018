@@ -24,6 +24,7 @@ instance Foldable Star where
   foldMap f s = f (x s) <> f (y s)
 
 -- | Why is this not part of the package? Or am I just too blind to find it?
+-- Yes, yes you were.
 intP :: Parser Int
 intP = read <$> ((:) <$> option ' ' (char '-') <*> some digit)
 

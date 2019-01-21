@@ -13,6 +13,8 @@ data Input
 
 type DayNum = Text
 
+type Exercise = Text -> Either ErrMsg Text
+
 data Options = Options
   { _input  :: Input
   , _dayNum :: DayNum
