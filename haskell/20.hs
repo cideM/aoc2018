@@ -3,7 +3,7 @@
     stack
     script
     --resolver lts-12.20
-    --package mtl,containers,text
+    --package containers,text
     --
     -Wall
     -Werror
