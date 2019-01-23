@@ -12,7 +12,6 @@ import           Data.Text          (Text)
 import qualified Data.Text          as Text
 import           Data.Text.IO       as TIO
 import           Prelude            hiding (print)
-import qualified System.Environment as Env
 import           Text.Trifecta      hiding (err)
 
 firstDuplicate :: [Integer] -> Maybe Integer
@@ -30,8 +29,7 @@ parse p = parseString p mempty . Text.unpack
 
 main :: IO ()
 main = do
-  args <- Env.getArgs
-  input <- TIO.readFile (head args)
+  input <- TIO.getContents
   mapM_ (mapM_ print . firstDuplicate) $
     parse (many (integer <* whiteSpace)) input
   where

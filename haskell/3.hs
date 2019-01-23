@@ -1,114 +1,64 @@
-{-# LANGUAGE OverloadedStrings #-}
+#!/usr/bin/env stack
+{-
+    stack
+    script
+    --resolver lts-12.20
+    --package containers,trifecta
+-}
+{-# LANGUAGE RecordWildCards #-}
 
-module Day3 (run) where
+module Day3 where
 
-import qualified Data.List as List
-import Data.Map (Map)
-import qualified Data.Map as Map
-import qualified Data.Maybe as Maybe
-import Data.Text (Text)
-import qualified Data.Text as Text
-import Text.Parser.Char
-import Text.Trifecta
-import Types
+import qualified Data.List       as List
+import qualified Data.Map.Strict as Map
+import           Text.Trifecta
 
-type ID = Text
+type Coords = (Int, Int) -- ^ x y
 
 data Claim = Claim
-  { id :: ID
-  , left :: Int
-  , top :: Int
-  , width :: Int
-  , height :: Int
+  { _claimID :: !Int
+  , _origin  :: Coords
+  , _width   :: !Int
+  , _height  :: !Int
   } deriving (Show, Eq)
 
-data Point =
-  Point !Int
-        !Int
-  deriving (Show, Ord, Eq)
-
-type Count = Int
-
-newtype Overlap =
-  Overlap Int
-  deriving (Show, Eq, Ord)
-
-data Day2Result = Day2Result
-  { claimWithoutOverlap :: Claim
-  , overlappingInches :: Int
-  } deriving (Show)
-
-idP :: Parser ID
-idP = Text.pack <$> (spaces *> char '#' *> some digit <* spaces)
-
--- #123 @ 3,2: 5x4
 claimP :: Parser Claim
-claimP =
-  Claim <$> idP <* char '@' <* spaces <*> (read <$> some digit) <* char ',' <*>
-  (read <$> some digit) <*
-  char ':' <*
-  spaces <*>
-  (read <$> some digit) <*
-  char 'x' <*>
-  (read <$> some digit)
-
-claim2Points :: Claim -> [Point]
-claim2Points c =
-  [ Point x y
-  | x <- [left c + 1 .. left c + width c]
-  , y <- [top c + 1 .. top c + height c]
-  ]
-
-trackOverlap :: [Point] -> Map Point Count
-trackOverlap = List.foldr f Map.empty
+claimP = Claim <$> claimId <*> origin <*> width <*> height
   where
-    f p m =
-      case Map.lookup p m of
-        (Just v) -> Map.insert p (v + 1) m
-        Nothing -> Map.insert p 1 m
+    claimId = char '#' *> (int <* whiteSpace)
+    origin = (,) <$> (char '@' *> whiteSpace *> int) <*> (char ',' *> int)
+    width = char ':' *> whiteSpace *> int
+    height = char 'x' *> int <* whiteSpace
+    int = fromIntegral <$> integer
 
-notOverlapping :: [Claim] -> Maybe Claim
-notOverlapping cs = List.find overlapsNothing cs
-  where
-    overlapsNothing c =
-      let without = List.delete c cs
-       in List.all Maybe.isNothing $ fmap (claimOverlap c) without
+getCoords :: Claim -> [Coords]
+getCoords Claim {..} =
+  let (x0, y0) = _origin
+   in do x <- [x0 .. x0 + _width - 1]
+         y <- [y0 .. y0 + _height - 1]
+         return (x, y)
 
-run :: Text -> Either ErrMsg Text
-run t =
-  case claims of
-    (Failure _) -> Left "Parsing failed"
-    (Success cs) ->
-      let overlaps = trackOverlap . concat $ fmap claim2Points cs
-          overlappingInches' = Map.size $ Map.filter (>= 2) overlaps
-       in case notOverlapping cs of
-            Nothing -> Left "You deaded"
-            Just x -> Right . Text.pack . show $ Day2Result x overlappingInches'
+main :: IO ()
+main = do
+  input <- getContents
+  case parseString (many $ claimP <* whiteSpace) mempty input of
+    Failure cause -> print cause
+    Success claims -> do
+      let withCoords = map (\c -> (c, getCoords c)) claims
+          -- ^ For each claim, generate its coordinates
+          claimsMap =
+            foldr (Map.unionWith (+) . toMap . snd) Map.empty withCoords
+            -- ^ Merge the coords of all claims into a map counting how often a
+            -- certain point is claimed.
+          overlap = Map.filter (>= 2) claimsMap
+          -- ^ Keep only overlaps
+      -- | Part 1: Size of overlap map
+      print . Map.size $ overlap
+      -- | Part 2: Find the claim whose coordinate map has 0 intersection with
+      -- overlap map
+      mapM_ (print . _claimID . fst) $
+        List.find
+          ((==) 0 . Map.size . Map.intersection overlap . toMap . snd)
+          withCoords
   where
-    claims = traverse (parseString claimP mempty . Text.unpack) $ Text.lines t
-
-claimOverlap :: Claim -> Claim -> Maybe Overlap
-claimOverlap c1 c2 = do
-  y <- yOverlap c1 c2
-  x <- xOverlap c1 c2
-  let overlap = x * y
-  if overlap > 0
-    then Just . Overlap $ overlap
-    else Nothing
-  where
-    yOverlap Claim {top = t1, height = h1} Claim {top = t2, height = h2} =
-      let lowerBound = min (t1 + h1) (t2 + h2)
-        -- ^ The higher edge of the two bottom square edges
-          upperBound = max t1 t2
-        -- ^ The lower edge of the two top square edges
-          oy = lowerBound - upperBound
-       in if oy > 0
-            then Just oy
-            else Nothing
-    xOverlap Claim {left = l1, width = w1} Claim {left = l2, width = w2} =
-      let rightBound = min (l1 + w1) (l2 + w2)
-          leftBound = max l1 l2
-          oy = rightBound - leftBound
-       in if oy > 0
-            then Just oy
-            else Nothing
+    toMap = Map.fromList . flip zip ([1,1 ..] :: [Integer])
