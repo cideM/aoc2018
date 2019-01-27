@@ -20,7 +20,7 @@ import qualified Data.Vector.Unboxed as UVector
 import           Debug.Trace
 import           Text.Printf
 
--- TODO: Make this fast. Part 2 is seemingly infinite on my MBP.
+-- TODO: Make this fast. Part 2 is seemingly infinite on my MBP. Just run the node version which is more intelligent.
 type Coords = (Int, Int)
 
 type Power = Int

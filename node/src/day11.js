@@ -1,5 +1,3 @@
-const gridSize = 300;
-
 const powerLevel = (serialNum, { x, y }) => {
   const rackID = x + 10;
 
@@ -80,13 +78,13 @@ const run = (serialNum, size, maxSquares) => {
         const missing = s > 0 ? getMissingCellsInSquare(grid, cell, s) : [];
         const fuelInMissing = missing.reduce((xs, x) => xs + x.power, 0);
 
-        const finalFinal = newFuel + fuelInMissing;
+        const finalFuel = newFuel + fuelInMissing;
 
-        cache[cacheKey] = finalFinal;
+        cache[cacheKey] = finalFuel;
 
-        if (!fuelBestSquare || finalFinal > fuelBestSquare) {
+        if (!fuelBestSquare || finalFuel > fuelBestSquare) {
           originBestSquare = cell;
-          fuelBestSquare = finalFinal;
+          fuelBestSquare = finalFuel;
           bestSquareSize = s;
         }
       }
@@ -105,7 +103,6 @@ module.exports = {
   run: data => {
     const serialNum = Number(data);
 
-    console.log(data)
     return JSON.stringify(run(serialNum, 300, 300));
   }
 };

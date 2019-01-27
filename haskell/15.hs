@@ -1,22 +1,29 @@
-{-# LANGUAGE QuasiQuotes #-}
-{-# LANGUAGE RecordWildCards #-}
+#!/usr/bin/env stack
+{-
+    stack
+    script
+    --resolver lts-12.20
+    --package text,trifecta,containers,array,extra
+-}
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards   #-}
 
-module Day15 (run) where
+module Day15 where
 
-import qualified Control.Monad as Monad
+import qualified Control.Monad      as Monad
+import           Data.Array.Unboxed (UArray, (!))
 import qualified Data.Array.Unboxed as UArray
-import Data.Array.Unboxed (UArray, (!))
-import qualified Data.Foldable as Foldable
-import qualified Data.List as List
-import qualified Data.List.Extra as Extra
-import qualified Data.Map.Strict as Map'
-import qualified Data.Maybe as Maybe
-import qualified Data.Set as Set
-import Data.Text (Text)
-import qualified Data.Text as Text
-import Types
+import qualified Data.Foldable      as Foldable
+import qualified Data.List          as List
+import qualified Data.List.Extra    as Extra
+import qualified Data.Map.Strict    as Map'
+import qualified Data.Maybe         as Maybe
+import qualified Data.Set           as Set
+import           Data.Text          (Text)
+import qualified Data.Text          as Text
 
+-- It works. That sums up the positive things about this module. ~_~
+-- TODO: Maybe refactor this some day
 data Coords =
   Coords Int
          Int
@@ -34,8 +41,8 @@ data Team
   deriving (Eq, Show)
 
 data Unit = Unit
-  { hp :: !Int
-  , dmg :: !Int
+  { hp   :: !Int
+  , dmg  :: !Int
   , team :: Team
   } deriving (Show)
 
@@ -82,13 +89,13 @@ surroundingTiles (Coords x y) =
 inGrid :: Battlefield -> Coords -> Bool
 inGrid grid (Coords x y) =
   let ((minX, minY), (maxX, maxY)) = UArray.bounds grid
-  in x >= minX && x <= maxX && y >= minY && y <= maxY
+   in x >= minX && x <= maxX && y >= minY && y <= maxY
 
 tileIsFree :: GameState -> Battlefield -> Coords -> Bool
 tileIsFree state battlefield target =
   let lookup' key = Map'.lookup key state
       isNotAWall (Coords x' y') = (/=) '#' $ battlefield ! (x', y')
-  in Maybe.isNothing (lookup' target) && isNotAWall target
+   in Maybe.isNothing (lookup' target) && isNotAWall target
 
 pathToTarget :: Battlefield -> GameState -> Coords -> Maybe Coords
 pathToTarget battlefield state start = do
@@ -106,30 +113,30 @@ pathToTarget battlefield state start = do
       let char = battlefield ! (x, y)
           isNotAWall = char /= '#'
           isInGrid = inGrid battlefield c
-      in isInGrid && isNotAWall
+       in isInGrid && isNotAWall
     isFree = tileIsFree state battlefield
     go _ [] _ = Nothing
     go targetCells xs seen =
       let isUnknown c = not $ Set.member c seen
           targetsInReach = filter (flip elem targetCells . fst) xs
-      in if not $ null targetsInReach
-           then Just . snd $
-                List.minimumBy (\a b -> fst a `compare` fst b) targetsInReach
-           else let newFrontiers =
-                      List.nubBy (\a b -> fst a == fst b) $
-                      concatMap
-                        (\(current, first) ->
-                           [ (tile, first)
-                           | tile <- surroundingTiles current
-                           , all
-                               ($ tile)
-                               [isUnknown, isFree, isInGridAndNotWall]
-                           ])
-                        xs
-                in go
-                     targetCells
-                     newFrontiers
-                     (Set.union seen (Set.fromList (map fst newFrontiers)))
+       in if not $ null targetsInReach
+            then Just . snd $
+                 List.minimumBy (\a b -> fst a `compare` fst b) targetsInReach
+            else let newFrontiers =
+                       List.nubBy (\a b -> fst a == fst b) $
+                       concatMap
+                         (\(current, first) ->
+                            [ (tile, first)
+                            | tile <- surroundingTiles current
+                            , all
+                                ($ tile)
+                                [isUnknown, isFree, isInGridAndNotWall]
+                            ])
+                         xs
+                  in go
+                       targetCells
+                       newFrontiers
+                       (Set.union seen (Set.fromList (map fst newFrontiers)))
 
 move :: Battlefield -> GameState -> Coords -> Maybe (Coords, GameState)
 move battlefield state coords = do
@@ -156,28 +163,28 @@ attack state coords = do
           List.minimumBy
             (\(_, unit1) (_, unit2) -> hp unit1 `compare` hp unit2)
             targets
-    in Map'.filter (\Unit {..} -> hp > 0) $
-       Map'.adjust
-         (\target@Unit {..} -> target {hp = hp - attackerDmg})
-         targetCoords
-         state
+     in Map'.filter (\Unit {..} -> hp > 0) $
+        Map'.adjust
+          (\target@Unit {..} -> target {hp = hp - attackerDmg})
+          targetCoords
+          state
 
 tick :: Battlefield -> GameState -> (GameState, Int)
 tick battlefield state =
   let readingOrder =
         List.sortBy (\(coords, _) (coords', _) -> coords `compare` coords') $
         Map'.assocs state
-  in foldl
-       (\(acc, unitsLeft) (coords, Unit {..}) ->
-          if isGameOver acc
-            then (acc, unitsLeft)
-            else let (newCoords, newState) =
-                       Maybe.fromMaybe (coords, acc) $
-                       move battlefield acc coords
-                 in ( Maybe.fromMaybe newState $ attack newState newCoords
-                    , unitsLeft - 1))
-       (state, Map'.size state)
-       readingOrder
+   in foldl
+        (\(acc, unitsLeft) (coords, Unit {..}) ->
+           if isGameOver acc
+             then (acc, unitsLeft)
+             else let (newCoords, newState) =
+                        Maybe.fromMaybe (coords, acc) $
+                        move battlefield acc coords
+                   in ( Maybe.fromMaybe newState $ attack newState newCoords
+                      , unitsLeft - 1))
+        (state, Map'.size state)
+        readingOrder
 
 run' :: Int -> Battlefield -> GameState -> (Int, GameState)
 run' maxRounds battlefield state = go state 0
@@ -187,51 +194,41 @@ run' maxRounds battlefield state = go state 0
       | rounds == maxRounds = (rounds, state')
       | otherwise =
         let (lastState, unitsLeft) = tick battlefield state'
-        in if unitsLeft > 0
-             then (rounds, lastState)
-             else go lastState (rounds + 1)
+         in if unitsLeft > 0
+              then (rounds, lastState)
+              else go lastState (rounds + 1)
 
 getHPLeft :: GameState -> Int
 getHPLeft = Foldable.foldl (\acc Unit {..} -> hp + acc) 0 . Map'.elems
 
-run :: Text -> Either ErrMsg Text
-run t =
-  let grid = parseInput t
-      stateP1 = getUnits (Unit 200 3) grid
-      p1 =
-        let (rounds, lastState) = run' 100 grid stateP1
-            hpLeft = getHPLeft lastState
-        in "Part1: " ++
-           "Rounds: " ++
-           show rounds ++
-           " Hp left: " ++ show hpLeft ++ " Result: " ++ show (rounds * hpLeft)
-      p2 =
-        let getElves =
-              Map'.size .
-              Map'.filter ((> 0) . hp) . Map'.filter ((== Elf) . team)
-            states =
-              [ ( getUnits
-                    (\team ->
-                       Unit
-                         200
-                         (if team == Goblin
-                            then 3
-                            else p)
-                         team)
-                    grid
-                , p)
-              | p <- [4 .. 50]
-              ]
-            results =
-              map
-                (\(state, p) ->
-                   let elves = getElves state
-                       (rounds, lastState) = run' 100 grid state
-                       elvesFinal = getElves lastState
-                       hpLeft = getHPLeft lastState
-                   in (p, elves - elvesFinal, rounds * hpLeft))
-                states
-            best = List.find (\(_, deadElves, _) -> deadElves == 0) results
-        in "Part2: " ++ show best
-  in Right . Text.pack $ show p1 ++ "\n" ++ show p2
+getElves :: GameState -> Int
+getElves = Map'.size . Map'.filter ((> 0) . hp) . Map'.filter ((== Elf) . team)
 
+main :: IO ()
+main = do
+  grid <- parseInput . Text.pack <$> getContents
+  let stateP1 = getUnits (Unit 200 3) grid
+      (rounds, lastState) = run' 100 grid stateP1
+      hpLeft = getHPLeft lastState
+  -- | Part 1
+  print $
+    "Rounds: " <> show rounds <> " HP left: " <> show hpLeft <> " Result: " <>
+    show (rounds * hpLeft)
+  -- | Part 2
+  print . List.find (\(_, deadElves, _) -> deadElves == 0) $
+    map (uncurry (runState grid)) (mkStates grid)
+    -- | Run the different scenarios we generated with mkStates
+  where
+    runState :: Battlefield -> GameState -> Int -> (Int, Int, Int)
+    runState grid state power =
+      let (rounds', lastState') = run' 100 grid state
+          hpLeft' = getHPLeft lastState'
+       in (power, getElves state - getElves lastState', rounds' * hpLeft')
+    -- | Helper function to generate units from a grid. No idea how I came up
+    -- with this convoluted crap.
+    makeUnitFunc _ Goblin = Unit 200 3 Goblin
+    makeUnitFunc p _      = Unit 200 p Elf
+    -- | Generate different scenarios where elf power varies
+    mkStates grid = do
+      p <- [4 .. 50]
+      return (getUnits (makeUnitFunc p) grid, p)
