@@ -1,9 +1,15 @@
-{-# LANGUAGE FlexibleContexts  #-}
-{-# LANGUAGE NamedFieldPuns    #-}
-{-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE RecordWildCards   #-}
+#!/usr/bin/env stack
+{-
+    stack
+    script
+    --resolver lts-12.20
+    --package text,trifecta,containers
+-}
+{-# LANGUAGE FlexibleContexts #-}
+{-# LANGUAGE NamedFieldPuns   #-}
+{-# LANGUAGE RecordWildCards  #-}
 
-module Day13 (run) where
+module Day13 where
 
 import           Data.Foldable   (foldl')
 import           Data.Map.Strict (Map, (!))
@@ -11,8 +17,8 @@ import qualified Data.Map.Strict as Map
 import qualified Data.Maybe      as Maybe
 import           Data.Text       (Text)
 import qualified Data.Text       as Text
-import           Types
 
+-- TODO: Refactor this file
 data Coords =
   Coords Int
          Int
@@ -154,10 +160,8 @@ advanceCarts carts tracks = Map.foldlWithKey f (carts, []) carts
                    else ( Map.insert nextCoords nextCar withoutCurrent
                         , collisions)
 
-run :: Text -> Either ErrMsg Text
-run t =
-  Right . Text.pack $ show (findCrash carts tracks) ++ " part2: " ++ show part2
-  where
-    (tracks, carts) = parseTracks t
-    part2 = findLastCart carts tracks
-
+main :: IO ()
+main = do
+  (tracks, carts) <- parseTracks . Text.pack <$> getContents
+  print $ findCrash carts tracks
+  print $ findLastCart carts tracks

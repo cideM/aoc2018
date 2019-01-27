@@ -1,22 +1,26 @@
+#!/usr/bin/env stack
+{-
+    stack
+    script
+    --resolver lts-12.20
+    --package array,vector,trifecta,extra
+-}
+{-# LANGUAGE BangPatterns      #-}
 {-# LANGUAGE FlexibleContexts  #-}
 {-# LANGUAGE NamedFieldPuns    #-}
 {-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE RecordWildCards   #-}
 
-module Day11
-  ( run
-  ) where
+module Day11 where
 
 import           Data.Array.Unboxed  (UArray, (!))
 import qualified Data.Array.Unboxed  as UArray
 import qualified Data.Foldable       as Foldable
 import qualified Data.List.Extra     as Extra
-import           Data.Text           (Text)
-import qualified Data.Text           as Text
 import qualified Data.Vector.Unboxed as UVector
+import           Debug.Trace
 import           Text.Printf
-import           Types
 
+-- TODO: Make this fast. Part 2 is seemingly infinite on my MBP.
 type Coords = (Int, Int)
 
 type Power = Int
@@ -40,17 +44,9 @@ mkGrid size serialNum =
 printGrid :: Grid -> IO ()
 printGrid g =
   let gridSize = uncurry max . snd $ UArray.bounds g
-   in mapM_ (putStrLn . unwords) .
-      map (map $ Text.Printf.printf "%+d") . Extra.chunksOf gridSize $
+   in mapM_ ((putStrLn . unwords) . map (Text.Printf.printf "%+d")) .
+      Extra.chunksOf gridSize $
       UArray.elems g
-
-run :: Text -> Either ErrMsg Text
-run t =
-  let g = mkGrid 300 . read $ Text.unpack t
-      p1 = part1 g
-      p2 = part2 g
-      p1Result = Extra.maximumOn fst3 p1
-   in Right . Text.pack $ show p1Result ++ " " ++ show p2
 
 part1 :: Grid -> [(Int, Int, Int)]
 part1 g = do
@@ -75,7 +71,7 @@ boxes g x y =
         let temp = do
               a <- [0 .. s - 1]
               return $ g ! (x + s, y + a) + g ! (x + a, y + s)
-        return (s, g ! (x + s, y + s) + (sum temp))
+        return (s, g ! (x + s, y + s) + sum temp)
   where
     f (p', acc) (bsize, p) =
       let pow' = p + p'
@@ -89,9 +85,17 @@ part2 g =
   Foldable.maximumBy (\x1 x2 -> fst3 x1 `compare` fst3 x2) $ do
     x <- [1 .. maxX]
     y <- [1 .. maxY]
-    let (size, total) =
-          UVector.maximumBy (\x1 x2 -> snd x1 `compare` snd x2) $ boxes g x y
+    let (!size, !total) =
+          UVector.maximumBy (\x1 x2 -> snd x1 `compare` snd x2) $
+          boxes g (traceShowId x) y
     return (total, (x, y), size + 1)
   where
     maxX = fst . snd $ UArray.bounds g
     maxY = snd . snd $ UArray.bounds g
+
+main :: IO ()
+main = do
+  input <- read <$> getContents
+  let grid = mkGrid 300 input
+  print . Extra.maximumOn fst3 $ part1 grid
+  print $ part2 grid
