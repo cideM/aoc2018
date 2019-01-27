@@ -1,88 +1,54 @@
-{-# LANGUAGE OverloadedStrings #-}
+#!/usr/bin/env stack
+{-
+    stack
+    script
+    --resolver lts-12.20
+    --package trifecta,containers
+-}
+{-# LANGUAGE BangPatterns #-}
 
-module Day9 (run) where
+module Day9 where
 
-import qualified Data.Foldable as Foldable
-import qualified Data.List as List
-import qualified Data.Map as Map
-import Data.Map (Map)
-import qualified Data.Sequence as Seq
-import Data.Sequence (Seq((:<|)), Seq, (<|), (><), (|>))
-import qualified Data.Text as Text
-import Data.Text (Text)
-import Text.Parser.Char
-import Text.Trifecta
-import Types
+import qualified Data.Foldable      as Foldable
+import qualified Data.IntMap.Strict as Map
+import           Data.Sequence      (Seq ((:<|)), (<|), (><))
+import qualified Data.Sequence      as Seq
+import           Text.Trifecta
 
-type Marble = Int
+main :: IO ()
+main = do
+  input <- parseString inputP mempty <$> getContents
+  mapM_ (print . uncurry run) input
+  mapM_ (print . uncurry run . fmap (* 100)) input
 
-type Player = Int
+getNextPlayer :: Int -> Int -> Int
+getNextPlayer maxPlayers !current -- ^ Remove bang and observe stack overflow ~_~
+  | current >= maxPlayers = 1
+  | otherwise = current + 1
 
-type PlayerCount = Int
-
-type MarbleCount = Int
-
-turns :: PlayerCount -> MarbleCount -> [(Player, Marble)]
-turns pCount mCount =
-  take mCount . zip (concat $ repeat [1 .. pCount]) $
-  concat (repeat [1 .. mCount])
-
-run :: Text -> Either ErrMsg Text
-run t =
-  let input = parseString inputP mempty $ Text.unpack t
-   in case input of
-        (Failure _) -> Left "Parsing failed"
-        (Success (pCount, mCount)) ->
-          let (_, score) = game $ turns pCount mCount
-              (_, score2) = game $ turns pCount (mCount * 100)
-              getHighscore = List.maximum . Map.elems
-           in Right . Text.pack $
-              show (getHighscore score) ++ " " ++ show (getHighscore score2)
-
-inputP :: Parser (Player, Marble)
-inputP = do
-  playerCount <- read <$> some digit
-  _ <- skipSome (choice [space, char ';', letter])
-  marbleCount <- read <$> some digit
-  return (playerCount, marbleCount)
-
--- | Super nice, it only took me about ~4h to understand how a circle works. ~_~
--- Instead of trying to calculate the correct index at which to split the list,
--- we just rotate the circle after every insertion so the inserted part is
--- always our index 0.
--- xxxxxxxxxxxxxxx
---   ^ insert here
--- ll  rrrrrrrrrr
---    ^ split
--- ll o rrrrrrrrrr
---    ^ insert
--- o rrrrrrrrrr ll
--- ^^^^^^^^^^ rotate and join
--- The list is different of course but since it represents a circle it's still a
--- valid sequence
-insertMarble :: a -> Seq a -> Seq a
-insertMarble x xs
-  | Seq.length xs == 1 = xs |> x
-  | Seq.length xs == 2 =
-    let (l, r) = Seq.splitAt 1 xs
-     in (l |> x) >< r
-  | otherwise =
-    let (l, r) = Seq.splitAt 2 xs
-     in (x <| r) >< l
-
-game :: [(Player, Marble)] -> (Seq Marble, Map Player Int)
-game = Foldable.foldl' f (Seq.singleton 0, Map.empty)
+run :: Int -> Int -> Int
+run playerCount lastMarble = go (Seq.singleton 0) Map.empty 0 1
   where
-    f :: (Seq Marble, Map Player Int)
-      -> (Player, Marble)
-      -> (Seq Marble, Map Player Int)
-    f (circle, score) (player, marble)
-      -- | Scoring turn, remove marble, adjust score
-      | marble `rem` 23 == 0 =
-        let (left, x :<| xs) = Seq.splitAt (length circle - 7) circle
-            newScore = Map.insertWith (+) player (marble + x) score
-         in (xs >< left, newScore)
-      -- | Normal turn, just add marble
+    go ring scores currentPlayer marble
+      | marble > lastMarble = maximum $ Map.elems scores
+      | marble `mod` 23 == 0 =
+        let (xs, remove :<| ys) = Seq.splitAt (Foldable.length ring - 7) ring
+            newScores =
+              Map.insertWith (+) currentPlayer (marble + remove) scores
+         in go (ys >< xs) newScores (getNextPlayer' currentPlayer) (marble + 1)
+      | Foldable.length ring == 1 =
+        go (marble <| ring) scores (getNextPlayer' currentPlayer) (marble + 1)
       | otherwise =
-        let newCircle = insertMarble marble circle
-         in (newCircle, score)
+        let (l, r) = Seq.splitAt 2 ring
+         in go
+              ((marble <| r) >< l)
+              scores
+              (getNextPlayer' currentPlayer)
+              (marble + 1)
+    getNextPlayer' = getNextPlayer playerCount
+
+-- | Player count and last marble value
+inputP :: Parser (Int, Int)
+inputP =
+  (,) <$> (fromIntegral <$> integer) <*>
+  (many (choice [space, char ';', letter]) *> (fromIntegral <$> integer))

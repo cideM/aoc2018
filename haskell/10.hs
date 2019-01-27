@@ -1,40 +1,44 @@
+#!/usr/bin/env stack
+{-
+    stack
+    script
+    --resolver lts-12.20
+    --package vector,trifecta,text
+-}
 {-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE RecordWildCards   #-}
 
-module Day10 (run) where
+module Day10 where
 
-import qualified Data.List as List
-import qualified Data.Text as Text
-import Data.Text (Text)
-import qualified Data.Vector as Vector
-import Data.Vector (Vector)
-import Text.Parser.Char
-import Text.Trifecta
-import Types
+import qualified Data.List     as List
+import           Data.Text     (Text)
+import qualified Data.Text     as Text
+import qualified Data.Text.IO  as TIO
+import           Data.Vector   (Vector)
+import qualified Data.Vector   as Vector
+import           Text.Trifecta
 
+-- TODO: Refactor this file
 data Star a = Star
-  { x :: !a
-  , y :: !a
-  , dx :: !a
-  , dy :: !a
+  { x   :: !a
+  , y   :: !a
+  , dx  :: !a
+  , dy  :: !a
   , age :: !a
   } deriving (Show, Eq, Ord)
 
 instance Foldable Star where
   foldMap f s = f (x s) <> f (y s)
 
--- | Why is this not part of the package? Or am I just too blind to find it?
--- Yes, yes you were.
-intP :: Parser Int
-intP = read <$> ((:) <$> option ' ' (char '-') <*> some digit)
-
 inputP :: Parser (Star Int)
 inputP =
-  Star <$> (string "position=<" *> spaces *> intP <* char ',') <*>
-  (spaces *> intP <* char '>' <* spaces) <*>
-  (string "velocity=<" *> spaces *> intP <* char ',' <* spaces) <*>
-  (spaces *> intP <* char '>' <* spaces) <*>
+  Star <$> (string "position=<" *> intP <* char ',') <*>
+  (intP <* char '>' <* spaces) <*>
+  (string "velocity=<" *> intP <* char ',' <* spaces) <*>
+  (intP <* char '>' <* spaces) <*>
   pure 0
+  where
+    intP = whiteSpace *> (fromIntegral <$> integer)
 
 step :: Num a => Star a -> Star a
 step s@Star {..} = s {x = x + dx, y = y + dy, age = age + 1}
@@ -48,7 +52,7 @@ makeGrid stars =
            starsForRow =
              Vector.map (\s -> (x s, "o")) $
              Vector.filter (\s -> y s == y') stars'
-       in Vector.update row starsForRow)
+        in Vector.update row starsForRow)
   where
     stars' = Vector.map (\s@Star {..} -> s {x = x - minX, y = y - minY}) stars
       -- ^ Use min star as origin and adjust all others so we always start at 0,0
@@ -63,17 +67,15 @@ size stars = (maxX - minX) + (maxY - minY)
     Star {x = maxX, y = maxY} = maximum stars
     Star {x = minX, y = minY} = minimum stars
 
-run :: Text -> Either ErrMsg Text
-run t =
-  case traverse (parse . Text.unpack) . Vector.fromList $ Text.lines t of
-    Failure e -> Left $ "Parsing failed" <> Text.pack (show e)
-    Success stars -> Right $ grid <> " " <> steps
-      where stars' =
-              List.minimumBy (\s1 s2 -> compare (size s1) (size s2)) $
-              Vector.iterateN 15000 (fmap step) stars
-            steps = Text.pack . show . age $ Vector.head stars'
-            grid =
-              Text.unlines . fmap Text.unwords . Vector.toList $
-              Vector.map Vector.toList (makeGrid stars')
-  where
-    parse = parseString inputP mempty
+main :: IO ()
+main = do
+  input <- parseString (many $ whiteSpace *> inputP) mempty <$> getContents
+  case input of
+    Failure parseErr -> print parseErr
+    Success stars -> do
+      let stars' =
+            List.minimumBy (\s1 s2 -> compare (size s1) (size s2)) $
+            Vector.iterateN 15000 (fmap step) (Vector.fromList stars)
+      print . age $ Vector.head stars'
+      TIO.putStrLn . Text.unlines . fmap Text.unwords . Vector.toList $
+        Vector.map Vector.toList (makeGrid stars')
