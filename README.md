@@ -1,6 +1,6 @@
 # :christmas_tree: Advent of Code 2018 :santa:
 
-Every language has its own folder. The CLI is the same for all of them.
+Every language has its own folder.
 
 ## Rust
 
@@ -18,14 +18,15 @@ cd node
 
 ## Haskell
 
-(requires `stack run` command which is not available in e.g., `stack` 1.7)
+(requires `stack`)
 
 ```shell
 cd haskell
-stack run -- -d 3 -f ../data/day3.txt
+chmod +x ./1.hs
+cat ../data/day1.txt | ./1.hs
 ```
 
-## Progress
+## Progress (20/24)
 
 |     | Rust   | Haskell | Node   |
 | --- | ------ | ------- | ------ |
@@ -44,6 +45,8 @@ stack run -- -d 3 -f ../data/day3.txt
 | 13  | :zzz:  | :bell:  | :zzz:  |
 | 14  | :bell: | :zzz:   | :zzz:  |
 | 15  | :zzz:  | :bell:  | :zzz:  |
-| 16  | :zzz:  | :bell:  | :zzz:  |
-| 17  | :zzz:  | :zzz:   | :zzz:  |
-| 18  | :zzz:  | :zzz:   | :zzz:  |
+| 16  | :bell: | :bell:  | :zzz:  |
+| 17  | :zzz:  | :zzz:   | :bell: |
+| 18  | :zzz:  | :zzz:   | :bell: |
+| 19  | :zzz:  | :bell:  | :zzz:  |
+| 20  | :zzz:  | :bell:  | :zzz:  |
