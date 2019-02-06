@@ -4,20 +4,12 @@
     script
     --resolver lts-12.20
     --package text,trifecta,containers,parsers,mtl,vector
-    --
-    -O2
 -}
-{-# LANGUAGE BangPatterns      #-}
-{-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards   #-}
 
--- This is ugly as fuck but I hate those elf code exercises especially the ones
--- where you need to manually analyse the input. Part 2 is incredibly slow.
 import           Control.Applicative         ((<|>))
 import           Data.Bits                   ((.&.), (.|.))
-import           Data.IntSet                 (IntSet)
 import qualified Data.IntSet                 as IntSet
-import           Data.String                 (IsString)
 import           Data.Vector                 (Vector)
 import qualified Data.Vector                 as Vector
 import qualified Data.Vector.Generic.Mutable as M
@@ -29,8 +21,6 @@ import           Text.Trifecta
 type Registers = Unboxed.Vector Int
 
 type Register = Int
-
-type OpName = String
 
 data Instruction = Instruction
   { kind :: OpKind
@@ -98,8 +88,47 @@ run Instruction {..} rs =
             if rs ! a == rs ! b
               then 1
               else 0
-   in rs Unboxed.// [(out, result)]
+   in Unboxed.modify (\vec -> M.unsafeWrite vec out result) rs
 
+runProgram :: IP -> Vector (Registers -> Registers) -> Registers -> Maybe Int
+runProgram (register, initialValue) program initialRegisters =
+  go IntSet.empty initialRegisters initialValue 0
+  where
+    go seen registers pointerValue lastSolution =
+      case program Vector.!? pointerValue of
+        Nothing -> Nothing
+        Just fn ->
+          let nextRegisters =
+                fn $
+                Unboxed.modify
+                  (\vec -> M.unsafeWrite vec register pointerValue)
+                  registers
+              -- ^ Run instruction on registers after inserting pointer value
+              nextPointerValue = Unboxed.unsafeIndex nextRegisters register + 1
+              -- ^ Retrieve register with pointer value, increment
+           in if pointerValue == 28
+                then let value = Unboxed.unsafeIndex registers 5
+                      in if IntSet.member value seen
+                           then Just lastSolution
+                           else let seen' = IntSet.insert value seen
+                                 in go
+                                      (trace (show $ IntSet.size seen') seen')
+                                      nextRegisters
+                                      nextPointerValue
+                                      value
+                else go seen nextRegisters nextPointerValue lastSolution
+
+main :: IO ()
+main = do
+  input <- parseString inputP mempty <$> getContents
+  case input of
+    Failure parseError -> print parseError
+    Success (ip, instructions) ->
+      let program = Vector.map run instructions
+          result = runProgram ip program (Unboxed.fromList [0, 0, 0, 0, 0, 0])
+       in print result
+
+-- Parsing stuff
 instructionPointerP :: Parser IP
 instructionPointerP =
   (,) <$> (string "#ip" *> whiteSpace *> (fromIntegral <$> natural)) <*> pure 0
@@ -129,40 +158,3 @@ inputP =
   (,) <$> instructionPointerP <* whiteSpace <*>
   (Vector.fromList <$> many instructionP)
 
-runProgram :: IP -> Vector (Registers -> Registers) -> Registers -> Maybe Int
-runProgram (register, initialValue) program initialRegisters =
-  go IntSet.empty initialRegisters initialValue 0
-  where
-    go seen registers !pointerValue last =
-      case program Vector.!? pointerValue of
-        Nothing -> Nothing
-        Just fn ->
-          let nextRegisters =
-                fn $
-                Unboxed.modify
-                  (\vec -> M.write vec register pointerValue)
-                  registers
-              -- ^ Run instruction on registers after inserting pointer value
-              nextPointerValue = (nextRegisters Unboxed.! register) + 1
-              -- ^ Retrieve register with pointer value, increment
-           in if pointerValue == 28
-                then let value = registers Unboxed.! 5
-                      in if IntSet.member value seen
-                           then Just last
-                           else let seen' = IntSet.insert value seen
-                                 in go
-                                      (trace (show $ IntSet.size seen') seen')
-                                      nextRegisters
-                                      nextPointerValue
-                                      value
-                else go seen nextRegisters nextPointerValue last
-
-main :: IO ()
-main = do
-  input <- parseString inputP mempty <$> getContents
-  case input of
-    Failure err -> print err
-    Success (ip, instructions) ->
-      let program = Vector.map run instructions
-          !result = runProgram ip program (Unboxed.fromList [0, 0, 0, 0, 0, 0])
-       in print result

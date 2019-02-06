@@ -26,7 +26,7 @@ chmod +x ./1.hs
 cat ../data/day1.txt | ./1.hs
 ```
 
-## Progress (20/24)
+## Progress (21/24)
 
 |     | Rust   | Haskell | Node   |
 | --- | ------ | ------- | ------ |
@@ -50,3 +50,8 @@ cat ../data/day1.txt | ./1.hs
 | 18  | :zzz:  | :zzz:   | :bell: |
 | 19  | :zzz:  | :bell:  | :zzz:  |
 | 20  | :zzz:  | :bell:  | :zzz:  |
+| 21  | :zzz:  | :bell:  | :zzz:  |
+| 22  | :zzz:  | :zzz:   | :zzz:  |
+| 23  | :zzz:  | :zzz:   | :zzz:  |
+| 24  | :zzz:  | :zzz:   | :zzz:  |
+| 25  | :zzz:  | :zzz:   | :zzz:  |
