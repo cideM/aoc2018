@@ -5,7 +5,7 @@
     --resolver lts-12.20
     --package text,trifecta,containers,parsers,mtl,vector
 -}
-{-# LANGUAGE RecordWildCards   #-}
+{-# LANGUAGE RecordWildCards #-}
 
 import           Control.Applicative         ((<|>))
 import           Data.Bits                   ((.&.), (.|.))
@@ -95,28 +95,26 @@ runProgram (register, initialValue) program initialRegisters =
   go IntSet.empty initialRegisters initialValue 0
   where
     go seen registers pointerValue lastSolution =
-      case program Vector.!? pointerValue of
-        Nothing -> Nothing
-        Just fn ->
-          let nextRegisters =
-                fn $
-                Unboxed.modify
-                  (\vec -> M.unsafeWrite vec register pointerValue)
-                  registers
-              -- ^ Run instruction on registers after inserting pointer value
-              nextPointerValue = Unboxed.unsafeIndex nextRegisters register + 1
-              -- ^ Retrieve register with pointer value, increment
-           in if pointerValue == 28
-                then let value = Unboxed.unsafeIndex registers 5
-                      in if IntSet.member value seen
-                           then Just lastSolution
-                           else let seen' = IntSet.insert value seen
-                                 in go
-                                      (trace (show $ IntSet.size seen') seen')
-                                      nextRegisters
-                                      nextPointerValue
-                                      value
-                else go seen nextRegisters nextPointerValue lastSolution
+      let fn = Vector.unsafeIndex program pointerValue
+          nextRegisters =
+            fn $
+            Unboxed.modify
+              (\vec -> M.unsafeWrite vec register pointerValue)
+              registers
+            -- ^ Run instruction on registers after inserting pointer value
+          nextPointerValue = Unboxed.unsafeIndex nextRegisters register + 1
+            -- ^ Retrieve register with pointer value, increment
+       in if pointerValue == 28
+            then let value = Unboxed.unsafeIndex registers 5
+                  in if IntSet.member value seen
+                       then Just lastSolution
+                       else let seen' = IntSet.insert value seen
+                             in go
+                                  (trace (show $ IntSet.size seen') seen')
+                                  nextRegisters
+                                  nextPointerValue
+                                  value
+            else go seen nextRegisters nextPointerValue lastSolution
 
 main :: IO ()
 main = do
@@ -157,4 +155,3 @@ inputP :: Parser (IP, Vector Instruction)
 inputP =
   (,) <$> instructionPointerP <* whiteSpace <*>
   (Vector.fromList <$> many instructionP)
-
