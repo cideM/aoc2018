@@ -8,11 +8,14 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards   #-}
 
-module Day19 where
+module Day21 where
 
+import           Control.Arrow ((&&&))
 import           Data.Bits     ((.&.), (.|.))
 import           Data.IntMap   (IntMap, (!))
 import qualified Data.IntMap   as IntMap
+import           Data.IntSet   (IntSet)
+import qualified Data.IntSet   as IntSet
 import           Data.Map      (Map)
 import qualified Data.Map      as Map
 import           Data.String   (IsString)
@@ -20,6 +23,7 @@ import           Data.Text     (Text)
 import qualified Data.Text     as Text
 import           Data.Vector   (Vector)
 import qualified Data.Vector   as Vector
+import qualified Debug.Trace   as Trace
 import           Text.Trifecta (Parser, Result (Failure, Success))
 import qualified Text.Trifecta as Tri
 
@@ -138,21 +142,29 @@ ops
       let Register out' = out
        in IntMap.insert out' (makeNewVal a b registers) registers
 
-runIp ::
-     IP
-  -> Registers
-  -> Vector InstructionWithName
-  -> Either Text (IP, Registers)
-runIp ip@IP {..} regs instrs = do
+runIp :: IP -> Registers -> Vector InstructionWithName -> [Int]
+runIp ip@IP {..} regs instrs =
   let (opName, instr) = (Vector.!) instrs value -- ^ Get instruction at index (instruction pointer value)
       Register r = register
       withIpValue = IntMap.insert r value regs -- ^ Insert ip value into register
-  op <- mb2E ("Unkown op " <> opName) (Map.lookup opName ops)
-  let regs' = op instr withIpValue
-      value' = (regs' ! r) + 1
-  if value' < 0 || value' > Vector.length instrs - 1
-    then Right (ip, regs')
-    else runIp (IP (Register r) value') regs' instrs
+   in case Map.lookup opName ops of
+        Nothing -> []
+        Just op
+          | value == 29 ->
+            let regs' = op instr withIpValue
+                value' = (regs' ! r) + 1
+             in regs' ! 5 : runIp (IP (Register r) value') regs' instrs
+          | otherwise ->
+            let regs' = op instr withIpValue
+                value' = (regs' ! r) + 1
+             in runIp (IP (Register r) value') regs' instrs
+
+findCycle :: [Int] -> Int
+findCycle = go 0 IntSet.empty
+  where
+    go answer seen (x:xs)
+      | IntSet.member x seen = answer
+      | otherwise = go x (IntSet.insert x seen) xs
 
 main :: IO ()
 main = do
@@ -160,15 +172,10 @@ main = do
   case input of
     Failure parseErr -> print parseErr
     Success (ip, instructions) ->
-      mapM_
-        (uncurry printResult)
-        (runIp
-           ip
-           (IntMap.fromList [(0, 0), (1, 0), (2, 0), (3, 0), (4, 0), (5, 0)])
-           instructions)
-  where
-    printResult ip registers = do
-      putStr "Instruction pointer: "
-      print ip
-      putStr "Registers: "
-      print registers
+      let result =
+            runIp
+              ip
+              (IntMap.fromList [(0, 0), (1, 0), (2, 0), (3, 0), (4, 0), (5, 0)])
+              instructions
+       in do print $ head result
+             print $ findCycle result
