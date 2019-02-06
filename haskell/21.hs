@@ -4,178 +4,165 @@
     script
     --resolver lts-12.20
     --package text,trifecta,containers,parsers,mtl,vector
+    --
+    -O2
 -}
+{-# LANGUAGE BangPatterns      #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards   #-}
 
-module Day21 where
+-- This is ugly as fuck but I hate those elf code exercises especially the ones
+-- where you need to manually analyse the input. Part 2 is incredibly slow.
+import           Control.Applicative         ((<|>))
+import           Data.Bits                   ((.&.), (.|.))
+import           Data.IntSet                 (IntSet)
+import qualified Data.IntSet                 as IntSet
+import           Data.String                 (IsString)
+import           Data.Vector                 (Vector)
+import qualified Data.Vector                 as Vector
+import qualified Data.Vector.Generic.Mutable as M
+import           Data.Vector.Unboxed         ((!))
+import qualified Data.Vector.Unboxed         as Unboxed
+import           Debug.Trace
+import           Text.Trifecta
 
-import           Control.Arrow ((&&&))
-import           Data.Bits     ((.&.), (.|.))
-import           Data.IntMap   (IntMap, (!))
-import qualified Data.IntMap   as IntMap
-import           Data.IntSet   (IntSet)
-import qualified Data.IntSet   as IntSet
-import           Data.Map      (Map)
-import qualified Data.Map      as Map
-import           Data.String   (IsString)
-import           Data.Text     (Text)
-import qualified Data.Text     as Text
-import           Data.Vector   (Vector)
-import qualified Data.Vector   as Vector
-import qualified Debug.Trace   as Trace
-import           Text.Trifecta (Parser, Result (Failure, Success))
-import qualified Text.Trifecta as Tri
+type Registers = Unboxed.Vector Int
 
-type Registers = IntMap Int
+type Register = Int
 
-newtype Register =
-  Register Int
-  deriving (Show, Eq, Ord)
-
-type OpCode = Int
-
-type OpName = Text
+type OpName = String
 
 data Instruction = Instruction
-  { a   :: Int
-  , b   :: Int
-  , out :: Register
-  } deriving (Show, Eq, Ord)
-
-type Operation = Instruction -> Registers -> Registers
-
-type InstructionWithName = (OpName, Instruction)
-
--- | Instruction Pointer
-data IP = IP
-  { register :: Register
-  , value    :: Int
+  { kind :: OpKind
+  , a    :: Int
+  , b    :: Int
+  , out  :: Register
   } deriving (Show, Eq)
 
-type Input = (IP, Vector InstructionWithName)
+type IP = (Register, Int)
 
--- | Maybe to Either.
-mb2E :: (IsString a) => a -> Maybe b -> Either a b
-mb2E = flip maybe Right . Left
+data OpKind
+  = Addr
+  | Addi
+  | Mulr
+  | Muli
+  | Banr
+  | Bani
+  | Borr
+  | Bori
+  | Setr
+  | Seti
+  | Gtir
+  | Gtri
+  | Gtrr
+  | Eqri
+  | Eqir
+  | Eqrr
+  deriving (Show, Eq)
+
+run :: Instruction -> Registers -> Registers
+run Instruction {..} rs =
+  let result =
+        case kind of
+          Addr -> rs ! a + rs ! b
+          Addi -> rs ! a + b
+          Mulr -> rs ! a * rs ! b
+          Muli -> rs ! a * b
+          Banr -> rs ! a .&. rs ! b
+          Bani -> rs ! a .&. b
+          Borr -> rs ! a .|. rs ! b
+          Bori -> rs ! a .|. b
+          Setr -> rs ! a
+          Seti -> a
+          Gtir ->
+            if a > rs ! b
+              then 1
+              else 0
+          Gtri ->
+            if rs ! a > b
+              then 1
+              else 0
+          Gtrr ->
+            if rs ! a > rs ! b
+              then 1
+              else 0
+          Eqri ->
+            if rs ! a == b
+              then 1
+              else 0
+          Eqir ->
+            if a == rs ! b
+              then 1
+              else 0
+          Eqrr ->
+            if rs ! a == rs ! b
+              then 1
+              else 0
+   in rs Unboxed.// [(out, result)]
 
 instructionPointerP :: Parser IP
 instructionPointerP =
-  IP <$>
-  (Tri.string "#ip" *> Tri.whiteSpace *>
-   (Register . fromIntegral <$> Tri.natural)) <*>
-  pure 0
+  (,) <$> (string "#ip" *> whiteSpace *> (fromIntegral <$> natural)) <*> pure 0
 
-instructionP :: Parser InstructionWithName
-instructionP =
-  (,) <$> opName' <*>
-  (Instruction <$> number' <*> number' <*> (Register <$> number'))
-  -- | The opCode is not really 0 but I don't feel like refactoring everything
-  -- from OpCode to Maybe OpCode.
+instructionP :: Parser Instruction
+instructionP = Instruction <$> opKindP <*> number' <*> number' <*> number'
   where
-    number' = fromIntegral <$> Tri.natural <* Tri.whiteSpace
-    opName' =
-      Text.concat . map Text.singleton <$> Tri.many Tri.letter <* Tri.whiteSpace
+    number' = fromIntegral <$> (whiteSpace *> natural)
+    opKindP =
+      Addr <$ string "addr" <|> Addi <$ string "addi" <|> Mulr <$ string "mulr" <|>
+      Muli <$ string "muli" <|>
+      Banr <$ string "banr" <|>
+      Bani <$ string "bani" <|>
+      Borr <$ string "borr" <|>
+      Bori <$ string "bori" <|>
+      Setr <$ string "setr" <|>
+      Seti <$ string "seti" <|>
+      Gtir <$ string "gtir" <|>
+      Gtri <$ string "gtri" <|>
+      Gtrr <$ string "gtrr" <|>
+      Eqir <$ string "eqir" <|>
+      Eqri <$ string "eqri" <|>
+      Eqrr <$ string "eqrr"
 
-inputP :: Parser (IP, Vector InstructionWithName)
+inputP :: Parser (IP, Vector Instruction)
 inputP =
-  (,) <$> instructionPointerP <* Tri.whiteSpace <*>
-  (Vector.fromList <$> Tri.many instructionP)
+  (,) <$> instructionPointerP <* whiteSpace <*>
+  (Vector.fromList <$> many instructionP)
 
-parseInput :: Text -> Either Text (IP, Vector InstructionWithName)
-parseInput input =
-  case Tri.parseString inputP mempty $ Text.unpack input of
-    Failure err -> Left . Text.pack $ show err
-    Success res -> Right res
-
-ops :: Map OpName Operation
-ops
-  -- | Scary but just utility. The lambda functions in the list are just the
-  -- value updater. There is some plumbing though, to extract the "out" int from
-  -- the Register newtype. Also update the map with the new value. And that's
-  -- done by "f".
- =
-  Map.fromList
-    [ ("addr", f (\a b rs -> rs ! a + rs ! b))
-    , ("addi", f (\a b rs -> rs ! a + b))
-    , ("mulr", f (\a b rs -> rs ! a * rs ! b))
-    , ("muli", f (\a b rs -> rs ! a * b))
-    , ("banr", f (\a b rs -> rs ! a .&. rs ! b))
-    , ("bani", f (\a b rs -> rs ! a .&. b))
-    , ("borr", f (\a b rs -> rs ! a .|. rs ! b))
-    , ("bori", f (\a b rs -> rs ! a .|. b))
-    , ("setr", f (\a _ rs -> rs ! a))
-    , ("seti", f (\a _ _ -> a))
-    , ( "gtir"
-      , f (\a b rs ->
-             if a > rs ! b
-               then 1
-               else 0))
-    , ( "gtri"
-      , f (\a b rs ->
-             if rs ! a > b
-               then 1
-               else 0))
-    , ( "gtrr"
-      , f (\a b rs ->
-             if rs ! a > rs ! b
-               then 1
-               else 0))
-    , ( "eqri"
-      , f (\a b rs ->
-             if rs ! a == b
-               then 1
-               else 0))
-    , ( "eqir"
-      , f (\a b rs ->
-             if a == rs ! b
-               then 1
-               else 0))
-    , ( "eqrr"
-      , f (\a b rs ->
-             if rs ! a == rs ! b
-               then 1
-               else 0))
-    ]
+runProgram :: IP -> Vector (Registers -> Registers) -> Registers -> Maybe Int
+runProgram (register, initialValue) program initialRegisters =
+  go IntSet.empty initialRegisters initialValue 0
   where
-    f makeNewVal Instruction {..} registers =
-      let Register out' = out
-       in IntMap.insert out' (makeNewVal a b registers) registers
-
-runIp :: IP -> Registers -> Vector InstructionWithName -> [Int]
-runIp ip@IP {..} regs instrs =
-  let (opName, instr) = (Vector.!) instrs value -- ^ Get instruction at index (instruction pointer value)
-      Register r = register
-      withIpValue = IntMap.insert r value regs -- ^ Insert ip value into register
-   in case Map.lookup opName ops of
-        Nothing -> []
-        Just op
-          | value == 29 ->
-            let regs' = op instr withIpValue
-                value' = (regs' ! r) + 1
-             in regs' ! 5 : runIp (IP (Register r) value') regs' instrs
-          | otherwise ->
-            let regs' = op instr withIpValue
-                value' = (regs' ! r) + 1
-             in runIp (IP (Register r) value') regs' instrs
-
-findCycle :: [Int] -> Int
-findCycle = go 0 IntSet.empty
-  where
-    go answer seen (x:xs)
-      | IntSet.member x seen = answer
-      | otherwise = go x (IntSet.insert x seen) xs
+    go seen registers !pointerValue last =
+      case program Vector.!? pointerValue of
+        Nothing -> Nothing
+        Just fn ->
+          let nextRegisters =
+                fn $
+                Unboxed.modify
+                  (\vec -> M.write vec register pointerValue)
+                  registers
+              -- ^ Run instruction on registers after inserting pointer value
+              nextPointerValue = (nextRegisters Unboxed.! register) + 1
+              -- ^ Retrieve register with pointer value, increment
+           in if pointerValue == 28
+                then let value = registers Unboxed.! 5
+                      in if IntSet.member value seen
+                           then Just last
+                           else let seen' = IntSet.insert value seen
+                                 in go
+                                      (trace (show $ IntSet.size seen') seen')
+                                      nextRegisters
+                                      nextPointerValue
+                                      value
+                else go seen nextRegisters nextPointerValue last
 
 main :: IO ()
 main = do
-  input <- Tri.parseString inputP mempty <$> getContents
+  input <- parseString inputP mempty <$> getContents
   case input of
-    Failure parseErr -> print parseErr
+    Failure err -> print err
     Success (ip, instructions) ->
-      let result =
-            runIp
-              ip
-              (IntMap.fromList [(0, 0), (1, 0), (2, 0), (3, 0), (4, 0), (5, 0)])
-              instructions
-       in do print $ head result
-             print $ findCycle result
+      let program = Vector.map run instructions
+          !result = runProgram ip program (Unboxed.fromList [0, 0, 0, 0, 0, 0])
+       in print result
