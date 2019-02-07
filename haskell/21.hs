@@ -8,17 +8,17 @@
 {-# LANGUAGE RecordWildCards #-}
 
 import           Control.Applicative         ((<|>))
+import           Control.Monad.Primitive     (PrimMonad, PrimState)
+import qualified Control.Monad.ST            as ST
 import           Data.Bits                   ((.&.), (.|.))
 import qualified Data.IntSet                 as IntSet
 import           Data.Vector                 (Vector)
 import qualified Data.Vector                 as Vector
-import qualified Data.Vector.Generic.Mutable as M
-import           Data.Vector.Unboxed         ((!))
-import qualified Data.Vector.Unboxed         as Unboxed
-import           Debug.Trace
+import           Data.Vector.Unboxed.Mutable (MVector)
+import qualified Data.Vector.Unboxed.Mutable as UnboxedMut
 import           Text.Trifecta
 
-type Registers = Unboxed.Vector Int
+type Registers s = MVector s Int
 
 type Register = Int
 
@@ -50,71 +50,74 @@ data OpKind
   | Eqrr
   deriving (Show, Eq)
 
-run :: Instruction -> Registers -> Registers
-run Instruction {..} rs =
-  let result =
-        case kind of
-          Addr -> rs ! a + rs ! b
-          Addi -> rs ! a + b
-          Mulr -> rs ! a * rs ! b
-          Muli -> rs ! a * b
-          Banr -> rs ! a .&. rs ! b
-          Bani -> rs ! a .&. b
-          Borr -> rs ! a .|. rs ! b
-          Bori -> rs ! a .|. b
-          Setr -> rs ! a
-          Seti -> a
-          Gtir ->
-            if a > rs ! b
-              then 1
-              else 0
-          Gtri ->
-            if rs ! a > b
-              then 1
-              else 0
-          Gtrr ->
-            if rs ! a > rs ! b
-              then 1
-              else 0
-          Eqri ->
-            if rs ! a == b
-              then 1
-              else 0
-          Eqir ->
-            if a == rs ! b
-              then 1
-              else 0
-          Eqrr ->
-            if rs ! a == rs ! b
-              then 1
-              else 0
-   in Unboxed.modify (\vec -> M.unsafeWrite vec out result) rs
-
-runProgram :: IP -> Vector (Registers -> Registers) -> Registers -> Maybe Int
-runProgram (register, initialValue) program initialRegisters =
-  go IntSet.empty initialRegisters initialValue 0
+runProgram ::
+     (PrimMonad m)
+  => IP
+  -> Vector Instruction
+  -> Registers (PrimState m)
+  -> m Int
+runProgram (register, initialValue) instructions registers =
+  go IntSet.empty initialValue 0
   where
-    go seen registers pointerValue lastSolution =
-      let fn = Vector.unsafeIndex program pointerValue
-          nextRegisters =
-            fn $
-            Unboxed.modify
-              (\vec -> M.unsafeWrite vec register pointerValue)
-              registers
-            -- ^ Run instruction on registers after inserting pointer value
-          nextPointerValue = Unboxed.unsafeIndex nextRegisters register + 1
-            -- ^ Retrieve register with pointer value, increment
-       in if pointerValue == 28
-            then let value = Unboxed.unsafeIndex registers 5
-                  in if IntSet.member value seen
-                       then Just lastSolution
-                       else let seen' = IntSet.insert value seen
-                             in go
-                                  (trace (show $ IntSet.size seen') seen')
-                                  nextRegisters
-                                  nextPointerValue
-                                  value
-            else go seen nextRegisters nextPointerValue lastSolution
+    go seen pointerValue lastSolution = do
+      UnboxedMut.write registers register pointerValue -- ^ Write current pointer value to register
+      let instruction = Vector.unsafeIndex instructions pointerValue -- ^ Retrieve current instruction pointed at by pointer value
+      run instruction -- ^ Run that instruction on registers
+      nextPointerValue <- (1 +) <$> UnboxedMut.read registers register -- ^ Retrieve register with pointer value, increment
+      if pointerValue == 28
+        then do
+          value <- UnboxedMut.read registers 5
+          if IntSet.member value seen
+            then return lastSolution
+            else go (IntSet.insert value seen) nextPointerValue value
+        else go seen nextPointerValue lastSolution
+    run Instruction {..} = do
+      let len = UnboxedMut.length registers
+      valueA <-
+        if a < 0 || a >= len
+          then return 0
+          else UnboxedMut.read registers a
+      valueB <-
+        if b < 0 || b >= len
+          then return 0
+          else UnboxedMut.read registers b
+      let result =
+            case kind of
+              Addr -> valueA + valueB
+              Addi -> valueA + b
+              Mulr -> valueA * valueB
+              Muli -> valueA * b
+              Banr -> valueA .&. valueB
+              Bani -> valueA .&. b
+              Borr -> valueA .|. valueB
+              Bori -> valueA .|. b
+              Setr -> valueA
+              Seti -> a
+              Gtir ->
+                if a > valueB
+                  then 1
+                  else 0
+              Gtri ->
+                if valueA > b
+                  then 1
+                  else 0
+              Gtrr ->
+                if valueA > valueB
+                  then 1
+                  else 0
+              Eqri ->
+                if valueA == b
+                  then 1
+                  else 0
+              Eqir ->
+                if a == valueB
+                  then 1
+                  else 0
+              Eqrr ->
+                if valueA == valueB
+                  then 1
+                  else 0
+      UnboxedMut.write registers out result
 
 main :: IO ()
 main = do
@@ -122,8 +125,8 @@ main = do
   case input of
     Failure parseError -> print parseError
     Success (ip, instructions) ->
-      let program = Vector.map run instructions
-          result = runProgram ip program (Unboxed.fromList [0, 0, 0, 0, 0, 0])
+      let result =
+            ST.runST $ UnboxedMut.replicate 6 0 >>= runProgram ip instructions
        in print result
 
 -- Parsing stuff
