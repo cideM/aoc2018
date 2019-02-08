@@ -23,10 +23,10 @@ type Registers s = MVector s Int
 type Register = Int
 
 data Instruction = Instruction
-  { kind :: OpKind
-  , a    :: Int
-  , b    :: Int
-  , out  :: Register
+  { kind :: !OpKind
+  , a    :: !Int
+  , b    :: !Int
+  , out  :: !Register
   } deriving (Show, Eq)
 
 type IP = (Register, Int)
