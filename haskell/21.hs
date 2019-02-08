@@ -24,9 +24,9 @@ type Register = Int
 
 data Instruction = Instruction
   { kind :: !OpKind
-  , a    :: !Int
-  , b    :: !Int
-  , out  :: !Register
+  , a    :: {-# UNPACK #-}!Int
+  , b    :: {-# UNPACK #-}!Int
+  , out  :: {-# UNPACK #-}!Register
   } deriving (Show, Eq)
 
 type IP = (Register, Int)
