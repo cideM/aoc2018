@@ -2,7 +2,7 @@
 {-
     stack
     script
-    --resolver lts-12.20
+    --resolver lts-13.6
     --package containers,trifecta,unordered-containers,hashable,pqueue
 -}
 {-# LANGUAGE DeriveGeneric   #-}
@@ -17,7 +17,6 @@ import qualified Data.Map.Strict      as Map
 import qualified Data.Maybe           as Maybe
 import qualified Data.PQueue.Prio.Min as PQ
 import           Data.Semigroup       (Sum (..), getSum)
-import           Debug.Trace
 import           GHC.Generics         (Generic)
 import           Text.Trifecta
 
@@ -49,7 +48,6 @@ instance Hashable Tool
 
 type Node = (Coord, Tool)
 
--- TODO: Use options throughout
 data Options = Options
   { _depth  :: !Int
   , _width  :: !Int
@@ -57,7 +55,7 @@ data Options = Options
   , _target :: !Coord
   , _maxX   :: !Int
   , _maxY   :: !Int
-  }
+  } deriving (Show)
 
 -- depth: 8112
 -- target: 13,743
@@ -75,9 +73,9 @@ parseInput str =
         (char ',' *> (fromIntegral <$> natural))))
 
 makeTile :: Options -> Cave -> Coord -> Tile
-makeTile Options {..} cave current@(x, y) =
+makeTile opts cave current@(x, y) =
   let geoIndex = getGeoIndex
-      erosionLevel = (geoIndex + _depth) `mod` 20183
+      erosionLevel = (geoIndex + _depth opts) `mod` 20183
       tileType =
         case erosionLevel `mod` 3 of
           0 -> Rock
@@ -87,8 +85,8 @@ makeTile Options {..} cave current@(x, y) =
    in Tile geoIndex erosionLevel tileType
   where
     getGeoIndex
-      | current == _origin = 0
-      | current == _target = 0
+      | current == _origin opts = 0
+      | current == _target opts = 0
       | y == 0 = x * 16807
       | x == 0 = y * 48271
       | otherwise =
@@ -97,7 +95,7 @@ makeTile Options {..} cave current@(x, y) =
 
 makeCave :: Options -> Cave
 makeCave options@Options {..} =
-  let coords = concat [[(x, y) | x <- [0 .. _width]] | y <- [0 .. _depth]]
+  let coords = concat [[(x, y) | x <- [0 .. _maxX]] | y <- [0 .. _maxY]]
       tiles = List.foldl' foldFn Map.empty coords
    in tiles
   where
@@ -115,19 +113,26 @@ getRiskLevel cave (x, y) =
   filter (\((x', y'), _) -> x' <= x && y' <= y) $
   Map.assocs cave
 
-printRect :: Cave -> (Coord, Coord) -> IO ()
-printRect cave ((x0, y0), (x1, y1)) =
-  let coords = [[(x, y) | x <- [x0 .. x1]] | y <- [y0 .. y1]]
-   in do print (cave Map.! (3, 1))
-         mapM_
-           (putStrLn . unwords . map (\coord -> printTile $ cave Map.! coord))
-           coords
+printRect :: Options -> Cave -> IO ()
+printRect opts cave =
+  let coords =
+        [ [(x, y) | x <- [fst $ _origin opts .. fst $ _target opts]]
+        | y <- [snd $ _origin opts .. snd $ _target opts]
+        ]
+   in mapM_
+        (putStrLn .
+         map
+           (\coord ->
+              if coord == _target opts
+                then 'T'
+                else printTile $ cave Map.! coord))
+        coords
   where
     printTile tile =
       case _tileType tile of
-        Rock   -> "."
-        Wet    -> "="
-        Narrow -> "|"
+        Rock   -> '.'
+        Wet    -> '='
+        Narrow -> '|'
 
 main :: IO ()
 main =
@@ -142,56 +147,50 @@ main =
                      (fst target)
                      origin
                      target
-                     (fst target * 2)
+                     (fst target * 5)
                      (depth * 2)
                  cave = makeCave opts
-             printRect cave (origin, target)
+             -- printRect opts cave
              print $ cave `getRiskLevel` target
-             print $ pathToTarget opts cave
+             mapM_ (print . fst) $ pathToTarget opts cave
+
+allowedTools :: TileType -> [Tool]
+allowedTools Rock   = [Climb, Torch]
+allowedTools Wet    = [Climb, Neither]
+allowedTools Narrow = [Torch, Neither]
+
+allowedRegions :: Tool -> [TileType]
+allowedRegions Torch   = [Narrow, Rock]
+allowedRegions Climb   = [Wet, Rock]
+allowedRegions Neither = [Wet, Narrow]
 
 pathToTarget :: Options -> Cave -> Maybe (Int, [Node])
 pathToTarget Options {..} cave =
   astarSearch (_origin, Torch) isGoalNode nextNodeFn heuristic
   where
-    isGoalNode (coord, _) = coord == _target
-    heuristic ((x, y), _) =
+    isGoalNode (coord, tool) = coord == _target && tool == Torch
+    heuristic ((x, y), tool) =
       let (x', y') = _target
-       in (x' - x) ^ 2 + (y' - y) ^ 2
-    nextNodeFn ((x, y), currentTool) =
-      let neighbourCoords =
+          dist = abs (x - x') + abs (y - y')
+       in if tool == Torch
+            then dist + 0
+            else dist + 7
+    nextNodeFn (here@(x, y), currentTool) =
+      let allowed = allowedRegions currentTool
+          neighbourCoords =
             filter
               (\(x', y') -> x' >= 0 && x' <= _maxX && y' >= 0 && y' <= _maxY)
               [(x - 1, y), (x + 1, y), (x, y - 1), (x, y + 1)]
           neighbours =
             zip neighbourCoords $
             Maybe.mapMaybe (`Map.lookup` cave) neighbourCoords
-       in concatMap
-            (\(coord', Tile {..}) ->
-               let nextToolsAndCosts =
-                     if coord' == _target
-                       then case currentTool of
-                              Torch -> [(Torch, 1)]
-                              _     -> [(Torch, 8)]
-                       else case (currentTool) of
-                              Torch ->
-                                case (_tileType) of
-                                  Rock   -> [(Torch, 1), (Climb, 8)]
-                                  Wet    -> [(Climb, 8), (Neither, 8)]
-                                  Narrow -> [(Torch, 1), (Neither, 8)]
-                              Climb ->
-                                case (_tileType) of
-                                  Rock   -> [(Torch, 8), (Climb, 1)]
-                                  Wet    -> [(Climb, 1), (Neither, 8)]
-                                  Narrow -> [(Torch, 8), (Neither, 8)]
-                              Neither ->
-                                case (_tileType) of
-                                  Rock   -> [(Torch, 8), (Climb, 8)]
-                                  Wet    -> [(Climb, 8), (Neither, 1)]
-                                  Narrow -> [(Torch, 8), (Neither, 1)]
-                in map
-                     (\(tool, cost) -> ((coord', tool), cost))
-                     nextToolsAndCosts)
-            neighbours
+          stayAndSwitch =
+            map (\tool -> ((here, tool), 7)) . filter (/= currentTool) $
+            allowedTools (_tileType $ cave Map.! here)
+          move =
+            map (\(coords, _) -> ((coords, currentTool), 1)) $
+            filter (\(_, tile) -> _tileType tile `elem` allowed) neighbours
+       in move ++ stayAndSwitch
 
 -- https://gist.github.com/abhin4v/8172534 Couldn't figure out how to import a
 -- hackage package into a script
