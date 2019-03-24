@@ -66,3 +66,13 @@ main = do
   where
     distBots b1 b2 =
       distance (Point (x b1) (y b1) (z b1)) (Point (x b2) (y b2) (z b2))
+{-
+    Thoughts P2:
+    Partition space into subspaces (cubes). Cube Origin Radius
+    Pick cube with most nanobots in range. In case of tie, choose closest to origin (?)*.
+    Rinse and repeat...?
+
+    * I think this could be wrong. A bot from cube A could reach into cube B
+    resulting in both having the same bots in range but cube B gets closer to
+    origin.
+-}
