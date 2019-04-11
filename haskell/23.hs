@@ -3,7 +3,7 @@
     stack
     script
     --resolver lts-13.16
-    --package transformers,mtl,megaparsec,text,vector,extra,pqueue
+    --package transformers,mtl,megaparsec,text,vector,extra,pqueue,pretty-simple
 -}
 {-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
@@ -19,10 +19,11 @@ import Data.Text (Text)
 import qualified Data.Text as T
 import qualified Data.Vector as V
 import Data.Void (Void)
-import Debug.Trace
+import Debug.Pretty.Simple
 import Text.Megaparsec
 import Text.Megaparsec.Char
 import qualified Text.Megaparsec.Char.Lexer as L
+import Text.Pretty.Simple
 
 {-- 
    Solution should be 121493971 but mine is 120079817
@@ -93,14 +94,23 @@ bigCube1 =
   let point = Point (negate $ 2 ^ 59) (negate $ 2 ^ 59) (negate $ 2 ^ 59)
    in Cube point (2 ^ 60)
 
+smallCube1 =
+  let point = Point (negate $ 2 ^ 8) (negate $ 2 ^ 8) (negate $ 2 ^ 8)
+   in Cube point (2 ^ 9)
+
 main :: IO ()
 main = do
   parsed <- runParser inputParser "stdin" . T.pack <$> getContents
   case parsed of
     Left e -> print e
     Right bots -> do
-      print $ "P1: " ++ show (p1 bots)
-      print $ "P2: " ++ show (p2 bigCube1 bots)
+      pPrint "P1: \n"
+      pPrint (p1 bots)
+      let p2result = p2 bigCube1 bots
+      pPrint "P2: \n"
+      pPrint (p2result)
+      pPrint "\nDistance: \n"
+      pPrint (getDistance origin (getPoint p2result))
 
 p1 :: V.Vector Bot -> Int
 p1 bots =
@@ -134,12 +144,12 @@ instance Ord CubeLength where
 -- better, more bots reaching the cube is better, and shorter distance from 
 -- origin is better
 newtype PrioKey =
-  PrioKey (CubeLength, BotsReachingCube, DistanceFromOrigin)
+  PrioKey (BotsReachingCube, CubeLength, DistanceFromOrigin)
   deriving (Ord, Eq, Show)
 
 -- | Split the initial cube into smaller cubes. Select the cube that either has the
 -- most bots reaching that cube or, if tied, the one that's closer to origin.
-p2 :: Cube -> V.Vector Bot -> Int
+p2 :: Cube -> V.Vector Bot -> Cube
 p2 startCube bots =
   let distanceToOrigin = getDistance (getPoint startCube) origin
       botsReachingStartCube =
@@ -147,33 +157,37 @@ p2 startCube bots =
       pqueue =
         PQMax.singleton
           (PrioKey
-             ( CubeLength $ _length startCube
-             , BotsReachingCube botsReachingStartCube
+             ( BotsReachingCube botsReachingStartCube
+             , CubeLength $ _length startCube
              , DistanceFromOrigin distanceToOrigin))
           startCube
    in go pqueue
-  where
       -- | Go over the smaller cubes, and discard the ones that aren't reached by any bots.
       -- Then insert the remaining cubes into the queue, together with the number of bots reaching each cube,
       -- the cube length (smaller cubes are prioritized) and the distance from origin.
-    makeNextQueue accumulator currentCube =
+  where
+    innerFold innerQueue currentCube =
       let botsReachingCube =
             V.length $ V.filter (botReachesCube currentCube) bots
           distanceFromOrigin = getDistance origin $ getCubeCenter currentCube
        in if botsReachingCube > 0
             then PQMax.insert
                    (PrioKey
-                      ( CubeLength $ _length currentCube
-                      , BotsReachingCube botsReachingCube
+                      ( BotsReachingCube botsReachingCube
+                      , CubeLength $ _length currentCube
                       , DistanceFromOrigin distanceFromOrigin))
                    currentCube
-                   accumulator
-            else accumulator
+                   innerQueue
+            else innerQueue
+    foldIntoNextQueue accumulatorQueue _ cube =
+      PQMax.union accumulatorQueue $
+      V.foldl' innerFold PQMax.empty $ partitionCube cube
     go pqueue =
-      let (_, cube) = PQMax.findMax pqueue
+      let nextQueue = PQMax.foldlWithKey foldIntoNextQueue PQMax.empty pqueue
+          (_, cube) = PQMax.findMax $ pTraceShow (PQMax.size nextQueue) nextQueue
        in if (_length cube) == 0
-            then getDistance origin $ getPoint cube
-            else go . V.foldl' makeNextQueue pqueue $ partitionCube cube
+            then cube
+            else go nextQueue
 
 -- | Whether a cube is in range of a bot. It first selects the point in the 
 -- cube that is closest to the bot. It then checks if the manhattan distance 
