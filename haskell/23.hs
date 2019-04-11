@@ -25,9 +25,6 @@ import Text.Megaparsec.Char
 import qualified Text.Megaparsec.Char.Lexer as L
 import Text.Pretty.Simple
 
-{-- 
-   Solution should be 121493971 but mine is 120079817
---}
 type Parser = Parsec Void Text
 
 data Bot = Bot
@@ -144,7 +141,7 @@ instance Ord CubeLength where
 -- better, more bots reaching the cube is better, and shorter distance from 
 -- origin is better
 newtype PrioKey =
-  PrioKey (BotsReachingCube, CubeLength, DistanceFromOrigin)
+  PrioKey (BotsReachingCube, DistanceFromOrigin, CubeLength)
   deriving (Ord, Eq, Show)
 
 -- | Split the initial cube into smaller cubes. Select the cube that either has the
@@ -158,15 +155,15 @@ p2 startCube bots =
         PQMax.singleton
           (PrioKey
              ( BotsReachingCube botsReachingStartCube
-             , CubeLength $ _length startCube
-             , DistanceFromOrigin distanceToOrigin))
+             , DistanceFromOrigin distanceToOrigin
+             , CubeLength $ _length startCube))
           startCube
    in go pqueue
       -- | Go over the smaller cubes, and discard the ones that aren't reached by any bots.
       -- Then insert the remaining cubes into the queue, together with the number of bots reaching each cube,
       -- the cube length (smaller cubes are prioritized) and the distance from origin.
   where
-    innerFold innerQueue currentCube =
+    makeNextQueue accumulator currentCube =
       let botsReachingCube =
             V.length $ V.filter (botReachesCube currentCube) bots
           distanceFromOrigin = getDistance origin $ getCubeCenter currentCube
@@ -174,20 +171,17 @@ p2 startCube bots =
             then PQMax.insert
                    (PrioKey
                       ( BotsReachingCube botsReachingCube
-                      , CubeLength $ _length currentCube
-                      , DistanceFromOrigin distanceFromOrigin))
+                      , DistanceFromOrigin distanceFromOrigin
+                      , CubeLength $ _length currentCube))
                    currentCube
-                   innerQueue
-            else innerQueue
-    foldIntoNextQueue accumulatorQueue _ cube =
-      PQMax.union accumulatorQueue $
-      V.foldl' innerFold PQMax.empty $ partitionCube cube
+                   accumulator
+            else accumulator
     go pqueue =
-      let nextQueue = PQMax.foldlWithKey foldIntoNextQueue PQMax.empty pqueue
-          (_, cube) = PQMax.findMax $ pTraceShow (PQMax.size nextQueue) nextQueue
+      let (_, cube) = PQMax.findMax pqueue
        in if (_length cube) == 0
             then cube
-            else go nextQueue
+            else go . V.foldl' makeNextQueue (PQMax.deleteMax pqueue) $
+                 partitionCube cube
 
 -- | Whether a cube is in range of a bot. It first selects the point in the 
 -- cube that is closest to the bot. It then checks if the manhattan distance 
