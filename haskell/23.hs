@@ -24,11 +24,14 @@ import Text.Megaparsec
 import Text.Megaparsec.Char
 import qualified Text.Megaparsec.Char.Lexer as L
 
+{-- 
+   Solution should be 121493971 but mine is 120079817
+--}
 type Parser = Parsec Void Text
 
 data Bot = Bot
   { _botCenter :: Point
-  , _radius :: Int
+  , _radius :: !Int
   } deriving (Eq, Show)
 
 data Point =
@@ -41,6 +44,21 @@ data Cube = Cube
   { _topLeft :: Point
   , _length :: !Int
   } deriving (Show, Eq)
+
+class HasPoint a where
+  getPoint :: a -> Point
+
+instance HasPoint Cube where
+  getPoint (Cube point _) = point
+
+instance HasPoint Point where
+  getPoint = id
+
+instance HasPoint Bot where
+  getPoint (Bot point _) = point
+
+origin :: Point
+origin = Point 0 0 0
 
 getCubeCenter :: Cube -> Point
 getCubeCenter cube =
@@ -57,18 +75,6 @@ getDistance (Point x1 y1 z1) (Point x2 y2 z2) =
       y' = abs $ y2 - y1
       z' = abs $ z2 - z1
    in x' + y' + z'
-
-class HasPoint a where
-  getPoint :: a -> Point
-
-instance HasPoint Cube where
-  getPoint (Cube point _) = point
-
-instance HasPoint Point where
-  getPoint = id
-
-instance HasPoint Bot where
-  getPoint (Bot point _) = point
 
 botParser :: Parser Bot
 botParser =
@@ -124,11 +130,12 @@ newtype CubeLength =
 instance Ord CubeLength where
   CubeLength l1 `compare` CubeLength l2 = Down l1 `compare` Down l2
 
+-- | This is the key used for the priority queue. Shorter cube length is 
+-- better, more bots reaching the cube is better, and shorter distance from 
+-- origin is better
 newtype PrioKey =
-  PrioKey ( CubeLength, BotsReachingCube,DistanceFromOrigin) deriving (Ord, Eq, Show)
-
-origin :: Point
-origin = Point 0 0 0
+  PrioKey (CubeLength, BotsReachingCube, DistanceFromOrigin)
+  deriving (Ord, Eq, Show)
 
 -- | Split the initial cube into smaller cubes. Select the cube that either has the
 -- most bots reaching that cube or, if tied, the one that's closer to origin.
@@ -146,10 +153,13 @@ p2 startCube bots =
           startCube
    in go pqueue
   where
+      -- | Go over the smaller cubes, and discard the ones that aren't reached by any bots.
+      -- Then insert the remaining cubes into the queue, together with the number of bots reaching each cube,
+      -- the cube length (smaller cubes are prioritized) and the distance from origin.
     makeNextQueue accumulator currentCube =
       let botsReachingCube =
             V.length $ V.filter (botReachesCube currentCube) bots
-          distanceFromOrigin = getDistance origin (getCubeCenter currentCube)
+          distanceFromOrigin = getDistance origin $ getCubeCenter currentCube
        in if botsReachingCube > 0
             then PQMax.insert
                    (PrioKey
@@ -162,12 +172,9 @@ p2 startCube bots =
     go pqueue =
       let (_, cube) = PQMax.findMax pqueue
        in if (_length cube) == 0
-            then getDistance (getPoint cube) origin
-            else let cubes = partitionCube cube
-                     nextQueue = V.foldl' makeNextQueue pqueue cubes
-                  in go nextQueue
+            then getDistance origin $ getPoint cube
+            else go . V.foldl' makeNextQueue pqueue $ partitionCube cube
 
--- Solution should  121493971
 -- | Whether a cube is in range of a bot. It first selects the point in the 
 -- cube that is closest to the bot. It then checks if the manhattan distance 
 -- between that point and the bot center is smaller or equal to the bot radius
@@ -191,11 +198,11 @@ partitionCube (Cube (Point x y z) 1) =
   V.fromList
     [ Point x y z
     , Point (x + 1) y z
-    , Point x (y + 1) z
     , Point (x + 1) (y + 1) z
-    , Point x y (z + 1)
-    , Point (x + 1) y (z + 1)
     , Point (x + 1) (y + 1) (z + 1)
+    , Point (x + 1) y (z + 1)
+    , Point x y (z + 1)
+    , Point x (y + 1) z
     , Point x (y + 1) (z + 1)
     ]
 partitionCube (Cube (Point x y z) cubeLength) =
@@ -204,10 +211,10 @@ partitionCube (Cube (Point x y z) cubeLength) =
       V.fromList
         [ Point x y z
         , Point (x + newLength) y z
-        , Point x (y + newLength) z
         , Point (x + newLength) (y + newLength) z
-        , Point x y (z + newLength)
-        , Point (x + newLength) y (z + newLength)
         , Point (x + newLength) (y + newLength) (z + newLength)
+        , Point (x + newLength) y (z + newLength)
+        , Point x y (z + newLength)
+        , Point x (y + newLength) z
         , Point x (y + newLength) (z + newLength)
         ]
