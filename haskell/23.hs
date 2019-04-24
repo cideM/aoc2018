@@ -137,15 +137,17 @@ newtype CubeLength =
 instance Ord CubeLength where
   CubeLength l1 `compare` CubeLength l2 = Down l1 `compare` Down l2
 
--- | This is the key used for the priority queue. Shorter cube length is 
--- better, more bots reaching the cube is better, and shorter distance from 
--- origin is better
+-- | This is the key used for the priority queue. 
+-- Bots reaching cube > shorter distance to origin > shorter cube length
 newtype PrioKey =
   PrioKey (BotsReachingCube, DistanceFromOrigin, CubeLength)
   deriving (Ord, Eq, Show)
 
--- | Split the initial cube into smaller cubes. Select the cube that either has the
--- most bots reaching that cube or, if tied, the one that's closer to origin.
+-- The initial cube is added to the priority queue. On each iteration, select 
+-- the best cube from the queue, and split it into 8 smaller cubes.  For each 
+-- such cube, calculate bots reaching the cube and distance from origin.  Add 
+-- those cubes, which have at least 1 bot that reaches them, to the priority 
+-- queue.  Remove the parent cube which was split.
 p2 :: Cube -> V.Vector Bot -> Cube
 p2 startCube bots =
   let distanceToOrigin = getDistance (getPoint startCube) origin
