@@ -9,7 +9,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 
 import           Data.Functor               (($>))
-import           Data.List                  (maximumBy, sortBy, sortOn)
+import           Data.List                  (find, maximumBy, sortBy, sortOn)
 import qualified Data.Map.Strict            as M'
 import           Data.Ord                   (Down (..))
 import qualified Data.Set                   as S
@@ -63,7 +63,7 @@ getEP :: (Num a) => Group a -> a
 getEP g = _unitCount g * _damage g
 
 hasGroup :: Team a -> GroupID -> Bool
-hasGroup t id = id `elem` fmap fst $ _groups t
+hasGroup t id = elem id . fmap fst $ _groups t
 
 -- Decreasing order of effective power and in case of tie higher
 -- initiative
@@ -130,25 +130,31 @@ teamParser = do
   where
     makeId prefix = (<>) (prefix <> "-") . T.pack . show
 
-getTargetSelectionOrder :: (Ord a, Num a) => [(GroupID, Group a)] -> [GroupID]
-getTargetSelectionOrder = fmap fst . sortOn (Down . snd)
+getTargetSelectionOrder :: (Ord a, Num a) => Team a -> Team a -> [GroupID]
+getTargetSelectionOrder t1 t2 = fmap fst . sortOn (Down . snd) $ _groups t1 ++ _groups t2
 
-assignTargets :: [GroupID] -> Team a -> Team a -> [(GroupID, GroupID)]
-assignTargets selectionOrder t1 t2 = go selectionOrder []
+assignTargets ::
+     (Show a, Ord a, Num a)
+  => Team a
+  -> Team a
+  -> [GroupID]
+  -> [(GroupID, GroupID)]
+assignTargets t1 t2 selectionOrder = go selectionOrder []
   where
     go [] assoc = assoc
-    go [id:ids] assoc =
-      let currentGroup =
-            snd . find (\(id', _) -> id == id') $ _groups t1 ++ _groups t2
-          defenders = S.fromList $ map snd assoc
-          targets =
-            filter (\(id, _) -> not $ S.member id defenders) . _groups $
-            if hasGroup t1 id
-              then t2
-              else t1
-       in case getTarget currentGroup targets of
-            Just tar -> go ids $ assoc ++ (id, tar)
-            Nothing  -> ids assoc
+    go (id:ids) assoc =
+      case snd <$> find (\(id', _) -> id == id') (_groups t1 ++ _groups t2) of
+        Nothing -> error "ID not found"
+        Just currentGroup ->
+          let defenders = S.fromList $ map snd assoc
+              targets =
+                filter (\(id, _) -> not $ S.member id defenders) . _groups $
+                if hasGroup t1 id
+                  then t2
+                  else t1
+           in case getTarget currentGroup targets of
+                Just tar -> go ids $ assoc ++ [(id, tar)]
+                Nothing  -> go ids assoc
 
 getTarget ::
      (Show a, Ord a, Num a) => Group a -> [(GroupID, Group a)] -> Maybe GroupID
@@ -179,6 +185,14 @@ getTarget g ts
     weakOnly (WeakTo _) = True
     weakOnly _          = False
 
+-- One iteration consists of
+-- getTargetSelectionOrder
+-- assignTargets
+-- iterate over attacker-defender assocs
+-- check if attacker and defender are alive
+-- deal damage
+-- remove assoc
+-- update teams
 -- fight :: (Num a) => Team a -> Team a -> Team a -> Team a
 -- fight t1 t2 =
 --         let order = getTargetSelectionOrder $ _groups t1 ++ _groups t2
@@ -208,7 +222,7 @@ g2 =
     , _initiative = 1
     , _damage = 5
     , _damageType = Cold
-    , _attributes = [WeakTo Fire]
+    , _attributes = [WeakTo Fire, WeakTo Cold]
     }
 
 g3 =
@@ -221,4 +235,5 @@ g3 =
     , _attributes = [WeakTo Radiation]
     }
 
-t = Team {_name = "Foo", _groups = [("1", g1), ("2", g2), ("3", g3)]}
+t1 = Team {_name = "Foo", _groups = [("t1-1", g1), ("t1-2", g2), ("t1-3", g3)]}
+t2 = Team {_name = "Foo", _groups = [("t2-1", g1), ("t2-2", g2), ("t2-3", g3)]}
