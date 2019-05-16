@@ -1,0 +1,11 @@
+Immune System:
+2743 units each with 4149 hit points with an attack that does 13 radiation damage at initiative 14
+8829 units each with 7036 hit points with an attack that does 7 fire damage at initiative 15
+1928 units each with 10700 hit points (weak to cold; immune to fire, radiation, slashing) with an attack that does 50 slashing damage at initiative 3
+6051 units each with 11416 hit points with an attack that does 15 bludgeoning damage at initiative 20
+895 units each with 10235 hit points (immune to slashing; weak to bludgeoning) with an attack that does 92 bludgeoning damage at initiative 10
+333 units each with 1350 hit points with an attack that does 36 radiation damage at initiative 12
+2138 units each with 8834 hit points (weak to bludgeoning) with an attack that does 35 cold damage at initiative 11
+4325 units each with 1648 hit points (weak to cold, fire) with an attack that does 3 bludgeoning damage at initiative 8
+37 units each with 4133 hit points (immune to radiation, slashing) with an attack that does 1055 radiation damage at initiative 1
+106 units each with 3258 hit points (immune to slashing, radiation) with an attack that does 299 cold damage at initiative 13
