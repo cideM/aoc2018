@@ -3,39 +3,42 @@
     stack
     script
     --resolver lts-13.16
-    --package text,megaparsec,containers
+    --package text,megaparsec,containers,mtl,extra
 -}
 {-# LANGUAGE NamedFieldPuns    #-}
 {-# LANGUAGE OverloadedStrings #-}
 
+import           Control.Monad              (forM_)
+import           Control.Monad.State.Lazy   (State)
+import qualified Control.Monad.State.Lazy   as S
+import qualified Data.Foldable              as F
 import           Data.Functor               (($>))
 import           Data.List                  (find, maximumBy, sortBy, sortOn)
+import qualified Data.List.Extra            as Extra
 import qualified Data.Map.Strict            as M'
 import           Data.Ord                   (Down (..))
-import qualified Data.Set                   as S
+import qualified Data.Sequence              as Seq
+import qualified Data.Set                   as Set
 import           Data.Text                  (Text)
 import qualified Data.Text                  as T
 import           Data.Void                  (Void)
 import           Debug.Trace
-import           Text.Megaparsec
+import           Text.Megaparsec            hiding (State)
 import           Text.Megaparsec.Char
 import qualified Text.Megaparsec.Char.Lexer as L
 
--- Passing groups in various data structures to functions risks referring to
--- stale data. I could potentially alter a groups hit points in one function
--- but forget to merge it into the old group data that another function is
--- using (e.g., when passing groups to a function and then continuing to work
--- on the team from which I took those groups but without merging in the new
--- group data).
---
-type TeamName = Text
+{-
+#########################
+        Types
+#########################
+-}
+newtype TeamName =
+  TeamName Text
+  deriving (Show, Eq)
 
-type GroupID = Text
-
-data Team a = Team
-  { _name   :: TeamName
-  , _groups :: [(GroupID, Group a)]
-  } deriving (Show)
+newtype GroupID =
+  GroupID Text
+  deriving (Show, Ord, Eq)
 
 data DamageType
   = Fire
@@ -57,13 +60,8 @@ data Group a = Group
   , _damage           :: a
   , _damageType       :: DamageType
   , _attributes       :: [Attribute]
+  , _team             :: TeamName
   } deriving (Eq, Show)
-
-getEP :: (Num a) => Group a -> a
-getEP g = _unitCount g * _damage g
-
-hasGroup :: Team a -> GroupID -> Bool
-hasGroup t id = elem id . fmap fst $ _groups t
 
 -- Decreasing order of effective power and in case of tie higher
 -- initiative
@@ -75,6 +73,86 @@ instance (Ord a, Num a) => Ord (Group a) where
           then _initiative g1 `compare` _initiative g2
           else ep1 `compare` ep2
 
+type Groups a = M'.Map GroupID (Group a)
+
+type GameState = Groups Int
+
+{-
+#########################
+        Logic
+#########################
+-}
+getEP :: (Num a) => Group a -> a
+getEP g = _unitCount g * _damage g
+
+-- | The function only reads from GameState. I should eventually address this
+-- glaring type safety hole
+assignTargets :: State GameState [(GroupID, GroupID, Int)] -- Attacker, Defender, Damage
+assignTargets = do
+  s <- S.get
+  let assocs = M'.assocs s
+      attackOrder = sortOn (Down . snd) assocs
+  return . F.toList $ go attackOrder (Set.fromList assocs) Seq.empty
+  where
+    go [] _ out = out
+    go ((attackerID, attacker):as) defenders out
+      | Set.null defenders = out
+      | otherwise =
+        let defenders' =
+              Set.toList . Set.filter (\(_, d) -> _team d /= _team attacker) $
+              defenders
+            targets =
+              zip defenders' . filter (> 0) $
+              map (\(_, defender) -> getDamage attacker defender) defenders'
+         in if null targets
+              then go as defenders out
+              else let (target@(targetID, _), damageReceived) =
+                         Extra.maximumOn snd targets
+                    in go as (Set.delete target defenders) $
+                       out Seq.|> (attackerID, targetID, damageReceived)
+
+dealDamage :: (GroupID, Int) -> State GameState ()
+dealDamage (id, damage) = S.modify $ M'.update f id
+  where
+    f target =
+      let deadUnits = damage `div` _hitPointsPerUnit target
+          remainingUnits = _unitCount target - deadUnits
+       in if remainingUnits <= 0
+            then Nothing
+            else Just $ target {_unitCount = remainingUnits}
+
+-- fight :: State GameState ()
+-- fight = do
+--   ts <- assignTargets
+--   forM_ ts (\(attackerID, defenderID, damageReceived) -> do
+--     s <- get
+--     case M'.lookup attackerID s >>= \
+--   )
+getDamage ::
+     (Num a)
+  => Group a
+  -- ^ Attacker
+  -> Group a
+  -- ^ Defender
+  -> a
+getDamage g1 g2 =
+  let attrs = _attributes g2
+      multiplier
+        | ImmuneTo (_damageType g1) `elem` attrs = 0
+        | WeakTo (_damageType g1) `elem` attrs = 2
+        | otherwise = 1
+   in getEP g1 * multiplier
+
+main :: IO ()
+main = do
+  parsed <- runParser inputParser "stdin" . T.pack <$> getContents
+  print parsed
+
+{-
+#########################
+        Parsing
+#########################
+-}
 type Parser = Parsec Void Text
 
 damageTypeParser :: Parser DamageType
@@ -100,8 +178,8 @@ attributesParser' = concat <$> attributesParser `sepBy` char ';'
 
 parens = between (char '(') (char ')')
 
-groupParser :: Parser (Group Int)
-groupParser = do
+groupParser :: TeamName -> Parser (Group Int)
+groupParser tn = do
   unitCount <- L.decimal <* space
   _ <- string "units each with "
   hitPointsPerUnit <- L.decimal
@@ -118,122 +196,17 @@ groupParser = do
       , _damage = attack
       , _damageType = damageType
       , _initiative = initiative
+      , _team = tn
       }
 
-teamParser :: Parser (Team Int)
-teamParser = do
+groupsParser :: Parser (Groups Int)
+groupsParser = do
   name <-
     T.pack <$> (manyTill (choice [letterChar, spaceChar]) (char ':') <* space)
-  groups <- many groupParser
+  groups <- many (groupParser $ TeamName name)
   let ids = makeId name <$> [0 ..]
-  return . Team name $ zip ids groups
+  return . M'.fromList $ zip ids groups
   where
-    makeId prefix = (<>) (prefix <> "-") . T.pack . show
+    makeId prefix = GroupID . (<>) (prefix <> "-") . T.pack . show
 
-getTargetSelectionOrder :: (Ord a, Num a) => Team a -> Team a -> [GroupID]
-getTargetSelectionOrder t1 t2 = fmap fst . sortOn (Down . snd) $ _groups t1 ++ _groups t2
-
-assignTargets ::
-     (Show a, Ord a, Num a)
-  => Team a
-  -> Team a
-  -> [GroupID]
-  -> [(GroupID, GroupID)]
-assignTargets t1 t2 selectionOrder = go selectionOrder []
-  where
-    go [] assoc = assoc
-    go (id:ids) assoc =
-      case snd <$> find (\(id', _) -> id == id') (_groups t1 ++ _groups t2) of
-        Nothing -> error "ID not found"
-        Just currentGroup ->
-          let defenders = S.fromList $ map snd assoc
-              targets =
-                filter (\(id, _) -> not $ S.member id defenders) . _groups $
-                if hasGroup t1 id
-                  then t2
-                  else t1
-           in case getTarget currentGroup targets of
-                Just tar -> go ids $ assoc ++ [(id, tar)]
-                Nothing  -> go ids assoc
-
-getTarget ::
-     (Show a, Ord a, Num a) => Group a -> [(GroupID, Group a)] -> Maybe GroupID
-getTarget g ts
-  | null ts = Nothing
-  | otherwise =
-    let withScore = flip zip ts $ map getTargetScore ts
-     in Just . fst . snd $
-        maximumBy
-          (\(score1, (_, group1)) (score2, (_, group2)) ->
-             if score1 /= score2
-               then score1 `compare` score2
-               else group1 `compare` group2)
-          withScore
-  where
-    getTargetScore tar =
-      let attrs = _attributes $ snd tar
-          immunities = map (\(ImmuneTo a) -> a) $ filter immuneOnly attrs
-          weaknesses = map (\(WeakTo a) -> a) $ filter weakOnly attrs
-          dmgType = _damageType g
-       in if dmgType `elem` immunities
-            then -1
-            else if dmgType `elem` weaknesses
-                   then 1
-                   else 0
-    immuneOnly (ImmuneTo _) = True
-    immuneOnly _            = False
-    weakOnly (WeakTo _) = True
-    weakOnly _          = False
-
--- One iteration consists of
--- getTargetSelectionOrder
--- assignTargets
--- iterate over attacker-defender assocs
--- check if attacker and defender are alive
--- deal damage
--- remove assoc
--- update teams
--- fight :: (Num a) => Team a -> Team a -> Team a -> Team a
--- fight t1 t2 =
---         let order = getTargetSelectionOrder $ _groups t1 ++ _groups t2
-inputParser = do
-  many teamParser <* space
-
-main :: IO ()
-main = do
-  parsed <- runParser inputParser "stdin" . T.pack <$> getContents
-  print parsed
-
--- TEST DATA
-g1 =
-  Group
-    { _unitCount = 10
-    , _hitPointsPerUnit = 10
-    , _initiative = 1
-    , _damage = 5
-    , _damageType = Fire
-    , _attributes = [WeakTo Bludgeoning, ImmuneTo Cold]
-    }
-
-g2 =
-  Group
-    { _unitCount = 11
-    , _hitPointsPerUnit = 10
-    , _initiative = 1
-    , _damage = 5
-    , _damageType = Cold
-    , _attributes = [WeakTo Fire, WeakTo Cold]
-    }
-
-g3 =
-  Group
-    { _unitCount = 12
-    , _hitPointsPerUnit = 10
-    , _initiative = 1
-    , _damage = 5
-    , _damageType = Cold
-    , _attributes = [WeakTo Radiation]
-    }
-
-t1 = Team {_name = "Foo", _groups = [("t1-1", g1), ("t1-2", g2), ("t1-3", g3)]}
-t2 = Team {_name = "Foo", _groups = [("t2-1", g1), ("t2-2", g2), ("t2-3", g3)]}
+inputParser = many groupsParser <* space
