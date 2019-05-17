@@ -2,30 +2,34 @@
 {-
     stack
     script
-    --resolver lts-13.16
-    --package text,megaparsec,containers,mtl,extra
+    --resolver lts-13.21
+    --package text,megaparsec,containers,mtl,extra,monad-loops,pretty-simple
 -}
+{-# LANGUAGE FlexibleContexts  #-}
 {-# LANGUAGE NamedFieldPuns    #-}
 {-# LANGUAGE OverloadedStrings #-}
 
-import           Control.Monad              (forM_)
-import           Control.Monad.State.Lazy   (State)
+import           Control.Monad              (forM_, when)
+import           Control.Monad.Loops        (whileM)
+import           Control.Monad.State.Lazy   (MonadState)
 import qualified Control.Monad.State.Lazy   as S
 import qualified Data.Foldable              as F
 import           Data.Functor               (($>))
 import           Data.List                  (find, maximumBy, sortBy, sortOn)
+import qualified Data.List                  as List
 import qualified Data.List.Extra            as Extra
 import qualified Data.Map.Strict            as M'
-import           Data.Ord                   (Down (..))
+import           Data.Ord                   (Down (..), comparing)
 import qualified Data.Sequence              as Seq
 import qualified Data.Set                   as Set
 import           Data.Text                  (Text)
 import qualified Data.Text                  as T
 import           Data.Void                  (Void)
-import           Debug.Trace
+import           Debug.Pretty.Simple
 import           Text.Megaparsec            hiding (State)
 import           Text.Megaparsec.Char
 import qualified Text.Megaparsec.Char.Lexer as L
+import           Text.Pretty.Simple         (pPrint)
 
 {-
 #########################
@@ -67,11 +71,8 @@ data Group a = Group
 -- initiative
 instance (Ord a, Num a) => Ord (Group a) where
   g1 `compare` g2 =
-    let ep1 = getEP g1
-        ep2 = getEP g2
-     in if ep1 == ep2
-          then _initiative g1 `compare` _initiative g2
-          else ep1 `compare` ep2
+    mconcat
+      [comparing (Down . getEP) g1 g2, comparing (Down . _initiative) g1 g2]
 
 type Groups a = M'.Map GroupID (Group a)
 
@@ -87,13 +88,19 @@ getEP g = _unitCount g * _damage g
 
 -- | The function only reads from GameState. I should eventually address this
 -- glaring type safety hole
-assignTargets :: State GameState [(GroupID, GroupID, Int)] -- Attacker, Defender, Damage
+assignTargets :: (MonadState GameState m) => m (M'.Map GroupID GroupID) -- Attacker, Defender
 assignTargets = do
   s <- S.get
   let assocs = M'.assocs s
-      attackOrder = sortOn (Down . snd) assocs
-  return . F.toList $ go attackOrder (Set.fromList assocs) Seq.empty
+      selectionOrder = sortOn snd assocs
+  return $ go selectionOrder (Set.fromList assocs) M'.empty
   where
+    bestTarget ((_, group1), damageReceived1) ((_, group2), damageReceived2) =
+      mconcat
+        [ damageReceived1 `compare` damageReceived2
+        , comparing getEP group1 group2
+        , comparing _initiative group1 group2
+        ]
     go [] _ out = out
     go ((attackerID, attacker):as) defenders out
       | Set.null defenders = out
@@ -107,27 +114,37 @@ assignTargets = do
          in if null targets
               then go as defenders out
               else let (target@(targetID, _), damageReceived) =
-                         Extra.maximumOn snd targets
+                         List.maximumBy bestTarget targets
                     in go as (Set.delete target defenders) $
-                       out Seq.|> (attackerID, targetID, damageReceived)
+                       M'.insert attackerID targetID out
 
-dealDamage :: (GroupID, Int) -> State GameState ()
-dealDamage (id, damage) = S.modify $ M'.update f id
+dealDamage :: (MonadState GameState m) => GroupID -> Int -> m ()
+dealDamage id damage = S.modify $ M'.update f id
   where
     f target =
-      let deadUnits = damage `div` _hitPointsPerUnit target
+      let deadUnits = damage `quot` _hitPointsPerUnit target
           remainingUnits = _unitCount target - deadUnits
        in if remainingUnits <= 0
             then Nothing
             else Just $ target {_unitCount = remainingUnits}
 
--- fight :: State GameState ()
--- fight = do
---   ts <- assignTargets
---   forM_ ts (\(attackerID, defenderID, damageReceived) -> do
---     s <- get
---     case M'.lookup attackerID s >>= \
---   )
+fight :: (MonadState GameState m) => m ()
+fight = do
+  ts <- assignTargets
+  s <- S.get
+  let sorted = fmap fst . sortOn (Down . _initiative . snd) $ M'.assocs s
+  forM_
+    sorted
+    (\attackerID ->
+       S.get >>= \s ->
+         when (M'.member attackerID s) $
+         case M'.lookup attackerID ts of
+           Nothing -> pure ()
+           Just defenderID ->
+             when (M'.member defenderID s) $
+             dealDamage defenderID $
+             getDamage (s M'.! attackerID) (s M'.! defenderID))
+
 getDamage ::
      (Num a)
   => Group a
@@ -143,10 +160,21 @@ getDamage g1 g2 =
         | otherwise = 1
    in getEP g1 * multiplier
 
+hasWinner :: (MonadState GameState m) => m Bool
+hasWinner = do
+  s <- S.get
+  let (a:b) = List.groupBy (\a b -> _team a == _team b) $ M'.elems s
+  return (null a || null b)
+
 main :: IO ()
 main = do
   parsed <- runParser inputParser "stdin" . T.pack <$> getContents
-  print parsed
+  case parsed of
+    Left e -> pPrint e
+    Right s -> do
+      let s' = S.execState (whileM (not <$> hasWinner) fight) $ M'.unions s
+      pPrint s'
+      pPrint . sum . map _unitCount $ M'.elems s'
 
 {-
 #########################
