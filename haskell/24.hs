@@ -83,7 +83,7 @@ type GameState = Groups Int
         Logic
 #########################
 -}
-getEP :: (Num a) => Group a -> a
+getEP :: (Num a) => Group -> a
 getEP g = _unitCount g * _damage g
 
 -- | The function only reads from GameState. I should eventually address this

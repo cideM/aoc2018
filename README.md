@@ -26,6 +26,12 @@ chmod +x ./1.hs
 cat ../data/day1.txt | ./1.hs
 ```
 
+Day 24 is a proper subfolder so here you can do
+
+```
+stack run < path/to/data
+```
+
 ## Progress (21/24)
 
 |     | Rust   | Haskell | Node   |
@@ -51,7 +57,7 @@ cat ../data/day1.txt | ./1.hs
 | 19  | :zzz:  | :bell:  | :zzz:  |
 | 20  | :zzz:  | :bell:  | :zzz:  |
 | 21  | :zzz:  | :bell:  | :zzz:  |
-| 22  | :zzz:  | :zzz:   | :zzz:  |
-| 23  | :zzz:  | :zzz:   | :zzz:  |
-| 24  | :zzz:  | :zzz:   | :zzz:  |
-| 25  | :zzz:  | :zzz:   | :zzz:  |
+| 22  | :zzz:  | :bell:   | :zzz:  |
+| 23  | :zzz:  | :bell:   | :zzz:  |
+| 24  | :zzz:  | :bell:   | :zzz:  |
+| 25  | :zzz:  | :bell:   | :zzz:  |
