@@ -32,7 +32,7 @@ Day 24 is a proper subfolder so here you can do
 stack run < path/to/data
 ```
 
-## Progress (21/24)
+## Progress (24/24)
 
 |     | Rust   | Haskell | Node   |
 | --- | ------ | ------- | ------ |
