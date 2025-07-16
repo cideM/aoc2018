@@ -1,5 +1,10 @@
 # :christmas_tree: Advent of Code 2018 :santa:
 
+> [!CAUTION]
+> This repository is very old and I wouldn't advise to copy anything from it.
+> I also had to remove the *.txt files since I submitted puzzle input.
+> I'll hope to eventually do 2018 again and then archive this repository.
+
 Every language has its own folder.
 
 ## Rust
